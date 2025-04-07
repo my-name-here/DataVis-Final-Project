@@ -13,4 +13,6 @@ const downButton = document.getElementById("DownButton");
 
 const Frame = document.getElementById("vizFrame");
 
-Frame.src = "Visualizations/viz1.html"
+function changeIframe(){
+    Frame.src = "Visualizations/" + fileList[fileIndex]
+}
