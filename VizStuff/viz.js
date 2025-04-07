@@ -20,4 +20,8 @@ function changeIframe(){
 
 //based on button click reference(https://www.w3schools.com/jsref/event_onclick.asp)
 upButton.onclick = function(){};
+
+//based on button click reference(https://www.w3schools.com/jsref/event_onclick.asp)
+downButton.onclick = function(){};
+
 changeIframe()
