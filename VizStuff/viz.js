@@ -14,5 +14,8 @@ const downButton = document.getElementById("DownButton");
 const Frame = document.getElementById("vizFrame");
 
 function changeIframe(){
+    // don't forget that when we change it on button presses, we need to constrain it
     Frame.src = "Visualizations/" + fileList[fileIndex]
 }
+
+changeIframe()
