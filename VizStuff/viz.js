@@ -25,6 +25,9 @@ upButton.onclick = function(){
 };
 
 //based on button click reference(https://www.w3schools.com/jsref/event_onclick.asp)
-downButton.onclick = function(){};
+downButton.onclick = function(){
+    fileIndex = constrainVal(0,3, fileIndex + 1);
+    changeIframe()
+};
 
 changeIframe()
