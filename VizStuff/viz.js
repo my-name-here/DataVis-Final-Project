@@ -19,7 +19,10 @@ function changeIframe(){
 }
 
 //based on button click reference(https://www.w3schools.com/jsref/event_onclick.asp)
-upButton.onclick = function(){};
+upButton.onclick = function(){
+    fileIndex = constrainVal(0,3, fileIndex - 1);
+    changeIframe()
+};
 
 //based on button click reference(https://www.w3schools.com/jsref/event_onclick.asp)
 downButton.onclick = function(){};
