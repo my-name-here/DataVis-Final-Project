@@ -10,3 +10,5 @@ function constrainVal(minVal, maxVal, val){
 
 const upButton = document.getElementById("UpButton");
 const downButton = document.getElementById("DownButton");
+
+const Frame = document.getElementById("vizFrame");
