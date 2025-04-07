@@ -7,3 +7,5 @@ const fileList = ["viz1.html", "viz2.html", "viz3.html", "viz4.html"];
 function constrainVal(minVal, maxVal, val){
     return Math.max(minVal, Math.min(maxVal, val)) // using clever min and max function usage, can constrain it between the given values
 }
+
+const upButton = document.getElementById("UpButton");
