@@ -9,3 +9,4 @@ function constrainVal(minVal, maxVal, val){
 }
 
 const upButton = document.getElementById("UpButton");
+const downButton = document.getElementById("DownButton");
