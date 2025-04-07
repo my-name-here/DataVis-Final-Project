@@ -12,3 +12,5 @@ const upButton = document.getElementById("UpButton");
 const downButton = document.getElementById("DownButton");
 
 const Frame = document.getElementById("vizFrame");
+
+Frame.src = "VizStuff/Visualizations/viz1.html"
