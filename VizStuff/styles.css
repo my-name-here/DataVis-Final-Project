@@ -10,3 +10,8 @@ body{
     display: flex;
     flex-direction: row;
 }
+
+.navButtons{
+    display: flex;
+    flex-direction: column;
+}
