@@ -1,4 +1,5 @@
 iframe{
-    height: 1000px;
+    /* vh based on https://stackoverflow.com/a/49180868*/
+    height: 90vh;
     width: 90%;
 }
