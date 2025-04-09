@@ -31,7 +31,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     data.sort((a,b) => a.name>b.name);
     console.log(data);
     // rollup code based on https://observablehq.com/@d3/d3-group
-    const years = d3.rollup(data, v => d3.mean(v, d => d["economy (mpg)"]), d => d.year);
+    const years = d3.rollup(data, v => d3.count(v, d => d.year), d => d.year);
     console.log(years)
     // Define X and Y scales
     const y = d3.scaleLinear()
