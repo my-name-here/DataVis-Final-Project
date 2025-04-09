@@ -14,8 +14,7 @@ const svg = d3.select("#chart-container")
     .append("svg")
     .attr("width", svgWidth)
     .attr("height", svgHeight)
-    // for fixing scaling, see https://stackoverflow.com/a/73498243
-    .attr("viewbox", `0 0 ${svgWidth} ${svgHeight}`)
+    
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
