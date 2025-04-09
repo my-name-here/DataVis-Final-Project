@@ -71,7 +71,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("y1", d => y(years.get(d[0])))
         .attr("x2", d => x(d3.timeParse("%Y")(Math.min(d[0]+1, maxYear))))
         .attr("y2", d => y(years.get(Math.min(d[0]+1, maxYear))))
-        .attr("stroke-width", 1)
+        .attr("stroke-width", 2)
         .attr("stroke", "black")
 
         .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
@@ -80,7 +80,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("cx", d => x(d3.timeParse("%Y")(d[0])))
         .attr("cy", d => y(years.get(d[0])))
        
-        .attr("r", 2)
+        .attr("r", 3)
 
         .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
 
