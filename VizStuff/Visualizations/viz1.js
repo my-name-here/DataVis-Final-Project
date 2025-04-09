@@ -2,7 +2,7 @@
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
 const svgWidth = 1000;
-const svgHeight = 990;
+const svgHeight = 1000;
 const margin = { top: 50, right: 20, bottom: 100, left: 250 };
 const width = svgWidth - margin.left - margin.right;
 const height = svgHeight - margin.top - margin.bottom;
@@ -16,7 +16,7 @@ const svg = d3.select("#chart-container")
     .attr("height", svgHeight)
     
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    .attr("transform", ` translate(${margin.left},${margin.top}) scale(0.9)`);
 
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
