@@ -95,7 +95,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
 
     svg.append("text")
-        .text("avg mpg")
+        .text("accidents")
         .attr("x", -100)
         .attr("y", height/2)
         
@@ -106,7 +106,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     svg.append("text")
     
-        .text("line plot of the avg mpg per year")
+        .text("line plot of the number of accidents per year")
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -margin.top/2)
