@@ -6,12 +6,3 @@ img{
     max-height: 90vh;
 }
 
-
-/* https://stackoverflow.com/a/77231260 for fixing svg scaling*/
-.chart-container svg{
-    width: auto;
-    height: auto;
-    max-width: 90%;
-    /* vh based on https://stackoverflow.com/a/49180868*/
-    max-height: 90vh;
-}
