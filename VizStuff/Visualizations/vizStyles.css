@@ -5,3 +5,11 @@ img{
     /* vh based on https://stackoverflow.com/a/49180868*/
     max-height: 90vh;
 }
+
+.chart-container{
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    /* vh based on https://stackoverflow.com/a/49180868*/
+    max-height: 90vh;
+}
