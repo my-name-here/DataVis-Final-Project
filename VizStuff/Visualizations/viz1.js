@@ -23,9 +23,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // Convert string values to numbers
     data.forEach(function (d) {
-        d["economy (mpg)"] = +d["economy (mpg)"];
-        d.year = +d.year
-        d.name = d.name;
+       
+        d.year = +d.accident_year
+
     });
 
     data.sort((a,b) => a.name>b.name);
