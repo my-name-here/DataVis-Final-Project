@@ -6,7 +6,7 @@ img{
     max-height: 90vh;
 }
 
-.chart-container{
+svg{
     width: auto;
     height: auto;
     max-width: 90%;
