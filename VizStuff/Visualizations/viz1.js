@@ -41,7 +41,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleTime()
-        .domain([d3.timeParse("%y")(d3.min(data, d => d["year"])),d3.timeParse("%y")(d3.max(data, d => d["year"]))])
+        .domain([d3.timeParse("%Y")(d3.min(data, d => d["year"])),d3.timeParse("%Y")(d3.max(data, d => d["year"]))])
         .nice()
         .range([ 0, width]);
     
@@ -67,9 +67,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
     bars.append("line")
         .attr("test", d => `${years.get(Math.min(d[0], maxYear))}`)
-        .attr("x1", d => x(d3.timeParse("%y")(d[0])))
+        .attr("x1", d => x(d3.timeParse("%Y")(d[0])))
         .attr("y1", d => y(years.get(d[0])))
-        .attr("x2", d => x(d3.timeParse("%y")(Math.min(d[0]+1, maxYear))))
+        .attr("x2", d => x(d3.timeParse("%Y")(Math.min(d[0]+1, maxYear))))
         .attr("y2", d => y(years.get(Math.min(d[0]+1, maxYear))))
         .attr("stroke-width", 1)
         .attr("stroke", "black")
@@ -77,7 +77,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
     bars.append("circle")
         .attr("test", d => `${years.get(Math.min(d[0], maxYear))}`)
-        .attr("cx", d => x(d3.timeParse("%y")(d[0])))
+        .attr("cx", d => x(d3.timeParse("%Y")(d[0])))
         .attr("cy", d => y(years.get(d[0])))
        
         .attr("r", 2)
