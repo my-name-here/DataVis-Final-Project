@@ -36,7 +36,7 @@ function getNextMonth(CurMonth){
     //get index of current month
     monthIndex = monthList.indexOf(CurMonth)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
-    newMonthIndex = Math.min(monthIndex+1, monthList.length)
+    newMonthIndex = Math.min(monthIndex+1, monthList.length -1 )
     return monthList[newMonthIndex]
 
 }
