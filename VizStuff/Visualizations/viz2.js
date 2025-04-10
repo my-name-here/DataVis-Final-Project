@@ -98,6 +98,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .enter()
         .append("g")
     console.log(months.get("January"))
+    console.log(dataSpots)
     bars.append("line")
         .attr("test", d => `${d}`)
         .attr("x1", d => x(d3.timeParse("%B")(d[0])))
