@@ -92,7 +92,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     dispRangeList = ["day", "night"]
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(monthsList,dispRangeList))
-    dataSpots = d3.cross(months,dispRangeList)
+    dataSpots = d3.cross(monthsList,dispRangeList)
     bars =  svg.selectAll(".bar")
         .data(dataSpots)
         .enter()
