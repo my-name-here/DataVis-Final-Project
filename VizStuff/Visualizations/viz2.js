@@ -29,7 +29,7 @@ function lightCat(i){
     
 }
 // since months are not numbers like years, but strings, we need a function to get the next month from the current one, and it should end in december
-// this replaces the max(d[0]+1, maxMonth) in the x1 and y1 of the lines
+// this replaces the max(d[0]+1, maxMonth) in the x2 and y2 of the lines
 function getNextMonth(CurMonth){
     // first create a list of months, which we will locate the provided month in, then get the next one
     var monthList = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
