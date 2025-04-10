@@ -28,6 +28,11 @@ function lightCat(i){
     }
     
 }
+// since months are not numbers like years, but strings, we need a function to get the next month from the current one, and it should end in december
+// this replaces the max(d[0]+1, maxMonth) in the x1 and y1 of the lines
+function getNextMonth(CurMonth){
+
+}
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
