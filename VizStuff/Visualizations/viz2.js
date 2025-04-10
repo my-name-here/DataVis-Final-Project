@@ -56,16 +56,16 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleTime()
-        .domain([d3.timeParse("%y")(d3.min(data, d => d["year"])),d3.timeParse("%y")(d3.max(data, d => d["year"]))])
+        .domain([d3.timeParse("%Y")(d3.min(data, d => d["year"])),d3.timeParse("%Y")(d3.max(data, d => d["year"]))])
         .nice()
         .range([ 0, width]);
     
     // ordinal scale, see https://d3js.org/d3-scale/ordinal
     var colorScale = d3.scaleOrdinal()
-        .domain( ["0-100","100-200","200-300", "300+"])
+        .domain( ["day", "night"])
 
         // colors from colorbrewer
-        .range(["#1b9e77", "#d95f02", "#7570b3", "#e7298a"])
+        .range(["#1b9e77", "#d95f02"])
 
         
 
@@ -87,7 +87,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
     yearList = d3.map(d3.groups(data,d=>d.year),D=>D[0])
     console.log(yearList)
-    dispRangeList = ["0-100","100-200", "200-300","300+"]
+    dispRangeList = ["day", "night"]
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(yearList,dispRangeList))
     dataSpots = d3.cross(yearList,dispRangeList)
