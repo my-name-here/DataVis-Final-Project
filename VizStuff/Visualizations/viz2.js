@@ -33,6 +33,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // Convert string values to numbers
     data.forEach(function (d) {
+        d.year = +d.accident_year
         d.month = d.month;
         d.lighting = d.lighting;
     });
@@ -41,9 +42,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const months = d3.rollup(data, (D) => d3.count(D, d=>d.month), d => d.month, d => lightCat(d.lighting));
+    const months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.month, d => lightCat(d.lighting));
     // for easier access in the y scale
-    const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.month), d => d.month, d => lightCat(d.lighting));
+    const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.month, d => lightCat(d.lighting));
 
     console.log(months)
     console.log(d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1])))
@@ -95,7 +96,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .data(dataSpots)
         .enter()
         .append("g")
-    console.log(months.get("January").get("day"))
+    console.log(months.get("January"))
     bars.append("line")
         .attr("test", d => `${d}`)
         .attr("x1", d => x(d3.timeParse("%y")(d[0])))
