@@ -115,8 +115,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("test", d => `${d}`)
         .attr("x1", d => x(d3.timeParse("%B")(d[0])))
         .attr("y1", d => y(months.get(d[0]).get(d[1])))
-        .attr("x2", d => x(d3.timeParse("%B")(Math.min(d[0]+1, maxMonth))))
-        .attr("y2", d => y(months.get(Math.min(d[0]+1, maxMonth)).get(d[1])))
+        .attr("x2", d => x(d3.timeParse("%B")(getNextMonth(d[0]))))
+        .attr("y2", d => y(months.get(getNextMonth(d[0])).get(d[1])))
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
 
