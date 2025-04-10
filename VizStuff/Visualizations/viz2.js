@@ -41,9 +41,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const years = d3.rollup(data, (D) => d3.mean(D, d=>d["economy (mpg)"]), d => d.year, d => dispRang(d["displacement (cc)"]));
+    const years = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.year, d => lightCat(d.lighting));
     // for easier access in the y scale
-    const yearTmp = d3.rollups(data, (D) => d3.mean(D, d=>d["economy (mpg)"]), d => d.year, d => dispRang(d["displacement (cc)"]));
+    const yearTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.year, d => lightCat(d.lighting));
 
     console.log(years)
     console.log(d3.min(yearTmp, D1 => d3.min(D1[1], d=>d[1])))
