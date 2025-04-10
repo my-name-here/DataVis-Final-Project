@@ -33,7 +33,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // Convert string values to numbers
     data.forEach(function (d) {
-        d.year = +d.year;
+        d.year = +d.accident_year;
         d.lighting = d.lighting;
     });
 
