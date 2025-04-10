@@ -139,7 +139,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     svg.append("text")
         .text("accident count")
-        .attr("x", -100)
+        .attr("x", -150)
         .attr("y", height/2)
         
     svg.append("text")
