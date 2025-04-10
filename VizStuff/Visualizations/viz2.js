@@ -57,7 +57,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleTime()
-        .domain([d3.timeParse("%Y")(d3.min(data, d => d["month"])),d3.timeParse("%Y")(d3.max(data, d => d["month"]))])
+        .domain([d3.timeParse("%B")(d3.min(data, d => d["month"])),d3.timeParse("%B")(d3.max(data, d => d["month"]))])
         .nice()
         .range([ 0, width]);
     
@@ -99,9 +99,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(months.get("January"))
     bars.append("line")
         .attr("test", d => `${d}`)
-        .attr("x1", d => x(d3.timeParse("%y")(d[0])))
+        .attr("x1", d => x(d3.timeParse("%B")(d[0])))
         .attr("y1", d => y(months.get(d[0]).get(d[1])))
-        .attr("x2", d => x(d3.timeParse("%y")(Math.min(d[0]+1, maxMonth))))
+        .attr("x2", d => x(d3.timeParse("%B")(Math.min(d[0]+1, maxMonth))))
         .attr("y2", d => y(months.get(Math.min(d[0]+1, maxMonth)).get(d[1])))
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
