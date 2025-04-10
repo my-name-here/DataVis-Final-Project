@@ -138,23 +138,23 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
 
     svg.append("text")
-        .text("avg mpg")
+        .text("accident count")
         .attr("x", -100)
         .attr("y", height/2)
         
     svg.append("text")
-        .text("year")
+        .text("month")
         .attr("x", width/2)
         .attr("y", height+margin.bottom/2)
 
     svg.append("text")
     
-        .text("line plot of the avg mpg per year, colored by displacement")
+        .text("line plot of the number of crashes per month, colored by whether it happened at day or night")
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -margin.top/2)
     var legend = d3.legendColor()
-		.title("Color Legend: displacement range")
+		.title("Color Legend: time of day")
 		.titleWidth(100)
         .cells(11) // change the number of cells during demo 
         .scale(colorScale);
