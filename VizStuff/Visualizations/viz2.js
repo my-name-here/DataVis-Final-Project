@@ -9,7 +9,7 @@ const height = svgHeight - margin.top - margin.bottom;
 
 const minSize = 1
 const maxSize = 6
-let years
+let months
 const svg = d3.select("#chart-container")
     .append("svg")
     .attr("width", svgWidth)
@@ -33,7 +33,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // Convert string values to numbers
     data.forEach(function (d) {
-        d.year = +d.accident_year;
+        d.month = +d.month;
         d.lighting = d.lighting;
     });
 
@@ -41,22 +41,22 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const years = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.year, d => lightCat(d.lighting));
+    const months = d3.rollup(data, (D) => d3.count(D, d=>d.month), d => d.month, d => lightCat(d.lighting));
     // for easier access in the y scale
-    const yearTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.year, d => lightCat(d.lighting));
+    const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.month), d => d.month, d => lightCat(d.lighting));
 
     console.log(years)
-    console.log(d3.min(yearTmp, D1 => d3.min(D1[1], d=>d[1])))
-    console.log(d3.max(yearTmp, D1 => d3.max(D1[1], d=>d[1])))
+    console.log(d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1])))
+    console.log(d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1])))
     // Define X and Y scales
     const y = d3.scaleLinear()
-        .domain([d3.min(yearTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(yearTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
+        .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
         .nice()
         .range([ 0, -height])
         //.padding(0.1);
 
     const x = d3.scaleTime()
-        .domain([d3.timeParse("%Y")(d3.min(data, d => d["year"])),d3.timeParse("%Y")(d3.max(data, d => d["year"]))])
+        .domain([d3.timeParse("%Y")(d3.min(data, d => d["month"])),d3.timeParse("%Y")(d3.max(data, d => d["month"]))])
         .nice()
         .range([ 0, width]);
     
@@ -82,26 +82,26 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // Add bars
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
-    let maxYear = d3.max(data, d => d["year"])
+    let maxMonth = d3.max(data, d => d.month)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    yearList = d3.map(d3.groups(data,d=>d.year),D=>D[0])
-    console.log(yearList)
+    monthsList = d3.map(d3.groups(data,d=>d.month),D=>D[0])
+    console.log(monthsList)
     dispRangeList = ["day", "night"]
     // see https://d3js.org/d3-array/transform for cross
-    console.log(d3.cross(yearList,dispRangeList))
-    dataSpots = d3.cross(yearList,dispRangeList)
+    console.log(d3.cross(monthsList,dispRangeList))
+    dataSpots = d3.cross(months,dispRangeList)
     bars =  svg.selectAll(".bar")
         .data(dataSpots)
         .enter()
         .append("g")
-    console.log(years.get(72).get("300+"))
+    console.log(months.get("January").get("day"))
     bars.append("line")
         .attr("test", d => `${d}`)
         .attr("x1", d => x(d3.timeParse("%y")(d[0])))
-        .attr("y1", d => y(years.get(d[0]).get(d[1])))
-        .attr("x2", d => x(d3.timeParse("%y")(Math.min(d[0]+1, maxYear))))
-        .attr("y2", d => y(years.get(Math.min(d[0]+1, maxYear)).get(d[1])))
+        .attr("y1", d => y(months.get(d[0]).get(d[1])))
+        .attr("x2", d => x(d3.timeParse("%y")(Math.min(d[0]+1, maxMonth))))
+        .attr("y2", d => y(months.get(Math.min(d[0]+1, maxMonth)).get(d[1])))
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
 
