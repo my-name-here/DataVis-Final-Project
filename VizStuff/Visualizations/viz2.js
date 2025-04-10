@@ -29,14 +29,12 @@ function lightCat(i){
     
 }
 // Read data from CSV
-d3.csv("https://raw.githubusercontent.com/my-name-here/my-name-here.github.io/refs/heads/main/carsFakeData.csv").then(function (data) {
+d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
     // Convert string values to numbers
     data.forEach(function (d) {
-        d["economy (mpg)"] = +d["economy (mpg)"];
-        d["displacement (cc)"] = +d["displacement (cc)"];
         d.year = +d.year;
-        d.name = d.name;
+        d.lighting = d.lighting;
     });
 
     data.sort((a,b) => a.name>b.name);
