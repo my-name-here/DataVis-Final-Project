@@ -57,7 +57,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleTime()
-        .domain([d3.timeParse("%B")(d3.min(data, d => d["month"])),d3.timeParse("%B")(d3.max(data, d => d["month"]))])
+        .domain([d3.timeParse("%B")("January"),d3.timeParse("%B")("December")])
         .nice()
         .range([ 0, width]);
     
@@ -84,6 +84,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Add bars
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
     let maxMonth = d3.max(data, d => d.month)
+    console.log(maxMonth)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
     monthsList = d3.map(d3.groups(data,d=>d.month),D=>D[0])
