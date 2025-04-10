@@ -87,7 +87,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     svg.append("g")
         .attr("class", "axis axis-x")
         .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(x).ticks(10));
+        // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
+        .call(d3.axisBottom(x).ticks(10)
+            .tickFormat(function(d){ 
+                return d3.timeFormat("%B")(d)
+            })
+    );
 
     svg.append("g")
         .attr("class", "axis axis-y")
