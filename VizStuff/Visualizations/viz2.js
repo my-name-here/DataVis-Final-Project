@@ -19,18 +19,12 @@ const svg = d3.select("#chart-container")
     .attr("transform", `translate(${margin.left},${margin.top}) scale(0.9)`);
 
 // a function that takes a displacement, and converts it to a string representing the range
-function dispRang(i){
-    if (i < 100){
-        return "0-100";
-    }
-    else if (i > 100 && i <200){
-        return "100-200";
-    }
-    else if (i > 200 && i <300){
-        return "200-300"
+function lightCat(i){
+    if (i == "Daylight"){
+        return "day";
     }
     else{
-        return "300+"
+        return "night"
     }
     
 }
