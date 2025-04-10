@@ -33,7 +33,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // Convert string values to numbers
     data.forEach(function (d) {
-        d.month = +d.month;
+        d.month = d.month;
         d.lighting = d.lighting;
     });
 
