@@ -16,7 +16,7 @@ const svg = d3.select("#chart-container")
     .attr("height", svgHeight)
     
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    .attr("transform", `translate(${margin.left},${margin.top}) scale(0.9)`);
 
 // a function that takes a displacement, and converts it to a string representing the range
 function dispRang(i){
