@@ -45,7 +45,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // for easier access in the y scale
     const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.month), d => d.month, d => lightCat(d.lighting));
 
-    console.log(years)
+    console.log(months)
     console.log(d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1])))
     console.log(d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1])))
     // Define X and Y scales
