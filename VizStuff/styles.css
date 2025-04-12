@@ -1,6 +1,6 @@
 iframe{
     /* vh based on https://stackoverflow.com/a/49180868*/
-    height: 100vh;
+    height: 95vh;
     width: 90%;
 }
 
