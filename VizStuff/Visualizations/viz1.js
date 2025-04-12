@@ -16,7 +16,7 @@ const svg = d3.select("#chart-container")
     .attr("height", svgHeight)
     
     .append("g")
-    .attr("transform", ` translate(${margin.left},${margin.top}) scale(0.8)`);
+    .attr("transform", ` translate(${margin.left},${margin.top}) `);
 
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
