@@ -3,7 +3,7 @@
 // Set up the SVG container
 const svgWidth = 1200;
 const svgHeight = 1000;
-const margin = { top: 50, right: 200, bottom: 100, left: 250 };
+const margin = { top: 50, right: 200, bottom: 100, left: 150 };
 const width = svgWidth - margin.left - margin.right;
 const height = svgHeight - margin.top - margin.bottom;
 
@@ -16,7 +16,7 @@ const svg = d3.select("#chart-container")
     .attr("height", svgHeight)
     
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top}) scale(0.9)`);
+    .attr("transform", `translate(${margin.left},${margin.top}) scale(0.8)`);
 
 // a function that takes a displacement, and converts it to a string representing the range
 function lightCat(i){
