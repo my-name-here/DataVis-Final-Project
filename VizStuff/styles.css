@@ -4,7 +4,7 @@ iframe{
     width: 90%;
 }
 
-
+/* 
 /* flexbox stuff based on https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox*/
 body{
     display: flex;
@@ -14,10 +14,4 @@ body{
     /* https://stackoverflow.com/a/58041749 for gap */
     gap: 10px;
 }
-
-.navButtons{
-    display: flex;
-    flex-direction: column;
-    /* https://stackoverflow.com/a/58041749 for gap */
-    gap: 10px;
-}
+ */
