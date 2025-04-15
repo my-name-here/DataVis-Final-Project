@@ -15,3 +15,7 @@ body{
     gap: 10px;
 }
 
+.step{
+    height: 95vh;
+    width: 90%;
+}
