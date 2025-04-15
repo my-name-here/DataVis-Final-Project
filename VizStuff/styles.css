@@ -17,8 +17,8 @@ body{
 
 
 .vizGraphic{
-    /* position absolute based on https://pudding.cool/process/introducing-scrollama/ */
-    position: absolute;
+    /* position fixed based on https://stackoverflow.com/questions/8987519/always-visible-div-while-scrolling */
+    position: fixed;
     height: 95vh;
     width: 90%;
 }
