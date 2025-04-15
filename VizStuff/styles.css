@@ -8,14 +8,15 @@ iframe{
 /* flexbox stuff based on https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox*/
 body{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     /*https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox#align-items*/
     align-items: center;
     /* https://stackoverflow.com/a/58041749 for gap */
     gap: 10px;
 }
 
-.step{
+.vizGraphic{
     height: 95vh;
     width: 90%;
 }
+
