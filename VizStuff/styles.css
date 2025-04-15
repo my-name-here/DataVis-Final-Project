@@ -1,2 +1,6 @@
 /* using  https://pudding.cool/process/introducing-scrollama/  to help with scrollama styles*/
 
+#viz {
+    position: relative;
+  }
+
