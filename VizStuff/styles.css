@@ -10,13 +10,19 @@ body{
     display: flex;
     flex-direction: row;
     /*https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox#align-items*/
-    align-items: center;
+    align-items: top;
     /* https://stackoverflow.com/a/58041749 for gap */
     gap: 10px;
 }
+
 
 .vizGraphic{
     height: 95vh;
     width: 90%;
 }
+
+.step{
+    height: 100vh;
+}
+
 
