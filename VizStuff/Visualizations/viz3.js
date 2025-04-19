@@ -65,7 +65,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(d3.max(daysTmp,  d=>d[1]))
     // Define X and Y scales
     const y = d3.scaleLinear()
-        .domain([d3.min(daysTmp, d=>d[1])-2, d3.max(daysTmp,  d=>d[1])+2])
+        .domain([d3.min(daysTmp, d=>d[1])-20, d3.max(daysTmp,  d=>d[1])+2])
         .nice()
         .range([ 0, -height])
         //.padding(0.1);
@@ -103,28 +103,27 @@ console.log(x("Monday"))
     // see https://d3js.org/d3-array/transform for cross
     barWidth = x("Monday")-x("Sunday")
     console.log(x("Wednesday"))
-    console.log(y(7520))
+    console.log(days.get("Wednesday"))
+    console.log(y(days.get("Wednesday")))
+
     console.log(barWidth)
     bars =  svg.selectAll(".bar")
-        .data(daysTmp)
+        .data(daysList)
         .enter()
         .append("g")
 
-    bars.append("line")
-        .attr("test", d=>d[0])
-        .attr("x1", x(d=>d[0]))
-        .attr("y1", y(d=>d[1]))
-        .attr("x2", x(d=>d[0]))
-        .attr("y2", height)
+
+
     
     bars.append("rect")
-        .attr("test", d=>d[1])
+        .attr("test", d=>y(days.get(d)))
 
-        .attr("x", 0)
-        .attr("y", height)
+        .attr("x", d=>x(d))
+        .attr("y", d=>height+y(days.get(d)))
         .attr("width", barWidth)
-        .attr("height", y(d=>d[1]))
-        
+        .attr("height", d=>-y(days.get(d)))
+        .attr("fill","lightblue")
+        .attr("stroke", "black")
 
         //.attr("transform", `translate(0, ${height})`)// translate points down to match with axis
 
