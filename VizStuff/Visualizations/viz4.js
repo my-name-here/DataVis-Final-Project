@@ -48,6 +48,27 @@ function findIndexOfNone(list){
     }
 }
 
+//used to find the index where the other  list is in the given sublist , to remove it
+function findIndexOfOther(list){
+    for (var i = 0;i < list.length; i++){
+        if (list[i][0] == "other"){
+            return i;
+        }
+    }
+}
+
+function removeOtherFromSublists(list){
+
+    for (var i = 0;i < list.length; i++){
+        indexOfOther = findIndexOfOther(list[i][1])
+
+
+        list[i][1].splice(indexOfOther,1)
+
+    }
+    return list;
+}
+
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
@@ -72,7 +93,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // remove by index with https://stackoverflow.com/a/5767357
     var hourTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => hourFromTime(d.time),d => locRange(d.neighborhood));
     hourTmp.splice(findIndexOfNone(hourTmp), 1);
-
+    hourTmp = removeOtherFromSublists(hourTmp)
     console.log(hours)
     console.log(hourTmp)
     console.log(d3.min(hourTmp, D1 => d3.min(D1[1], d=>d[1])))
