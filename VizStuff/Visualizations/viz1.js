@@ -129,9 +129,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     )
     .on("mousemove", function(event){
         d3.select(".lineMarker")
-            .attr("x1", `${event.pageX}`)
-            .attr("x2", `${event.pageX}`)
-            .attr("y1", 0)
+            .attr("x1", `${event.pageX - margin.left}`)
+            .attr("x2", `${event.pageX - margin.left}`)
+            .attr("y1", -margin.top)
             .attr("y2", height)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
