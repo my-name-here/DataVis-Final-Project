@@ -1,15 +1,29 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const svgWidth = 1800;
+const svgWidth = 1400;
 const svgHeight = 625;
 const margin = { top: 50, right: 220, bottom: 100, left: 150 };
 const width = svgWidth - margin.left - margin.right;
 const height = svgHeight - margin.top - margin.bottom;
 let choices = ["Bayview Hunters Point", "Financial District/South Beach", "Mission", "South of Market", "Tenderloin"]
+let hourOptionsList = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
 const minSize = 1
 const maxSize = 6
 let years
+
+
+function getNextHour(CurHour){
+    // first create a list of months, which we will locate the provided month in, then get the next one
+    
+    //get index of current month
+    hourIndex = hourOptionsList.indexOf(CurHour)
+    // new index is either the cur index + 1, or if that is greater than list length, the length of the list
+    newHourIndex = Math.min(hourIndex+1, hourOptionsList.length -1 )
+    return hourOptionsList[newHourIndex]
+
+}
+
 const svg = d3.select("#chart-container")
     .append("svg")
     .attr("width", svgWidth)
@@ -107,7 +121,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // scale band instead of time, since it reduces annoyance later hopefully
     const x = d3.scaleBand()
-        .domain(["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10","11","12","13","14","15","16","17","18","19","20","21","22","23"])
+        .domain(hourOptionsList)
         .range([ 0, width]);
     
     
@@ -158,12 +172,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .data(dataSpots)
         .enter()
         .append("g")
-    console.log(years.get(72).get("300+"))
+    console.log(hours.get("00").get("Mission"))
 
     // tooltips will be implemented using https://mappingwithd3.com/tutorials/basics/tooltip/
     bars.append("rect")
         .attr("test", d => `${d}`)
-        .attr("x", d => x(d3.timeParse("%y")(d[0])))
+        .attr("x", d => x(d[0]))
         .attr("y", d => y(d[1]))
         .attr("width", d => x(d3.timeParse("%y")(d[0]+1)-d3.timeParse("%y")(d[0])))
         .attr("height", d => bandwidth)
