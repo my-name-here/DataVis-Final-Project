@@ -111,6 +111,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(monthsList,dispRangeList))
     dataSpots = d3.cross(monthsList,dispRangeList)
+
+
+    // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
+    d3.select("body")
+        .append("div")
+        .attr('id', 'tooltip')
+        .attr("class", "tooltip")
+
+    
     bars =  svg.selectAll(".bar")
         .data(dataSpots)
         .enter()

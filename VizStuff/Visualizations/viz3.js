@@ -107,6 +107,17 @@ console.log(x("Monday"))
     console.log(y(days.get("Wednesday")))
 
     console.log(barWidth)
+
+
+
+    // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
+    d3.select("body")
+        .append("div")
+        .attr('id', 'tooltip')
+        .attr("class", "tooltip")
+
+
+        
     bars =  svg.selectAll(".bar")
         .data(daysList)
         .enter()
