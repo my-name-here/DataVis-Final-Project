@@ -9,6 +9,7 @@ const height = svgHeight - margin.top - margin.bottom;
 
 const minSize = 1
 const maxSize = 6
+let yearChoices = [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2023];
 let years
 const svg = d3.select("#chart-container")
     .append("svg")
@@ -18,6 +19,11 @@ const svg = d3.select("#chart-container")
     .append("g")
     .attr("transform", ` translate(${margin.left},${margin.top}) `);
 
+function nextYear(year){
+    yearIndex = yearChoices.indexOf(year)
+    newYearIndex = Math.min(yearIndex+1, yearChoices.length -1 )
+    return yearChoices[newYearIndex]
+}
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
@@ -41,7 +47,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleBand()
-        .domain([2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2023])
+        .domain(yearChoices)
         .range([ 0, width]);
     
 
