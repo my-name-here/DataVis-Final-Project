@@ -9,7 +9,7 @@ const height = svgHeight - margin.top - margin.bottom;
 
 const minSize = 1
 const maxSize = 6
-let yearChoices = [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2023];
+let yearChoices = [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2023, 2024];
 let years
 const svg = d3.select("#chart-container")
     .append("svg")
@@ -93,12 +93,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .enter()
         .append("g")
         
+        
     bars.append("line")
         .attr("test", d => `${years.get(Math.min(d[0], maxYear))}`)
         .attr("x1", d => x(d[0]))
         .attr("y1", d => y(years.get(d[0])))
-        .attr("x2", d => x(Math.min(d[0]+1, maxYear)))
-        .attr("y2", d => y(years.get(Math.min(d[0]+1, maxYear))))
+        .attr("x2", d => x(nextYear(d[0])))
+        .attr("y2", d => y(years.get(nextYear(d[0]))))
         .attr("stroke-width", 2)
         .attr("stroke", "black")
 
