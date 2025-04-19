@@ -26,17 +26,17 @@ function dayOfWeek(i){
 
 // since months are not numbers like years, but strings, we need a function to get the next month from the current one, and it should end in december
 // this replaces the max(d[0]+1, maxMonth) in the x2 and y2 of the lines
-function getNextMonth(CurMonth){
+function getNextDay(CurDay){
     // first create a list of months, which we will locate the provided month in, then get the next one
-    var monthList = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
+    var daysList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     //get index of current month
-    monthIndex = monthList.indexOf(CurMonth)
+    dayIndex = daysList.indexOf(CurDay)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
-    newMonthIndex = Math.min(monthIndex+1, monthList.length -1 )
-    return monthList[newMonthIndex]
+    newDayIndex = Math.min(dayIndex+1, daysList.length -1 )
+    return daysList[newDayIndex]
 
 }
-console.log(getNextMonth("December"))
+console.log(getNextMonth("Saturday"))
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
@@ -72,11 +72,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     const x = d3.scaleTime()
     // time code is from https://d3js.org/d3-time-format#locale_format
-        .domain([d3.timeParse("%A")("Sunday"),d3.timeParse("%A")("Saturday")])
+        .domain([d3.timeParse("%A")("Monday"),d3.timeParse("%A")("Wednesday")])
         .nice()
         .range([ 0, width]);
     
-
+console.log(x("Monday"))
 
     // Add X and Y axes
     svg.append("g")
@@ -100,8 +100,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(maxDay)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    daysList = d3.map(d3.groups(data,d=>d.weekday),D=>D[0])
-    console.log(monthsList)
+    // remove last element again
+    daysList = d3.map(d3.groups(data,d=>d.weekday),D=>D[0]).slice(0,-1);
+    console.log(daysList)
 
     // see https://d3js.org/d3-array/transform for cross
 
