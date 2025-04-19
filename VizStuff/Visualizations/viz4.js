@@ -75,7 +75,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Convert string values to numbers
     data.forEach(function (d) {
         d.year = +d.accident_year
-        d.time = d.collision_time;
+        d.hour = hourFromTime(d.collision_time);
         d.neighborhood = d.analysis_neighborhood;
     });
 
@@ -83,7 +83,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const hours = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => hourFromTime(d.time), d => locRange(d.neighborhood));
+    const hours = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.hour, d => locRange(d.neighborhood));
     hours.delete("none")
     // loop over keys with https://stackoverflow.com/questions/69145734/fastest-way-to-loop-through-map-keys
     hours.forEach(function(value, key){
@@ -91,7 +91,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     })
     // for easier access in the y scale
     // remove by index with https://stackoverflow.com/a/5767357
-    var hourTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => hourFromTime(d.time),d => locRange(d.neighborhood));
+    var hourTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.hour,d => locRange(d.neighborhood));
     hourTmp.splice(findIndexOfNone(hourTmp), 1);
     hourTmp = removeOtherFromSublists(hourTmp)
     console.log(hours)
@@ -106,7 +106,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleTime()
-        .domain([d3.timeParse("%y")(d3.min(data, d => d["year"])),d3.timeParse("%y")(d3.max(data, d => d["year"]))])
+        .domain([d3.timeParse("%H")(d3.min(data, d => d.hour)),d3.timeParse("%H")(d3.max(data, d => d.hour))])
         .nice()
         .range([ 0, width]);
     
@@ -114,7 +114,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     var colorScale = d3.scaleSequential()
         .interpolator(d3.interpolateBlues)
         .nice()
-        .domain( [d3.min(yearTmp, D1 => d3.min(D1[1], d=>d[1])),d3.max(yearTmp, D1 => d3.max(D1[1], d=>d[1]))])
+        .domain( [d3.min(hourTmp, D1 => d3.min(D1[1], d=>d[1])),d3.max(hourTmp, D1 => d3.max(D1[1], d=>d[1]))])
 
 
         
