@@ -140,11 +140,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // remove none from hourlist, see  https://stackoverflow.com/a/5767357
     hourList.splice(hourList.indexOf("none"), 1)
     console.log(hourList)
-    dispRangeList = ["0-100","100-200", "200-300","300+"]
-    bandwidth = Math.abs(y("100-200")-y("0-100"))
+    neighborhoodList = choices
+    bandwidth = Math.abs(y(choices[1])-y(choices[0]))
+    console.log(bandwidth)
     // see https://d3js.org/d3-array/transform for cross
-    console.log(d3.cross(yearList,dispRangeList))
-    dataSpots = d3.cross(yearList,dispRangeList)
+    console.log(d3.cross(hourList,neighborhoodList))
+    dataSpots = d3.cross(hourList,neighborhoodList)
 
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
