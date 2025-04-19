@@ -135,8 +135,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("y2", height)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
-            //inverse of a scale using https://stackoverflow.com/a/26172369
-            .html(`x: ${event.pageX- margin.left} <br>y:${y(years.get(x.inverse(event.pageX- margin.left)))}`)
+
+            .html(`x: ${event.pageX- margin.left} <br>y:not done`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
