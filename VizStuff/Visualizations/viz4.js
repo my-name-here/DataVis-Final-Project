@@ -108,7 +108,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // scale band instead of time, since it reduces annoyance later hopefully
     const x = d3.scaleBand()
         .domain(["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10","11","12","13","14","15","16","17","18","19","20","21","22","23"])
-        .nice()
         .range([ 0, width]);
     
     
@@ -134,12 +133,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .call(d3.axisLeft(y).ticks(20));
 
     // Add bars
-    // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
-    let maxYear = d3.max(data, d => d["year"])
+
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    yearList = d3.map(d3.groups(data,d=>d.year),D=>D[0])
-    console.log(yearList)
+    hourList = d3.map(d3.groups(data,d=>d.hour),D=>D[0])
+    console.log(hourList)
     dispRangeList = ["0-100","100-200", "200-300","300+"]
     bandwidth = Math.abs(y("100-200")-y("0-100"))
     // see https://d3js.org/d3-array/transform for cross
