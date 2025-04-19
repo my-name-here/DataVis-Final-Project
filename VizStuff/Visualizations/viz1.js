@@ -108,7 +108,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
 
     
-    svg.on("mouseover", function(event){
+    svg.append("rect")
+        .attr("x", -margin.left)
+        .attr("y", -margin.top)
+        .attr("width", svgWidth)
+        .attr("height", svgHeight)
+        .attr("style", "opacity:0")
+    .on("mouseover", function(event){
             
         d3.select(".tooltip")
 
@@ -122,13 +128,19 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         }
     )
     .on("mousemove", function(event){
-
+        d3.select(".lineMarker")
+            .attr("x1", `${event.pageX}`)
+            .attr("x2", `${event.pageX}`)
+            .attr("y1", 0)
+            .attr("y2", height)
+            .attr("style", "opacity:1")
         d3.select(".tooltip")
             
-            .html(`Day of the week: 0<br>Crashes:0`)
+            .html(`x: ${event.pageX} <br>y:${event.pageY}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
+        
         }
     )
     // bars.append("text")
