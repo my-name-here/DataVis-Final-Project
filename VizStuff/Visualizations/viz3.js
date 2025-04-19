@@ -142,13 +142,13 @@ console.log(x("Monday"))
         .attr("y", height/2)
         
     svg.append("text")
-        .text("month")
+        .text("day of the week")
         .attr("x", width/2)
         .attr("y", height+margin.bottom/2)
 
     svg.append("text")
     
-        .text("line plot of the number of crashes per month, colored by whether it happened at day or night")
+        .text("bar chart of the number of crashes per weekday")
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -margin.top/2)
