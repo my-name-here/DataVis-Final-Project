@@ -109,9 +109,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     
     svg.append("rect")
-        .attr("x", -margin.left)
+        .attr("x", -10)
         .attr("y", -margin.top)
-        .attr("width", svgWidth)
+        .attr("width", width+10)
         .attr("height", svgHeight)
         .attr("style", "opacity:0")
     .on("mouseover", function(event){
@@ -136,7 +136,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("style", "opacity:1")
         d3.select(".tooltip")
             
-            .html(`x: ${event.pageX} <br>y:${event.pageY}`)
+            .html(`x: ${event.pageX- margin.left} <br>y:${event.pageY}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
