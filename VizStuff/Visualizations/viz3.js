@@ -70,10 +70,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .range([ 0, -height])
         //.padding(0.1);
 
-    const x = d3.scaleTime()
-    // time code is from https://d3js.org/d3-time-format#locale_format
-        .domain([d3.timeParse("%A")("Monday"),d3.timeParse("%A")("Wednesday")])
-        .nice()
+    // use scaleBand instead of scale time, see https://stackoverflow.com/a/38820431
+    const x = d3.scaleBand()
+        .domain(["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"])
         .range([ 0, width]);
     
 console.log(x("Monday"))
@@ -84,9 +83,6 @@ console.log(x("Monday"))
         .attr("transform", `translate(0, ${height})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
         .call(d3.axisBottom(x).ticks(10)
-            .tickFormat(function(d){ 
-                return d3.timeFormat("%A")(d.weekday)
-            })
     );
 
     svg.append("g")
