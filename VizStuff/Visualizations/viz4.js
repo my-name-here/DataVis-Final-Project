@@ -30,6 +30,14 @@ function locRange(i){
     
 }
 
+function hourFromTime(time){
+    if (time.length>=2){// make sure not empty hour
+        return time.substring(0,2)
+    }
+    else{
+        return "none"
+    }
+}
 
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
@@ -37,7 +45,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Convert string values to numbers
     data.forEach(function (d) {
         d.year = +d.accident_year
-        d.hour = d.hour;
+        d.time = d.collision_time;
         d.neighborhood = d.analysis_neighborhood;
     });
 
@@ -45,13 +53,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const years = d3.rollup(data, (D) => d3.mean(D, d=>d["economy (mpg)"]), d => d.year, d => dispRang(d["displacement (cc)"]));
+    const hours = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => hourFromTime(d.time), d => locRange(d.neighborhood));
+    hours.delete("none")
     // for easier access in the y scale
-    const yearTmp = d3.rollups(data, (D) => d3.mean(D, d=>d["economy (mpg)"]), d => d.year, d => dispRang(d["displacement (cc)"]));
+    const hourTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => hourFromTime(d.time),d => locRange(d.neighborhood));
 
-    console.log(years)
-    console.log(d3.min(yearTmp, D1 => d3.min(D1[1], d=>d[1])))
-    console.log(d3.max(yearTmp, D1 => d3.max(D1[1], d=>d[1])))
+    console.log(hours)
+    console.log(hourTmp)
+    console.log(d3.min(hourTmp, D1 => d3.min(D1[1], d=>d[1])))
+    console.log(d3.max(hourTmp, D1 => d3.max(D1[1], d=>d[1])))
     // Define X and Y scales
     //see https://d3js.org/d3-scale/band
     const y = d3.scaleBand()
