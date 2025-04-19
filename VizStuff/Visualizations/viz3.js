@@ -71,18 +71,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleTime()
-        .domain([d3.timeParse("%B")("January"),d3.timeParse("%B")("December")])
+    // time code is from https://d3js.org/d3-time-format#locale_format
+        .domain([d3.timeParse("%A")("Sunday"),d3.timeParse("%A")("Saturday")])
         .nice()
         .range([ 0, width]);
     
-    // ordinal scale, see https://d3js.org/d3-scale/ordinal
-    var colorScale = d3.scaleOrdinal()
-        .domain( ["day", "night"])
 
-        // colors from colorbrewer
-        .range(["#1b9e77", "#d95f02"])
-
-        
 
     // Add X and Y axes
     svg.append("g")
@@ -91,7 +85,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
         .call(d3.axisBottom(x).ticks(10)
             .tickFormat(function(d){ 
-                return d3.timeFormat("%B")(d)
+                return d3.timeFormat("%A")(d.weekday)
             })
     );
 
@@ -102,16 +96,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // Add bars
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
-    let maxMonth = d3.max(data, d => d.month)
-    console.log(maxMonth)
+    let maxDay = d3.max(data, d => d.weekday)
+    console.log(maxDay)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    monthsList = d3.map(d3.groups(data,d=>d.month),D=>D[0])
+    daysList = d3.map(d3.groups(data,d=>d.weekday),D=>D[0])
     console.log(monthsList)
-    dispRangeList = ["day", "night"]
+
     // see https://d3js.org/d3-array/transform for cross
-    console.log(d3.cross(monthsList,dispRangeList))
-    dataSpots = d3.cross(monthsList,dispRangeList)
+
     bars =  svg.selectAll(".bar")
         .data(dataSpots)
         .enter()
