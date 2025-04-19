@@ -117,7 +117,7 @@ console.log(x("Monday"))
         .attr("class", "tooltip")
 
 
-        
+
     bars =  svg.selectAll(".bar")
         .data(daysList)
         .enter()
@@ -135,7 +135,31 @@ console.log(x("Monday"))
         .attr("height", d=>-y(days.get(d)))
         .attr("fill","lightblue")
         .attr("stroke", "black")
+        .on("mouseover", function(event, d){
+            
+            d3.select(".tooltip")
 
+                .style("opacity", 1)
+
+        }
+        )
+        .on("mouseout", function(event,d){
+            d3.select(".tooltip")
+                .style("opacity", 0)
+            }
+        )
+        .on("mousemove", function(event, d){
+
+            d3.select(".tooltip")
+                
+                .html(`Day of the week: ${d}<br>Crashes:
+                    ${days.get(d)}
+                    `)
+                .style("opacity", 1)
+                .style("left", `${event.pageX+15}px`)
+                .style("top", `${event.pageY+15}px`)
+            }
+        )
         //.attr("transform", `translate(0, ${height})`)// translate points down to match with axis
 
     // bars.append("text")
