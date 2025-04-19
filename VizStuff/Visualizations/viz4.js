@@ -64,11 +64,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // using a function as a key is something we do all the time in attributes
     const hours = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => hourFromTime(d.time), d => locRange(d.neighborhood));
     hours.delete("none")
+    // loop over keys with https://stackoverflow.com/questions/69145734/fastest-way-to-loop-through-map-keys
+    hours.forEach(function(value, key){
+        value.delete("other")
+    })
     // for easier access in the y scale
     // remove by index with https://stackoverflow.com/a/5767357
     var hourTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => hourFromTime(d.time),d => locRange(d.neighborhood));
     hourTmp.splice(findIndexOfNone(hourTmp), 1);
-    
+
     console.log(hours)
     console.log(hourTmp)
     console.log(d3.min(hourTmp, D1 => d3.min(D1[1], d=>d[1])))
