@@ -105,8 +105,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .range([ 0, -height])
         //.padding(0.1);
 
-    const x = d3.scaleTime()
-        .domain([d3.timeParse("%H")(d3.min(data, d => d.hour)),d3.timeParse("%H")(d3.max(data, d => d.hour))])
+    // scale band instead of time, since it reduces annoyance later hopefully
+    const x = d3.scaleBand()
+        .domain(["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10","11","12","13","14","15","16","17","18","19","20","21","22","23"])
         .nice()
         .range([ 0, width]);
     
@@ -124,8 +125,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     svg.append("g")
         .attr("class", "axis axis-x")
         // ${x(d3.timeParse("%y")(72)-d3.timeParse("%y")(71))/2} shifts axis label for year to middle of year box
-        .attr("transform", `translate(${x(d3.timeParse("%y")(72)-d3.timeParse("%y")(71))/2}, ${height})`)
-        .call(d3.axisBottom(x).ticks(10));
+        .attr("transform", `translate(0, ${height})`)
+        .call(d3.axisBottom(x).ticks(24));
 
     svg.append("g")
         .attr("class", "axis axis-y")
