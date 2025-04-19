@@ -204,8 +204,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
             d3.select(".tooltip")
                 
-                .html(`avg mpg: <br>
-                    ${years.get(d[0]).get(d[1])}`)
+                .html(`hour: ${d[0]}<br>neighborhood: ${d[1]}<br>Crashes:
+                    ${hours.get(d[0]).get(d[1])}
+                    `)
                 .style("opacity", 1)
                 .style("left", `${event.pageX+15}px`)
                 .style("top", `${event.pageY+15}px`)
