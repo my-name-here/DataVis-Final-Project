@@ -241,7 +241,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("x", (width-margin.left)/2-margin.right)
         .attr("y", -margin.top/2)
     var legend = d3.legendColor()
-		.title("Color Legend: avg mpg")
+		.title("Color Legend: Number of Crashes")
 		.titleWidth(100)
         .cells(7) // change the number of cells during demo 
         .scale(colorScale);
