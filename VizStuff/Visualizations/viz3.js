@@ -18,16 +18,12 @@ const svg = d3.select("#chart-container")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top}) `);
 
-// a function that takes a displacement, and converts it to a string representing the range
-function lightCat(i){
-    if (i == "Daylight"){
-        return "day";
-    }
-    else{
-        return "night"
-    }
-    
+// a function that takes a day of the week, and returns it
+function dayOfWeek(i){
+    return i;
 }
+   
+
 // since months are not numbers like years, but strings, we need a function to get the next month from the current one, and it should end in december
 // this replaces the max(d[0]+1, maxMonth) in the x2 and y2 of the lines
 function getNextMonth(CurMonth){
@@ -47,8 +43,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Convert string values to numbers
     data.forEach(function (d) {
         d.year = +d.accident_year
-        d.month = d.month;
-        d.lighting = d.lighting;
+        d.month = d.day_of_week;
     });
 
     data.sort((a,b) => a.name>b.name);
