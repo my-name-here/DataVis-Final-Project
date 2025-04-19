@@ -18,9 +18,15 @@ const svg = d3.select("#chart-container")
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-// a function that takes a displacement, and converts it to a string representing the range
+// a function that takes a neighborhood, and gives out either the neighborhood if it is in the list of saved neighborhoods, or other
 function locRange(i){
-    
+    neighborhoodChoices = ["Bayview Hunters Point", "Financial District/South Beach", "Mission", "South of Market", "Tenderloin"]
+    if (neighborhoodChoices.includes(i)){
+        return i
+    }
+    else{
+        return "other"
+    }
     
 }
 
