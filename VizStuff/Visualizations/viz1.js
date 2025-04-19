@@ -136,7 +136,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("style", "opacity:1")
         d3.select(".tooltip")
             
-            .html(`x: ${event.pageX- margin.left} <br>y:${event.pageY}`)
+            .html(`x: ${event.pageX- margin.left} <br>y:${event.pageY- margin.top}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
