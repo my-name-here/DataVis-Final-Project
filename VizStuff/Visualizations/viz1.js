@@ -108,6 +108,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
 
     
+    console.log(x(d3.timeParse("%Y")("2024")))
     svg.append("rect")
         .attr("x", -10)
         .attr("y", -margin.top)
