@@ -49,7 +49,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     svg.append("g")
         .attr("class", "axis axis-x")
         .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(x).ticks(10));
+        .call(d3.axisBottom(x).ticks(20));
 
     svg.append("g")
         .attr("class", "axis axis-y")
@@ -89,9 +89,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
     bars.append("line")
         .attr("test", d => `${years.get(Math.min(d[0], maxYear))}`)
-        .attr("x1", d => x(d3.timeParse("%Y")(d[0])))
+        .attr("x1", d => x(d[0]))
         .attr("y1", d => y(years.get(d[0])))
-        .attr("x2", d => x(d3.timeParse("%Y")(Math.min(d[0]+1, maxYear))))
+        .attr("x2", d => x(Math.min(d[0]+1, maxYear)))
         .attr("y2", d => y(years.get(Math.min(d[0]+1, maxYear))))
         .attr("stroke-width", 2)
         .attr("stroke", "black")
@@ -99,7 +99,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
     bars.append("circle")
         .attr("test", d => `${years.get(Math.min(d[0], maxYear))}`)
-        .attr("cx", d => x(d3.timeParse("%Y")(d[0])))
+        .attr("cx", d => x(d[0]))
         .attr("cy", d => y(years.get(d[0])))
        
         .attr("r", 3)
