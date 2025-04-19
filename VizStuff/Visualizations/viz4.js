@@ -155,7 +155,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     hourList.splice(hourList.indexOf("none"), 1)
     console.log(hourList)
     neighborhoodList = choices
-    bandwidth = Math.abs(y(choices[1])-y(choices[0]))
+    bandheight = Math.abs(y(choices[1])-y(choices[0]))
     console.log(bandwidth)
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(hourList,neighborhoodList))
@@ -172,14 +172,14 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .data(dataSpots)
         .enter()
         .append("g")
-    console.log(hours.get("00").get("Mission"))
+    console.log(hours.get("23").get("Mission"))
 
     // tooltips will be implemented using https://mappingwithd3.com/tutorials/basics/tooltip/
     bars.append("rect")
         .attr("test", d => `${d}`)
         .attr("x", d => x(d[0]))
         .attr("y", d => y(d[1]))
-        .attr("width", d => x(getNextHour(d[0]))-x(d[0]))
+        .attr("width", d => x(getNextHour("00"))-x("00"))
         .attr("height", d => bandwidth)
         .attr("stroke-width", 1)
         .attr("stroke", "black")
@@ -223,13 +223,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     svg.append("text")
         .attr("class","axisLabelY")
-        .text("displacement range")
+        .text("neighborhood")
         .attr("x", -margin.left+10)
         .attr("y", height/2)
         
     svg.append("text")
         .attr("class","axisLabelX")
-        .text("year")
+        .text("hour")
         .attr("x", width/2)
         .attr("y", height+margin.bottom/2)
 
