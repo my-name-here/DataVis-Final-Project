@@ -36,7 +36,7 @@ function getNextDay(CurDay){
     return daysList[newDayIndex]
 
 }
-console.log(getNextMonth("Saturday"))
+console.log(getNextDay("Saturday"))
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
