@@ -156,7 +156,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(hourList)
     neighborhoodList = choices
     bandheight = Math.abs(y(choices[1])-y(choices[0]))
-    console.log(bandwidth)
+    console.log(bandheight)
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(hourList,neighborhoodList))
     dataSpots = d3.cross(hourList,neighborhoodList)
@@ -180,7 +180,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("x", d => x(d[0]))
         .attr("y", d => y(d[1]))
         .attr("width", d => x(getNextHour("00"))-x("00"))
-        .attr("height", d => bandwidth)
+        .attr("height", d => bandheight)
         .attr("stroke-width", 1)
         .attr("stroke", "black")
         .attr("fill", d=>colorScale(hours.get(d[0]).get(d[1])))
