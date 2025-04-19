@@ -65,7 +65,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(d3.max(daysTmp,  d=>d[1]))
     // Define X and Y scales
     const y = d3.scaleLinear()
-        .domain([d3.min(daysTmp, d=>d[1])-20, d3.max(daysTmp,  d=>d[1])+2])
+        .domain([0, d3.max(daysTmp,  d=>d[1])+2])
         .nice()
         .range([ 0, -height])
         //.padding(0.1);
