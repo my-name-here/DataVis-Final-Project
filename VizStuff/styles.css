@@ -1,17 +1,19 @@
 iframe{
     /* vh based on https://stackoverflow.com/a/49180868*/
-    height: 100vh;
-    width: 100%;
+    height: 90vh;
+    width: 90%;
 }
 
 /* flexbox stuff based on https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox*/
 body{
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 /* flexbox stuff based on https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_flexible_box_layout/Basic_concepts_of_flexbox*/
 .vizContainer{
     display: flex;
     flex-direction: row;
+    gap: 10px
 }
