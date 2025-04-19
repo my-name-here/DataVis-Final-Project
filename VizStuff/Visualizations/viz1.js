@@ -40,9 +40,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .range([ 0, -height])
         //.padding(0.1);
 
-    const x = d3.scaleTime()
-        .domain([d3.timeParse("%Y")(d3.min(data, d => d["year"])),d3.timeParse("%Y")(d3.max(data, d => d["year"]))])
-        .nice()
+    const x = d3.scaleBand()
+        .domain([2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2023])
         .range([ 0, width]);
     
 
@@ -136,8 +135,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("y2", height)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
-            
-            .html(`x: ${event.pageX- margin.left} <br>y:${event.pageY- margin.top}`)
+            //inverse of a scale using https://stackoverflow.com/a/26172369
+            .html(`x: ${event.pageX- margin.left} <br>y:${y(years.get(x.inverse(event.pageX- margin.left)))}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
