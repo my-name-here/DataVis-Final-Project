@@ -19,32 +19,20 @@ const svg = d3.select("#chart-container")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
 // a function that takes a displacement, and converts it to a string representing the range
-function dispRang(i){
-    if (i < 100){
-        return "0-100";
-    }
-    else if (i > 100 && i <200){
-        return "100-200";
-    }
-    else if (i > 200 && i <300){
-        return "200-300"
-    }
-    else{
-        return "300+"
-    }
+function locRange(i){
+    
     
 }
 
 
 // Read data from CSV
-d3.csv("https://raw.githubusercontent.com/my-name-here/my-name-here.github.io/refs/heads/main/carsFakeData.csv").then(function (data) {
+d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
     // Convert string values to numbers
     data.forEach(function (d) {
-        d["economy (mpg)"] = +d["economy (mpg)"];
-        d["displacement (cc)"] = +d["displacement (cc)"];
-        d.year = +d.year;
-        d.name = d.name;
+        d.year = +d.accident_year
+        d.hour = d.hour;
+        d.neighborhood = d.analysis_neighborhood;
     });
 
     data.sort((a,b) => a.name>b.name);
