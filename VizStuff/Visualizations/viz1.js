@@ -61,7 +61,19 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
     let maxYear = d3.max(data, d => d["year"])
 
+    svg.append("line")
 
+        .attr("class", "lineMarker")
+        .attr("x1", 300)
+        .attr("y1", 0)
+        .attr("x2", 300)
+        .attr("y2", height)
+        .attr("strokewidth", 2)
+        .attr("stroke","black")
+        .attr("style", "opacity: 0")
+
+
+    
 
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
@@ -70,7 +82,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "tooltip")
 
 
-        
+
     bars =  svg.selectAll(".bar")
         .data(years)
         .enter()
