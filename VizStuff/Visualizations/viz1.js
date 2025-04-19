@@ -108,6 +108,29 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
 
     
+    svg.on("mouseover", function(event){
+            
+        d3.select(".tooltip")
+
+            .style("opacity", 1)
+
+    }
+    )
+    .on("mouseout", function(event){
+        d3.select(".tooltip")
+            .style("opacity", 0)
+        }
+    )
+    .on("mousemove", function(event){
+
+        d3.select(".tooltip")
+            
+            .html(`Day of the week: 0<br>Crashes:0`)
+            .style("opacity", 1)
+            .style("left", `${event.pageX+15}px`)
+            .style("top", `${event.pageY+15}px`)
+        }
+    )
     // bars.append("text")
     //     .attr("class", "barLabel")
     //     .text(d => `mpg: ${(d["economy (mpg)"])}`)
