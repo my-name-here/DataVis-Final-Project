@@ -9,7 +9,7 @@ const height = svgHeight - margin.top - margin.bottom;
 
 const minSize = 1
 const maxSize = 6
-let yearChoices = [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2023, 2024];
+let yearChoices = [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
 let years
 const svg = d3.select("#chart-container")
     .append("svg")
@@ -21,9 +21,12 @@ const svg = d3.select("#chart-container")
 
 function nextYear(year){
     yearIndex = yearChoices.indexOf(year)
-    newYearIndex = Math.min(yearIndex+1, yearChoices.length -1 )
+
+    newYearIndex = Math.min(yearIndex+1, yearChoices.length-1 )
+
     return yearChoices[newYearIndex]
 }
+console.log(nextYear(2023))
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
@@ -93,12 +96,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .enter()
         .append("g")
         
-        
+    bandwidth = x(2006)- x(2005)
+    console.log(bandwidth)
     bars.append("line")
-        .attr("test", d => `${years.get(Math.min(d[0], maxYear))}`)
-        .attr("x1", d => x(d[0]))
+        .attr("test", d => `${d[0]}`)
+        .attr("x1", d => x(d[0])+ bandwidth/2)
         .attr("y1", d => y(years.get(d[0])))
-        .attr("x2", d => x(nextYear(d[0])))
+        .attr("x2", d => x(nextYear(d[0]))+ bandwidth/2)
         .attr("y2", d => y(years.get(nextYear(d[0]))))
         .attr("stroke-width", 2)
         .attr("stroke", "black")
@@ -106,7 +110,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
     bars.append("circle")
         .attr("test", d => `${years.get(Math.min(d[0], maxYear))}`)
-        .attr("cx", d => x(d[0]))
+        .attr("cx", d => x(d[0])+ bandwidth/2)
         .attr("cy", d => y(years.get(d[0])))
        
         .attr("r", 3)
