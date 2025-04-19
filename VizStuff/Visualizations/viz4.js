@@ -183,7 +183,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("height", d => bandwidth)
         .attr("stroke-width", 1)
         .attr("stroke", "black")
-        .attr("fill", d=>colorScale(years.get(d[0]).get(d[1])))
+        .attr("fill", d=>colorScale(hours.get(d[0]).get(d[1])))
         .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
         // needs to be event,d, so that the value of d is passed in along with the mouse event
         .on("mouseover", function(event, d){
