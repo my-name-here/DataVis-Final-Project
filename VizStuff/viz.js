@@ -7,7 +7,7 @@ const Frame2 = document.getElementById("viz2");
 const Frame3 = document.getElementById("viz3");
 const Frame4 = document.getElementById("viz4");
 
-Frame1.src = "viz1.html";
-Frame2.src = "viz2.html";
-Frame3.src = "viz3.html";
-Frame4.src = "viz4.html";
+Frame1.src = "Visualizations/viz1.html";
+Frame2.src = "Visualizations/viz2.html";
+Frame3.src = "Visualizations/viz3.html";
+Frame4.src = "Visualizations/viz4.html";
