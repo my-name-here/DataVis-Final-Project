@@ -7,3 +7,14 @@ img{
 }
 
 
+.tooltip{
+    position: absolute;/* absolute lets tooltip overlap*/
+    opacity: 0;/* initially make tooltip transparent*/
+    font-size: 20px;
+    fill: black;
+    background-color: white;
+    border-style: double;/* https://www.w3schools.com/css/css_border.asp*/
+    /*https://stackoverflow.com/a/40906878 for the padding */
+    padding-left: 5px;
+    padding-right: 5px;
+}
