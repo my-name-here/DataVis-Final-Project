@@ -43,20 +43,26 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Convert string values to numbers
     data.forEach(function (d) {
         d.year = +d.accident_year
-        d.month = d.day_of_week;
+        d.weekday = d.day_of_week;
     });
 
     data.sort((a,b) => a.name>b.name);
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.month, d => lightCat(d.lighting));
+    const days = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday);
+    days.delete("");
     // for easier access in the y scale
-    const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.month, d => lightCat(d.lighting));
+    // removing last element based on https://stackoverflow.com/questions/19544452/remove-last-item-from-array#comment84683867_19544452
 
-    console.log(months)
-    console.log(d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1])))
-    console.log(d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1])))
+    const daysTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.weekday).slice(0,-1);
+
+
+    console.log(days)
+    console.log(daysTmp)
+
+    console.log(d3.min(daysTmp, d=>d[1]))
+    console.log(d3.max(daysTmp,  d=>d[1]))
     // Define X and Y scales
     const y = d3.scaleLinear()
         .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
