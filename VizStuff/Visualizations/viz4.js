@@ -137,6 +137,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
     hourList = d3.map(d3.groups(data,d=>d.hour),D=>D[0])
+    // remove none from hourlist, see  https://stackoverflow.com/a/5767357
+    hourList.splice(hourList.indexOf("none"), 1)
     console.log(hourList)
     dispRangeList = ["0-100","100-200", "200-300","300+"]
     bandwidth = Math.abs(y("100-200")-y("0-100"))
