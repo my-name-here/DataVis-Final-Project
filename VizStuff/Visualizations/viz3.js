@@ -101,23 +101,32 @@ console.log(x("Monday"))
     console.log(daysList)
 
     // see https://d3js.org/d3-array/transform for cross
-
+    barWidth = x("Monday")-x("Sunday")
+    console.log(x("Wednesday"))
+    console.log(y(7520))
+    console.log(barWidth)
     bars =  svg.selectAll(".bar")
-        .data(dataSpots)
+        .data(daysTmp)
         .enter()
         .append("g")
-    console.log(months.get("January"))
-    console.log(dataSpots)
-    bars.append("line")
-        .attr("test", d => `${d}`)
-        .attr("x1", d => x(d3.timeParse("%B")(d[0])))
-        .attr("y1", d => y(months.get(d[0]).get(d[1])))
-        .attr("x2", d => x(d3.timeParse("%B")(getNextMonth(d[0]))))
-        .attr("y2", d => y(months.get(getNextMonth(d[0])).get(d[1])))
-        .attr("stroke-width", 2)
-        .attr("stroke", d=>colorScale(d[1]))
 
-        .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
+    bars.append("line")
+        .attr("test", d=>d[0])
+        .attr("x1", x(d=>d[0]))
+        .attr("y1", y(d=>d[1]))
+        .attr("x2", x(d=>d[0]))
+        .attr("y2", height)
+    
+    bars.append("rect")
+        .attr("test", d=>d[1])
+
+        .attr("x", 0)
+        .attr("y", height)
+        .attr("width", barWidth)
+        .attr("height", y(d=>d[1]))
+        
+
+        //.attr("transform", `translate(0, ${height})`)// translate points down to match with axis
 
     // bars.append("text")
     //     .attr("class", "barLabel")
@@ -144,14 +153,7 @@ console.log(x("Monday"))
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -margin.top/2)
-    var legend = d3.legendColor()
-		.title("Color Legend: time of day")
-		.titleWidth(100)
-        .cells(11) // change the number of cells during demo 
-        .scale(colorScale);
-		
 
-    svg.append("g")
-        .attr("transform", `translate(${width+10},0)`)
-        .call(legend);
+
+
 });
