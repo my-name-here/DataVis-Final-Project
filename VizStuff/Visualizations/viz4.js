@@ -6,7 +6,7 @@ const svgHeight = 625;
 const margin = { top: 50, right: 220, bottom: 100, left: 150 };
 const width = svgWidth - margin.left - margin.right;
 const height = svgHeight - margin.top - margin.bottom;
-
+let choices = ["Bayview Hunters Point", "Financial District/South Beach", "Mission", "South of Market", "Tenderloin"]
 const minSize = 1
 const maxSize = 6
 let years
@@ -20,7 +20,7 @@ const svg = d3.select("#chart-container")
 
 // a function that takes a neighborhood, and gives out either the neighborhood if it is in the list of saved neighborhoods, or other
 function locRange(i){
-    neighborhoodChoices = ["Bayview Hunters Point", "Financial District/South Beach", "Mission", "South of Market", "Tenderloin"]
+    neighborhoodChoices = choices;
     if (neighborhoodChoices.includes(i)){
         return i
     }
@@ -101,7 +101,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Define X and Y scales
     //see https://d3js.org/d3-scale/band
     const y = d3.scaleBand()
-        .domain( ["0-100","100-200","200-300", "300+"])
+        .domain( choices)
         .range([ 0, -height])
         //.padding(0.1);
 
