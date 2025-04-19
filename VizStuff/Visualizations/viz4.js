@@ -179,7 +179,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("test", d => `${d}`)
         .attr("x", d => x(d[0]))
         .attr("y", d => y(d[1]))
-        .attr("width", d => x(d3.timeParse("%y")(d[0]+1)-d3.timeParse("%y")(d[0])))
+        .attr("width", d => x(getNextHour(d[0]))-x(d[0]))
         .attr("height", d => bandwidth)
         .attr("stroke-width", 1)
         .attr("stroke", "black")
