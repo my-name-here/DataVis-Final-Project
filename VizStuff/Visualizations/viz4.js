@@ -1,8 +1,8 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const svgWidth = 1500;
-const svgHeight = 450;
+const svgWidth = 1000;
+const svgHeight = 300;
 const margin = { top: 50, right: 220, bottom: 100, left: 150 };
 const width = svgWidth - margin.left - margin.right;
 const height = svgHeight - margin.top - margin.bottom;
