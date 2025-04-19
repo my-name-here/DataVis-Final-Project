@@ -2,7 +2,7 @@
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
 const svgWidth = 1400;
-const svgHeight = 625;
+const svgHeight = 450;
 const margin = { top: 50, right: 220, bottom: 100, left: 150 };
 const width = svgWidth - margin.left - margin.right;
 const height = svgHeight - margin.top - margin.bottom;
@@ -235,7 +235,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     svg.append("text")
     
-        .text("heatmap of the avg mpg per year for different displacement ranges")
+        .text("heatmap of the accidents each hour for different neighborhoods")
         .attr("class", "title")
         .attr("x", (width-margin.left)/2-margin.right)
         .attr("y", -margin.top/2)
