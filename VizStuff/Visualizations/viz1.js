@@ -159,7 +159,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
-            .html(`x: ${event.pageX- margin.left} <br>year:${getBandFromValue((event.pageX- margin.left), x)-1}`)
+            .html(`year:${getBandFromValue((event.pageX- margin.left), x)}<br>crashes: ${years.get(getBandFromValue((event.pageX- margin.left), x))}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
