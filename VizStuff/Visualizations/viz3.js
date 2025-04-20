@@ -169,6 +169,45 @@ console.log(x("Monday"))
     //     .attr("x", d => 25)
         
 
+    const annotations = [
+        {
+            note: {
+                label: "Friday has the most crashes of any day of the week, with most other weekdays having around 500 less crashes.",
+                title: "Friday peak"
+            },
+            type: d3.annotationCalloutLabel,
+            x: x("Friday")+x.step()/2,
+            y: height+y(days.get("Friday")),
+            dx: -70,
+            dy: 100,
+
+    
+        },
+        {
+            note: {
+                label: "The weekend, especially Sunday, have lower crash rates than most weekdays. The exception to this is Monday, which has a similar crash rate to Saturday",
+                title: "Weekend dip"
+            },
+            type: d3.annotationCalloutLabel,
+            x: x("Sunday")+x.step()/2,
+            y: height+y(days.get("Sunday")),
+            dx: 50,
+            dy: -65,
+
+    
+        },
+
+    ]
+    
+    // Add annotation to the chart
+    const makeAnnotations = d3.annotation()
+        
+        .annotations(annotations)
+    d3.select("svg")
+        .append("g")
+        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .call(makeAnnotations);
+  
 
 
     svg.append("text")
