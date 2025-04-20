@@ -180,9 +180,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             label: "Here is the annotation label",
             title: "Annotation title"
         },
-        x: 100,
-        y: 100,
-        dy: 100,
+        x: 782,
+        y: 840,
+        dy: -200,
         dx: 100
         }
     ]
