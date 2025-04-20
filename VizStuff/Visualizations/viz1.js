@@ -179,21 +179,54 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const annotations = [
         {
         note: {
-            label: "Here is the annotation label",
-            title: "Annotation title"
+            label: "The number of crashes fell in 2020, presumably due to Covid",
+            title: "2020 Dip"
         },
         type: d3.annotationCalloutCircle,
         x: x(2020)+bandwidth/2,
         y: height+y(years.get(2020)),
         dx: 100,
         dy: -100,
-
+        subject:{
+            radius: 30,
         }
+
+        },
+        {
+            note: {
+                label: "The number of crashes in 2019 were similar to in previous years, though was on the higher side.",
+                title: "2019 levels"
+            },
+            type: d3.annotationCalloutCircle,
+            x: x(2019)+bandwidth/2,
+            y: height+y(years.get(2019)),
+            dx: 100,
+            dy: 100,
+            subject:{
+                radius: 30,
+            }
+    
+            },
+        {
+            note: {
+                label: "The number of crashes in 2024 is in the lower end of pre-2020 levels, indicating that they have still not fully returned to pre-pandemic levels",
+                title: "2024 levels"
+            },
+            type: d3.annotationCalloutCircle,
+            x: x(2024)+bandwidth/2,
+            y: height+y(years.get(2024)),
+            dx: -200,
+            dy:20,
+            subject:{
+                radius: 30,
+            }
+
+            }
     ]
     
     // Add annotation to the chart
     const makeAnnotations = d3.annotation()
-
+        
         .annotations(annotations)
     d3.select("svg")
         .append("g")
