@@ -26,6 +26,13 @@ function nextYear(year){
 
     return yearChoices[newYearIndex]
 }
+// getting band from value using https://stackoverflow.com/a/38746923
+function getBandFromValue(value, scale){
+
+    index = Math.round(value/scale.step())
+    return scale.domain()[index]
+}
+
 console.log(nextYear(2023))
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
@@ -54,6 +61,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .range([ 0, width]);
     
 
+
+
+    
     // Add X and Y axes
     svg.append("g")
         .attr("class", "axis axis-x")
@@ -119,6 +129,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     
     console.log(x(d3.timeParse("%Y")("2024")))
+    console.log(x(2009))
+    console.log(getBandFromValue(x(2009),x))
     svg.append("rect")
         .attr("x", -10)
         .attr("y", -margin.top)
@@ -147,7 +159,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
-            .html(`x: ${event.pageX- margin.left} <br>y:not done`)
+            .html(`x: ${event.pageX- margin.left} <br>year:${getBandFromValue((event.pageX- margin.left), x)-1}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
