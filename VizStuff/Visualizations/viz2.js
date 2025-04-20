@@ -99,6 +99,18 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", `translate(0, ${height})`)
         .call(d3.axisLeft(y).ticks(20));
 
+
+    svg.append("line")
+
+        .attr("class", "lineMarker")
+        .attr("x1", 300)
+        .attr("y1", 0)
+        .attr("x2", 300)
+        .attr("y2", height)
+        .attr("strokewidth", 2)
+        .attr("stroke","black")
+        .attr("style", "opacity: 0")
+
     // Add bars
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
     let maxMonth = d3.max(data, d => d.month)
