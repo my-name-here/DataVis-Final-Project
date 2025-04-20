@@ -10,6 +10,7 @@ const height = svgHeight - margin.top - margin.bottom;
 const minSize = 1
 const maxSize = 6
 let months
+
 const svg = d3.select("#chart-container")
     .append("svg")
     .attr("width", svgWidth)
@@ -40,7 +41,17 @@ function getNextMonth(CurMonth){
     return monthList[newMonthIndex]
 
 }
+
+
 console.log(getNextMonth("December"))
+
+
+// getting band from value using https://stackoverflow.com/a/38746923
+function getBandFromValue(value, scale){
+
+    index = Math.round(value/scale.step())
+    return scale.domain()[index]
+}
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
