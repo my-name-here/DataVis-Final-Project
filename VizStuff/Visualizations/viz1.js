@@ -172,9 +172,29 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     //     .attr("y", d => y(d.name)+15)
     //     .attr("x", d => 25)
         
-
-
-
+    // annotation code based on https://d3-graph-gallery.com/graph/custom_annotation.html
+    // Features of the annotation
+    const annotations = [
+        {
+        note: {
+            label: "Here is the annotation label",
+            title: "Annotation title"
+        },
+        x: 100,
+        y: 100,
+        dy: 100,
+        dx: 100
+        }
+    ]
+    
+    // Add annotation to the chart
+    const makeAnnotations = d3.annotation()
+        .annotations(annotations)
+    d3.select("svg")
+        .append("g")
+        .call(makeAnnotations)
+  
+  
     svg.append("text")
         .text("accidents")
         .attr("x", -100)
@@ -191,4 +211,5 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -margin.top/2)
+
 });
