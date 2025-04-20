@@ -2,8 +2,8 @@
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
 const svgWidth = 1000;
-const svgHeight = 300;
-const margin = { top: 50, right: 220, bottom: 100, left: 150 };
+const svgHeight = 600;
+const margin = { top: 50, right: 220, bottom: 350, left: 150 };
 const width = svgWidth - margin.left - margin.right;
 const height = svgHeight - margin.top - margin.bottom;
 let choices = ["Bayview Hunters Point", "Financial District/South Beach", "Mission", "South of Market", "Tenderloin"]
@@ -218,9 +218,33 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     //     .text(d => `mpg: ${(d["economy (mpg)"])}`)
     //     .attr("y", d => y(d.name)+15)
     //     .attr("x", d => 25)
+        console.log(hours.get("18").get("Mission"))
+    const annotations = [
+        {
+            note: {
+                label: "The number of crashes in the Mission seems to peak around hour 18(6:00pm). Other neighborhoods peak around this time as well, with the Financial district and South of Market both peaking around 5pm.",
+                title: "multiple neighborhoods peak around 6pm"
+            },
         
+            type: d3.annotationCalloutLabel,
+            x: x("18")+x.step()/2,
+            y: height+y("Mission")+y.step()/2,
+            dx: 10,
+            dy:130,
+            color: "black"
+        },
 
 
+    ]
+    // Add annotation to the chart
+    const makeAnnotations = d3.annotation()
+        
+        .annotations(annotations)
+    d3.select("svg")
+        .append("g")
+        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .call(makeAnnotations);
+  
 
     svg.append("text")
         .attr("class","axisLabelY")
@@ -232,7 +256,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class","axisLabelX")
         .text("hour")
         .attr("x", width/2)
-        .attr("y", height+margin.bottom/2)
+        .attr("y", height+50)
 
     svg.append("text")
     
