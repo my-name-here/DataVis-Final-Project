@@ -233,7 +233,19 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             dy:130,
             color: "black"
         },
-
+        {
+            note: {
+                label: "The number of crashes in the Tenderloin peaks around 3pm, about 3 hours before it peaks in the Mission, and 2 hours before it peaks in the Financial district and South of Market",
+                title: "Tenderloin has different peak"
+            },
+        
+            type: d3.annotationCalloutLabel,
+            x: x("13")+x.step()/2,
+            y: height+y("Tenderloin")+y.step()/2,
+            dx: -35,
+            dy:130+2*y.step(),
+            color: "black"
+        },
 
     ]
     // Add annotation to the chart
