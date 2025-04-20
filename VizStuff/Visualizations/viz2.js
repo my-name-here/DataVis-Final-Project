@@ -99,10 +99,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "axis axis-x")
         .attr("transform", `translate(0, ${height})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
-        .call(d3.axisBottom(x).ticks(10)
-            .tickFormat(function(d){ 
-                return d3.timeFormat("%B")(d)
-            })
+        .call(d3.axisBottom(x).ticks(12)
     );
 
     svg.append("g")
@@ -135,7 +132,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(d3.cross(monthsList,dispRangeList))
     dataSpots = d3.cross(monthsList,dispRangeList)
 
-
+    bandwidth = x("February")- x("January")
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
         .append("div")
