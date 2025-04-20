@@ -9,6 +9,7 @@ const height = svgHeight - margin.top - margin.bottom;
 
 const minSize = 1
 const maxSize = 6
+let monthOptions = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
 let months
 
 const svg = d3.select("#chart-container")
@@ -33,7 +34,7 @@ function lightCat(i){
 // this replaces the max(d[0]+1, maxMonth) in the x2 and y2 of the lines
 function getNextMonth(CurMonth){
     // first create a list of months, which we will locate the provided month in, then get the next one
-    var monthList = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
+    var monthList = monthOptions
     //get index of current month
     monthIndex = monthList.indexOf(CurMonth)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
@@ -80,9 +81,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .range([ 0, -height])
         //.padding(0.1);
 
-    const x = d3.scaleTime()
-        .domain([d3.timeParse("%B")("January"),d3.timeParse("%B")("December")])
-        .nice()
+    const x = d3.scaleBand()
+        .domain(monthOptions)
         .range([ 0, width]);
     
     // ordinal scale, see https://d3js.org/d3-scale/ordinal
