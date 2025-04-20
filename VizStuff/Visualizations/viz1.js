@@ -174,25 +174,31 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
     // annotation code based on https://d3-graph-gallery.com/graph/custom_annotation.html
     // Features of the annotation
+    console.log(years)
+    console.log(y(years.get(2020)))
     const annotations = [
         {
         note: {
             label: "Here is the annotation label",
             title: "Annotation title"
         },
-        x: 782,
-        y: 840,
-        dy: -200,
-        dx: 100
+        type: d3.annotationCalloutCircle,
+        x: x(2020)+bandwidth/2,
+        y: height+y(years.get(2020)),
+        dx: 100,
+        dy: -100,
+
         }
     ]
     
     // Add annotation to the chart
     const makeAnnotations = d3.annotation()
+
         .annotations(annotations)
     d3.select("svg")
         .append("g")
-        .call(makeAnnotations)
+        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .call(makeAnnotations);
   
   
     svg.append("text")
