@@ -163,7 +163,45 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     //     .attr("y", d => y(d.name)+15)
     //     .attr("x", d => 25)
         
+    
+    console.log(x(d3.timeParse("%Y")("2024")))
+    console.log(x(2009))
+    console.log(getBandFromValue(x(2009),x))
+    svg.append("rect")
+        .attr("x", -10)
+        .attr("y", -margin.top)
+        .attr("width", width+10)
+        .attr("height", svgHeight)
+        .attr("style", "opacity:0")
+    .on("mouseover", function(event){
+            
+        d3.select(".tooltip")
 
+            .style("opacity", 1)
+
+    }
+    )
+    .on("mouseout", function(event){
+        d3.select(".tooltip")
+            .style("opacity", 0)
+        }
+    )
+    .on("mousemove", function(event){
+        d3.select(".lineMarker")
+            .attr("x1", `${event.pageX - margin.left}`)
+            .attr("x2", `${event.pageX - margin.left}`)
+            .attr("y1", -margin.top)
+            .attr("y2", height)
+            .attr("style", "opacity:1")
+        d3.select(".tooltip")
+
+            .html(`year:${getBandFromValue((event.pageX- margin.left-bandwidth/2), x)}<br>day crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("day")} <br>night crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("night")}`)
+            .style("opacity", 1)
+            .style("left", `${event.pageX+15}px`)
+            .style("top", `${event.pageY+15}px`)
+        
+        }
+    )
 
 
     svg.append("text")
