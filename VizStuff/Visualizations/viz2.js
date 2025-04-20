@@ -203,7 +203,50 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         }
     )
 
+    const annotations = [
+        {
+        note: {
+            label: "The number of crashes during the day and during the night are closer in the Winter, with night even surpassing day at times.",
+            title: "Winter similarity"
+        },
+        type: d3.annotationCalloutCircle,
+        x: x("December")+bandwidth/2,
+        y: height+(y(months.get("December").get("day"))+y(months.get("December").get("night")))/2,
+        dx: -100,
+        dy: -10,
+        subject:{
+            radius: 30,
+        }
 
+        },
+        {
+            note: {
+                label: "During the Summer, there is a lot more crashes during the day compared to at night.",
+                title: "Summer difference"
+            },
+            type: d3.annotationCalloutRect,
+            x: x("May")+bandwidth/2,
+            y: height+y(months.get("May").get("day"))-30,
+            dx: 100,
+            dy: 100,
+            subject:{
+                width: 300,
+                height: 60
+            }
+    
+        },
+
+    ]
+    
+    // Add annotation to the chart
+    const makeAnnotations = d3.annotation()
+        
+        .annotations(annotations)
+    d3.select("svg")
+        .append("g")
+        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .call(makeAnnotations);
+  
     svg.append("text")
         .text("accident count")
         .attr("x", -150)
