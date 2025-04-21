@@ -9,7 +9,7 @@ const height = svgHeight - margin.top - margin.bottom;
 
 const minSize = 1
 const maxSize = 6
-let monthOptions = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
+let hourOptions = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
 let months
 
 const svg = d3.select("#chart-container")
@@ -34,7 +34,7 @@ function CovCat(i){
 // this replaces the max(d[0]+1, maxMonth) in the x2 and y2 of the lines
 function getNextMonth(CurMonth){
     // first create a list of months, which we will locate the provided month in, then get the next one
-    var monthList = monthOptions
+    var monthList = hourOptions
     //get index of current month
     monthIndex = monthList.indexOf(CurMonth)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
@@ -53,6 +53,18 @@ function getBandFromValue(value, scale){
     index = Math.round(value/scale.step())
     return scale.domain()[index]
 }
+
+
+
+function hourFromTime(time){
+    if (time.length>=2){// make sure not empty hour
+        return time.substring(0,2)
+    }
+    else{
+        return "none"
+    }
+}
+
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
@@ -60,6 +72,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     data.forEach(function (d) {
         d.year = +d.accident_year
         d.month = d.month;
+        d.hour = hourFromTime(d.collision_time);
         d.lighting = d.lighting;
     });
 
@@ -67,9 +80,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.month, d => CovCat(d.year));
+    const months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.hour, d => CovCat(d.year));
     // for easier access in the y scale
-    const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.month, d => CovCat(d.year));
+    const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.hour, d => CovCat(d.year));
 
     console.log(months)
     console.log(d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1])))
@@ -82,7 +95,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleBand()
-        .domain(monthOptions)
+        .domain(hourOptions)
         .range([ 0, width]);
     
     // ordinal scale, see https://d3js.org/d3-scale/ordinal
@@ -125,14 +138,14 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(maxMonth)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    monthsList = d3.map(d3.groups(data,d=>d.month),D=>D[0])
+    monthsList = hourOptions
     console.log(monthsList)
     dispRangeList = ["pre-Covid", "post-Covid"]
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(monthsList,dispRangeList))
     dataSpots = d3.cross(monthsList,dispRangeList)
 
-    bandwidth = x("February")- x("January")
+    bandwidth = x("01")- x("00")
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
         .append("div")
@@ -204,38 +217,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     )
     
     const annotations = [
-        {
-            note: {
-                label: "There seems to be similar monthly trends pre and post Covid, just with the number of crashes reduced post Covid ",
-                title: "Similar trends"
-            },
-            type: d3.annotationCalloutRect,
-            x: x("October")- 150,
-            y: height+(y(months.get("October").get("pre-Covid")))-30,
-            dx: -100,
-            dy: 200,
-            subject:{
-                width: 300,
-                height: 100
-            }
-    
-        },
-        {
-            note: {
-                label: "There seems to be similar monthly trends pre and post Covid, just with the number of crashes reduced post Covid ",
-                title: "Similar trends"
-            },
-            type: d3.annotationCalloutRect,
-            x: x("October") - 150,
-            y: height+(y(months.get("October").get("post-Covid")))-30,
-            dx: -100,
-            dy: -200,
-            subject:{
-                width: 300,
-                height: 100
-            }
-    
-        },
+ 
 
     ]
     
