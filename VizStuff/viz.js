@@ -22,7 +22,7 @@ var viz4btn = document.getElementById("submitViz4");
 viz2btn.onclick = function(){
         viz2Val = document.getElementById("chartModeViz2").value;
         if (viz2Val == "CovidViz2"){
-            Frame2.src = "Visualizations/viz1.html"
+            Frame2.src = "Visualizations/viz2Covid.html"
         }
         else{
             Frame2.src = "Visualizations/viz2.html"
