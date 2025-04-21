@@ -193,7 +193,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
-            .html(`month:${getBandFromValue((event.pageX- margin.left-bandwidth/2), x)}<br>post-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("pre-Covid")}`)
+            .html(`day of week:${getBandFromValue((event.pageX- margin.left-bandwidth/2), x)}<br>post-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("pre-Covid")}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
