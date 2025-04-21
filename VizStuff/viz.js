@@ -18,19 +18,45 @@ var viz2btn = document.getElementById("submitViz2");
 var viz3btn = document.getElementById("submitViz3");
 var viz4btn = document.getElementById("submitViz4");
 
+// use buttons instead of submit
+viz2btn.onclick = function(){
+        viz2Val = document.getElementById("chartModeViz2").value;
+        console.log(viz2Val)
+        if (viz2Val == "CovidViz2"){
+            Frame2.src = "Visualizations/viz1.html"
+        }
+        else{
+            Frame2.src = "Visualizations/viz2.html"
+        }
+    };
 
-viz2btn.addEventListener('click', funcViz2Btn);
-viz3btn.addEventListener('click', funcViz3Btn);
-viz4btn.addEventListener('click', funcViz4Btn);
-
-
-function funcViz2Btn(){
-    viz2Val = document.getElementById("chartModeViz2").value;
-    if (viz2Val == "CovidViz2"){
-        Frame2.src = "Visualizations/viz1.html"
+viz3btn.onclick = function(){
+    viz3Val = document.getElementById("chartModeViz3").value;
+    console.log(viz2Val)
+    if (viz3Val == "CovidViz3"){
+        Frame3.src = "Visualizations/viz1.html"
+    }
+    else if (viz3Val == "weekdayViz3"){
+        Frame3.src = "Visualizations/viz2.html"
     }
     else{
-        Frame2.src = "Visualizations/viz2.html"
-    }
+        Frame3.src = "Visualizations/viz3.html"
 
-}
+
+    }
+};
+
+
+viz4btn.onclick = function(){
+    viz4Val = document.getElementById("chartModeViz4").value;
+    console.log(viz4Val)
+    if (viz4Val == "CovidViz4"){
+        Frame4.src = "Visualizations/viz1.html"
+    }
+    else{
+        Frame4.src = "Visualizations/viz2.html"
+    }
+};
+
+
+
