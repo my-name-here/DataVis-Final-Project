@@ -32,7 +32,7 @@ viz2btn.onclick = function(){
 viz3btn.onclick = function(){
     viz3Val = document.getElementById("chartModeViz3").value;
     if (viz3Val == "CovidViz3"){
-        Frame3.src = "Visualizations/viz1.html"
+        Frame3.src = "Visualizations/viz3Covid.html"
     }
     else if (viz3Val == "weekdayViz3"){
         Frame3.src = "Visualizations/viz2.html"
