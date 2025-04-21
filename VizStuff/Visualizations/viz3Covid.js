@@ -236,18 +236,18 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("y", height/2)
         
     svg.append("text")
-        .text("month")
+        .text("day of week")
         .attr("x", width/2)
         .attr("y", height+margin.bottom/2)
 
     svg.append("text")
     
-        .text("line plot of the number of crashes per month, colored by whether it happened at day or night")
+        .text("line plot of the number of crashes each day of the week, colored by whether it is pre or post covid")
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -margin.top/2)
     var legend = d3.legendColor()
-		.title("Color Legend: time of day")
+		.title("Color Legend: pre or post covid")
 		.titleWidth(100)
         .cells(11) // change the number of cells during demo 
         .scale(colorScale);
