@@ -48,10 +48,10 @@ viz3btn.onclick = function(){
 viz4btn.onclick = function(){
     viz4Val = document.getElementById("chartModeViz4").value;
     if (viz4Val == "CovidViz4"){
-        Frame4.src = "Visualizations/viz1.html"
+        Frame4.src = "Visualizations/viz4Covid.html"
     }
     else{
-        Frame4.src = "Visualizations/viz2.html"
+        Frame4.src = "Visualizations/viz4.html"
     }
 };
 
