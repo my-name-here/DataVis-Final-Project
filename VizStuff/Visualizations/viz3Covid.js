@@ -9,7 +9,8 @@ const height = svgHeight - margin.top - margin.bottom;
 
 const minSize = 1
 const maxSize = 6
-let monthOptions = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
+let DayOptions = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
 let months
 
 const svg = d3.select("#chart-container")
@@ -30,21 +31,19 @@ function CovCat(i){
     }
     
 }
-// since months are not numbers like years, but strings, we need a function to get the next month from the current one, and it should end in december
-// this replaces the max(d[0]+1, maxMonth) in the x2 and y2 of the lines
-function getNextMonth(CurMonth){
+//from viz3.js
+function getNextDay(CurDay){
     // first create a list of months, which we will locate the provided month in, then get the next one
-    var monthList = monthOptions
+    var daysList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     //get index of current month
-    monthIndex = monthList.indexOf(CurMonth)
+    dayIndex = daysList.indexOf(CurDay)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
-    newMonthIndex = Math.min(monthIndex+1, monthList.length -1 )
-    return monthList[newMonthIndex]
+    newDayIndex = Math.min(dayIndex+1, daysList.length -1 )
+    return daysList[newDayIndex]
 
 }
 
 
-console.log(getNextMonth("December"))
 
 
 // getting band from value using https://stackoverflow.com/a/38746923
@@ -59,17 +58,16 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Convert string values to numbers
     data.forEach(function (d) {
         d.year = +d.accident_year
-        d.month = d.month;
-        d.lighting = d.lighting;
+        d.weekday = d.day_of_week;
     });
 
     data.sort((a,b) => a.name>b.name);
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.month, d => CovCat(d.year));
+    const months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
     // for easier access in the y scale
-    const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.month, d => CovCat(d.year));
+    const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
 
     console.log(months)
     console.log(d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1])))
@@ -82,7 +80,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleBand()
-        .domain(monthOptions)
+        .domain(DayOptions)
         .range([ 0, width]);
     
     // ordinal scale, see https://d3js.org/d3-scale/ordinal
@@ -125,14 +123,14 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(maxMonth)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    monthsList = d3.map(d3.groups(data,d=>d.month),D=>D[0])
+    monthsList = DayOptions
     console.log(monthsList)
     dispRangeList = ["pre-Covid", "post-Covid"]
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(monthsList,dispRangeList))
     dataSpots = d3.cross(monthsList,dispRangeList)
 
-    bandwidth = x("February")- x("January")
+    bandwidth = x("Monday")- x("Sunday")
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
         .append("div")
@@ -144,14 +142,14 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .data(dataSpots)
         .enter()
         .append("g")
-    console.log(months.get("January"))
+    console.log(months.get("Monday"))
     console.log(dataSpots)
     bars.append("line")
         .attr("test", d => `${d}`)
         .attr("x1", d => x(d[0])+bandwidth/2)
         .attr("y1", d => y(months.get(d[0]).get(d[1])))
-        .attr("x2", d => x(getNextMonth(d[0]))+bandwidth/2)
-        .attr("y2", d => y(months.get(getNextMonth(d[0])).get(d[1])))
+        .attr("x2", d => x(getNextDay(d[0]))+bandwidth/2)
+        .attr("y2", d => y(months.get(getNextDay(d[0])).get(d[1])))
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
 
@@ -204,38 +202,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     )
     
     const annotations = [
-        {
-            note: {
-                label: "There seems to be similar monthly trends pre and post Covid, just with the number of crashes reduced post Covid ",
-                title: "Similar trends"
-            },
-            type: d3.annotationCalloutRect,
-            x: x("October")- 150,
-            y: height+(y(months.get("October").get("pre-Covid")))-30,
-            dx: -100,
-            dy: 200,
-            subject:{
-                width: 300,
-                height: 100
-            }
-    
-        },
-        {
-            note: {
-                label: "There seems to be similar monthly trends pre and post Covid, just with the number of crashes reduced post Covid ",
-                title: "Similar trends"
-            },
-            type: d3.annotationCalloutRect,
-            x: x("October") - 150,
-            y: height+(y(months.get("October").get("post-Covid")))-30,
-            dx: -100,
-            dy: -200,
-            subject:{
-                width: 300,
-                height: 100
-            }
-    
-        },
+ 
 
     ]
     
