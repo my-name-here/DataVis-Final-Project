@@ -195,7 +195,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
-            .html(`month:${getBandFromValue((event.pageX- margin.left-bandwidth/2), x)}<br>day crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("day")} <br>night crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("night")}`)
+            .html(`month:${getBandFromValue((event.pageX- margin.left-bandwidth/2), x)}<br>post-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("pre-Covid")}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
@@ -204,37 +204,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     )
 
     const annotations = [
-        {
-        note: {
-            label: "The number of crashes during the day and during the night are closer in the Winter, with night even surpassing day at times.",
-            title: "Winter similarity"
-        },
-        type: d3.annotationCalloutCircle,
-        x: x("December")+bandwidth/2,
-        y: height+(y(months.get("December").get("day"))+y(months.get("December").get("night")))/2,
-        dx: -100,
-        dy: -10,
-        subject:{
-            radius: 30,
-        }
 
-        },
-        {
-            note: {
-                label: "During the Summer, there is a lot more crashes during the day compared to at night.",
-                title: "Summer difference"
-            },
-            type: d3.annotationCalloutRect,
-            x: x("May")+bandwidth/2,
-            y: height+y(months.get("May").get("day"))-30,
-            dx: 100,
-            dy: 100,
-            subject:{
-                width: 300,
-                height: 60
-            }
-    
-        },
 
     ]
     
