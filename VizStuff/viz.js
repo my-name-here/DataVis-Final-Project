@@ -17,3 +17,8 @@ Frame4.src = "Visualizations/viz4.html";
 var viz2btn = document.getElementById("submitViz2");
 var viz3btn = document.getElementById("submitViz3");
 var viz4btn = document.getElementById("submitViz4");
+
+
+viz2btn.addEventListener('click', funcViz2Btn);
+viz3btn.addEventListener('click', funcViz3Btn);
+viz4btn.addEventListener('click', funcViz4Btn);
