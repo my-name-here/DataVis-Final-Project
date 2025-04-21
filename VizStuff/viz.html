@@ -20,7 +20,12 @@
             <iframe id="viz2"></iframe>
         </div>
         <div class="sidebar">
-            sample sidebar
+            <!-- dropdown selection based on https://www.w3schools.com/html/html_form_elements.asp -->
+            <label for="chartMode">chartMode:</label>
+            <select id="chartMode" name="chartMode">
+            <option value="default">Main Chart</option>
+            <option value="Covid">pre and post covid trends</option>
+            </select>
         </div>
     </div>
 
