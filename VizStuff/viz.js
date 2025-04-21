@@ -11,3 +11,9 @@ Frame1.src = "Visualizations/viz1.html";
 Frame2.src = "Visualizations/viz2.html";
 Frame3.src = "Visualizations/viz3.html";
 Frame4.src = "Visualizations/viz4.html";
+
+
+// getting value of selection on submit  based on https://stackoverflow.com/q/56923127
+var viz2btn = document.getElementById("submitViz2");
+var viz3btn = document.getElementById("submitViz3");
+var viz4btn = document.getElementById("submitViz4");
