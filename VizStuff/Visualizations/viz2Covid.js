@@ -87,7 +87,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     
     // ordinal scale, see https://d3js.org/d3-scale/ordinal
     var colorScale = d3.scaleOrdinal()
-        .domain( ["day", "night"])
+        .domain( ["pre-Covid", "post-Covid"])
 
         // colors from colorbrewer
         .range(["#1b9e77", "#d95f02"])
@@ -127,7 +127,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
     monthsList = d3.map(d3.groups(data,d=>d.month),D=>D[0])
     console.log(monthsList)
-    dispRangeList = ["day", "night"]
+    dispRangeList = ["pre-Covid", "post-Covid"]
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(monthsList,dispRangeList))
     dataSpots = d3.cross(monthsList,dispRangeList)
