@@ -22,3 +22,15 @@ var viz4btn = document.getElementById("submitViz4");
 viz2btn.addEventListener('click', funcViz2Btn);
 viz3btn.addEventListener('click', funcViz3Btn);
 viz4btn.addEventListener('click', funcViz4Btn);
+
+
+function funcViz2Btn(){
+    viz2Val = document.getElementById("chartModeViz2").value;
+    if (viz2Val == "CovidViz2"){
+        Frame2.src = "Visualizations/viz1.html"
+    }
+    else{
+        Frame2.src = "Visualizations/viz2.html"
+    }
+
+}
