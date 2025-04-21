@@ -11,7 +11,7 @@
             <iframe id="viz1"></iframe>
         </div>
         <div class="sidebar">
-            sample sidebar
+            
         </div>
     </div>
 
@@ -36,7 +36,14 @@
             <iframe id="viz3"></iframe>
         </div>
         <div class="sidebar">
-            sample sidebar
+            <!-- dropdown selection based on https://www.w3schools.com/html/html_form_elements.asp -->
+            <label for="chartMode">chartMode:</label>
+            <select id="chartMode" name="chartMode">
+            <option value="default">Main Chart</option>
+            <option value="Covid">pre and post covid trends</option>
+            <option value="Covid">weekday vs weekend</option>
+            <input type="submit" value="update view">
+            </select>
         </div>
     </div>
 
@@ -45,7 +52,13 @@
             <iframe id="viz4"></iframe>
         </div>
         <div class="sidebar">
-            sample sidebar
+            <!-- dropdown selection based on https://www.w3schools.com/html/html_form_elements.asp -->
+            <label for="chartMode">chartMode:</label>
+            <select id="chartMode" name="chartMode">
+            <option value="default">Main Chart</option>
+            <option value="Covid">pre and post covid trends</option>
+            <input type="submit" value="update view">
+            </select>
         </div>
     </div>
     <script src="viz.js"></script>
