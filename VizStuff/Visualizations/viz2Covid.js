@@ -204,7 +204,22 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     )
 
     const annotations = [
-
+        {
+            note: {
+                label: "There seems to be similar monthly trends pre and post Covid, just with the number of crashes reduced post Covid ",
+                title: "Similar trends"
+            },
+            type: d3.annotationCalloutRect,
+            x: x("October")- 150,
+            y: height+(y(months.get("October").get("pre-Covid")))-30,
+            dx: -100,
+            dy: 200,
+            subject:{
+                width: 300,
+                height: height
+            }
+    
+        },
 
     ]
     
