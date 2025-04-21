@@ -208,7 +208,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
-            .html(`month:${getBandFromValue((event.pageX- margin.left-bandwidth/2), x)}<br>post-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("pre-Covid")}`)
+            .html(`hour:${getBandFromValue((event.pageX- margin.left-bandwidth/2), x)}<br>post-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("pre-Covid")}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
@@ -236,18 +236,18 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("y", height/2)
         
     svg.append("text")
-        .text("month")
+        .text("hour")
         .attr("x", width/2)
         .attr("y", height+margin.bottom/2)
 
     svg.append("text")
     
-        .text("line plot of the number of crashes per month, colored by whether it happened at day or night")
+        .text("line plot of the number of crashes per hour, colored by pre or post Covid")
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -margin.top/2)
     var legend = d3.legendColor()
-		.title("Color Legend: time of day")
+		.title("Color Legend: pre or post Covid")
 		.titleWidth(100)
         .cells(11) // change the number of cells during demo 
         .scale(colorScale);
