@@ -35,7 +35,7 @@ viz3btn.onclick = function(){
         Frame3.src = "Visualizations/viz3Covid.html"
     }
     else if (viz3Val == "weekdayViz3"){
-        Frame3.src = "Visualizations/viz2.html"
+        Frame3.src = "Visualizations/viz3weekend.html"
     }
     else{
         Frame3.src = "Visualizations/viz3.html"
