@@ -157,7 +157,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
             d3.select(".tooltip")
                 
-                .html(`Day of the week: ${d}<br>Crashes:
+                .html(`weekend or weekday: ${d}<br>Crashes:
                     ${days.get(d)}
                     `)
                 .style("opacity", 1)
@@ -195,13 +195,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("y", height/2)
         
     svg.append("text")
-        .text("day of the week")
+        .text("weekend or weekday")
         .attr("x", width/2)
         .attr("y", height+margin.bottom/2)
 
     svg.append("text")
     
-        .text("bar chart of the number of crashes per weekday")
+        .text("bar chart of the number of crashes on weekends vs weekdays")
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -margin.top/2)
