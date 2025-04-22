@@ -40,7 +40,7 @@ function getNextCat(CurCat){
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
     newDayIndex = Math.min(dayIndex+1, daysList.length -1 )
     return daysList[newDayIndex]
-
+}
 
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
@@ -55,13 +55,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const days = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday);
-    days.delete("");
+    var days = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => dayOfWeekCat(d.weekday));
+    days.set("weekday", days.get("weekday")/5) // avg crash per weekday
+    days.set("weekend", days.get("weekend")/2) //avg crash per weekend
     // for easier access in the y scale
     // removing last element based on https://stackoverflow.com/questions/19544452/remove-last-item-from-array#comment84683867_19544452
 
-    const daysTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.weekday).slice(0,-1);
-
+    var daysTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => dayOfWeekCat(d.weekday));
+    daysTmp[0][1] = daysTmp[0][1]/5 //avg crashes per weekday
+    daysTmp[1][1] = daysTmp[1][1]/2 //avg crashes per weekend
 
     console.log(days)
     console.log(daysTmp)
@@ -102,7 +104,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
     // remove last element again
-    daysList = d3.map(d3.groups(data,d=>d.weekday),D=>D[0]).slice(0,-1);
+    daysList = ["weekday","weekend"];
     console.log(daysList)
 
     // see https://d3js.org/d3-array/transform for cross
