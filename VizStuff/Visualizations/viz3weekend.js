@@ -157,7 +157,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
             d3.select(".tooltip")
                 
-                .html(`weekend or weekday: ${d}<br>Crashes:
+                .html(`weekend or weekday: ${d}<br>Avg crashes per day:
                     ${days.get(d)}
                     `)
                 .style("opacity", 1)
