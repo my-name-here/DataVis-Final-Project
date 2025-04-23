@@ -23,3 +23,9 @@ body{
     height: 95vh;
     width: 80%;
 }
+
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
