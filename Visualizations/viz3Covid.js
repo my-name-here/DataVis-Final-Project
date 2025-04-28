@@ -219,17 +219,17 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const annotations = [
         {
             note: {
-                label: "The post-Covid crash trend for days of the week is a lot flatter than the pre-Covid trend. This might be from more people working remotely during the week, reducing crashes on weekdays.",
-                title: "Flatter trends post-Covid"
+                label: "The post-Covid crash trend for days of the week is significantly reduced compared to pre-covid. This could indicate that more people are working remotely, even today.",
+                title: "Reduced weekday crashes"
             },
             type: d3.annotationCalloutRect,
-            x: x("Friday") - 150,
-            y: height+(y(months.get("Friday").get("post-Covid")))-30,
-            dx: -100,
-            dy: -200,
+            x: x("Wednesday") - 150,
+            y: height+(y(months.get("Wednesday").get("post-Covid")))-100,
+            dx: -50,
+            dy: -100,
             subject:{
-                width: 300,
-                height: 100
+                width: 500,
+                height: 200
             }
     
         },
