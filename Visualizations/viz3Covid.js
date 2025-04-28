@@ -66,9 +66,18 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     const months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
+
+    months.forEach(function(value, key){
+        value.set("pre-Covid", value.get("pre-Covid")/15)
+        value.set("post-Covid", value.get("post-Covid")/5)
+
+    })
     // for easier access in the y scale
     const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
-
+    monthsTmp.forEach(function(element){
+        element[1][0][1] /= (element[1][0][0] == "pre-Covid" ? 15:5)
+        element[1][1][1] /= (element[1][1][0] == "pre-Covid" ? 15:5)
+    })
     console.log(months)
     console.log(d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1])))
     console.log(d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1])))
@@ -195,7 +204,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
-            .html(`day of week:${getBandFromValue((d3.pointer(event)[0]-bandwidth/2), x)}<br>post-Covid crashes: ${months.get(getBandFromValue((d3.pointer(event)[0]- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("pre-Covid")}`)
+            .html(`day of week:${getBandFromValue((d3.pointer(event)[0]-bandwidth/2), x)}<br>post-Covid crashes per year: ${months.get(getBandFromValue((d3.pointer(event)[0]- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes per year: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("pre-Covid")}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
