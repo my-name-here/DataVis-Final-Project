@@ -188,14 +188,16 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     )
     .on("mousemove", function(event){
         d3.select(".lineMarker")
-            .attr("x1", `${event.pageX - margin.left}`)
-            .attr("x2", `${event.pageX - margin.left}`)
+            // d3.pointer(event) from https://d3js.org/d3-selection/events
+
+            .attr("x1", `${d3.pointer(event)[0] }`)
+            .attr("x2", `${d3.pointer(event)[0] }`)
             .attr("y1", -margin.top)
             .attr("y2", height)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
-            .html(`month:${getBandFromValue((event.pageX- margin.left-bandwidth/2), x)}<br>day crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("day")} <br>night crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("night")}`)
+            .html(`month:${getBandFromValue((d3.pointer(event)[0] -bandwidth/2), x)}<br>day crashes: ${months.get(getBandFromValue((d3.pointer(event)[0] - bandwidth/2), x)).get("day")} <br>night crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("night")}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
