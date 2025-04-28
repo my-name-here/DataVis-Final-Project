@@ -222,7 +222,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const annotations = [
         {
             note: {
-                label: "The number of crashes in the Mission seems to peak around hour 18(6:00pm). Other neighborhoods peak around this time as well, with the Financial district and South of Market both peaking around 5pm.",
+                label: "The number of crashes in the Mission  peaks around 6:00pm. The Financial district and South of Market both peak around 5pm.",
                 title: "multiple neighborhoods peak around 6pm"
             },
         
@@ -235,7 +235,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         },
         {
             note: {
-                label: "The number of crashes in the Tenderloin peaks around 3pm, about 3 hours before it peaks in the Mission, and 2 hours before it peaks in the Financial district and South of Market",
+                label: "The number of crashes in the Tenderloin peaks around 3pm, 3 hours before the peak in the Mission.",
                 title: "Tenderloin has different peak"
             },
         
