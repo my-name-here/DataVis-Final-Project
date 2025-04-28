@@ -12,8 +12,9 @@ const maxSize = 6
 let months
 const svg = d3.select("#chart-container")
     .append("svg")
-    .attr("width", svgWidth)
-    .attr("height", svgHeight)
+    // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
+    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+    
     
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top}) `);
