@@ -65,7 +65,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    const months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
+    var months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
 
     months.forEach(function(value, key){
         value.set("pre-Covid", value.get("pre-Covid")/15)
@@ -73,7 +73,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     })
     // for easier access in the y scale
-    const monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
+    var monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
+    console.log(monthsTmp)
+    // remove the last element that is null("") (see https://stackoverflow.com/a/19544524)
+    monthsTmp = monthsTmp.slice(0,-1)
+    console.log(monthsTmp)
     monthsTmp.forEach(function(element){
         element[1][0][1] /= (element[1][0][0] == "pre-Covid" ? 15:5)
         element[1][1][1] /= (element[1][1][0] == "pre-Covid" ? 15:5)
