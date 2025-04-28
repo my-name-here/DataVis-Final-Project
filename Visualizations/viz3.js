@@ -172,7 +172,7 @@ console.log(x("Monday"))
     const annotations = [
         {
             note: {
-                label: "Friday has the most crashes of any day of the week, with most other weekdays having around 500 less crashes.",
+                label: "Friday has the most crashes of any day of the week.",
                 title: "Friday peak"
             },
             type: d3.annotationCalloutLabel,
@@ -185,7 +185,7 @@ console.log(x("Monday"))
         },
         {
             note: {
-                label: "The weekend, especially Sunday, have lower crash rates than most weekdays. The exception to this is Monday, which has a similar crash rate to Saturday",
+                label: "The weekend, especially Sunday, have lower crash rates than most weekdays. ",
                 title: "Weekend dip"
             },
             type: d3.annotationCalloutLabel,
