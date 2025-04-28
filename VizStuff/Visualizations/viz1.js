@@ -13,9 +13,8 @@ let yearChoices = [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2
 let years
 const svg = d3.select("#chart-container")
     .append("svg")
-    .attr("width", svgWidth)
-    .attr("height", svgHeight)
-    
+    // using viewbox instead of width and height based on https://stackoverflow.com/a/63156174
+    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
     .append("g")
     .attr("transform", ` translate(${margin.left},${margin.top}) `);
 
