@@ -179,7 +179,7 @@ console.log(x("Monday"))
             x: x("Friday")+x.step()/2,
             y: height+y(days.get("Friday")),
             dx: -70,
-            dy: 100,
+            dy: 50,
 
     
         },
@@ -192,7 +192,7 @@ console.log(x("Monday"))
             x: x("Sunday")+x.step()/2,
             y: height+y(days.get("Sunday")),
             dx: 50,
-            dy: -65,
+            dy: -75,
 
     
         },
