@@ -7,11 +7,10 @@ const yearlyMargin = { top: 50, right: 20, bottom: 70, left: 100 };
 const yearlyWidth = yearlySvgWidth - yearlyMargin.left - yearlyMargin.right;
 const yearlyheight = yearlySvgHeight - yearlyMargin.top - yearlyMargin.bottom;
 
-const minSize = 1
-const maxSize = 6
+
 let yearChoices = [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
 let years
-const svg = d3.select(".chart-container-yearly")
+const yearlySvg = d3.select(".chart-container-yearly")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${yearlySvgWidth} ${yearlySvgHeight}`)
@@ -52,39 +51,39 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const y = d3.scaleLinear()
         .domain([d3.min(years, d => d[1])-2, d3.max(years, d => d[1])+2])
         .nice()
-        .range([ 0, -height])
+        .range([ 0, -yearlyheight])
         //.padding(0.1);
 
     const x = d3.scaleBand()
         .domain(yearChoices)
-        .range([ 0, width]);
+        .range([ 0, yearlyWidth]);
     
 
 
 
     
     // Add X and Y axes
-    svg.append("g")
+    yearlySvg.append("g")
         .attr("class", "axis axis-x")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${yearlyheight})`)
         .call(d3.axisBottom(x).ticks(20));
 
-    svg.append("g")
+        yearlySvg.append("g")
         .attr("class", "axis axis-y")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${yearlyheight})`)
         .call(d3.axisLeft(y).ticks(20));
 
     // Add bars
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
     let maxYear = d3.max(data, d => d["year"])
 
-    svg.append("line")
+    yearlySvg.append("line")
 
         .attr("class", "lineMarker")
         .attr("x1", 300)
         .attr("y1", 0)
         .attr("x2", 300)
-        .attr("y2", height)
+        .attr("y2", yearlyheight)
         .attr("strokewidth", 2)
         .attr("stroke","black")
         .attr("style", "opacity: 0")
@@ -100,7 +99,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
 
 
-    bars =  svg.selectAll(".bar")
+    bars =  yearlySvg.selectAll(".bar")
         .data(years)
         .enter()
         .append("g")
@@ -116,7 +115,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("stroke-width", 2)
         .attr("stroke", "black")
 
-        .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
+        .attr("transform", `translate(0, ${yearlyheight})`)// translate points down to match with axis
     bars.append("circle")
         .attr("test", d => `${years.get(Math.min(d[0], maxYear))}`)
         .attr("cx", d => x(d[0])+ bandwidth/2)
@@ -124,17 +123,17 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
        
         .attr("r", 3)
 
-        .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
+        .attr("transform", `translate(0, ${yearlyheight})`)// translate points down to match with axis
 
     
     console.log(x(d3.timeParse("%Y")("2024")))
     console.log(x(2009))
     console.log(getBandFromValue(x(2009),x))
-    svg.append("rect")
+    yearlySvg.append("rect")
         .attr("x", -10)
-        .attr("y", -margin.top)
-        .attr("width", width+10)
-        .attr("height", svgHeight)
+        .attr("y", -yearlyMargin.top)
+        .attr("width", yearlyWidth+10)
+        .attr("height", yearlySvgHeight)
         .attr("style", "opacity:0")
     .on("mouseover", function(event){
             
@@ -154,8 +153,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             // d3.pointer(event) from https://d3js.org/d3-selection/events
             .attr("x1", `${d3.pointer(event)[0] }`)
             .attr("x2", `${d3.pointer(event)[0] }`)
-            .attr("y1", -margin.top)
-            .attr("y2", height)
+            .attr("y1", -yearlyMargin.top)
+            .attr("y2", yearlyheight)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
@@ -184,7 +183,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         },
         type: d3.annotationCalloutCircle,
         x: x(2020)+bandwidth/2,
-        y: height+y(years.get(2020)),
+        y: yearlyheight+y(years.get(2020)),
         dx: 100,
         dy: -100,
         subject:{
@@ -199,7 +198,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             },
             type: d3.annotationCalloutCircle,
             x: x(2019)+bandwidth/2,
-            y: height+y(years.get(2019)),
+            y: yearlyheight+y(years.get(2019)),
             dx: 100,
             dy: 100,
             subject:{
@@ -214,7 +213,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             },
             type: d3.annotationCalloutCircle,
             x: x(2024)+bandwidth/2,
-            y: height+y(years.get(2024)),
+            y: yearlyheight+y(years.get(2024)),
             dx: -200,
             dy:20,
             subject:{
@@ -230,25 +229,25 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .annotations(annotations)
     d3.select("svg")
         .append("g")
-        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .attr("transform", ` translate(${yearlyMargin.left},${yearlyMargin.top}) `)
         .call(makeAnnotations);
   
   
-    svg.append("text")
+    yearlySvg.append("text")
         .text("accidents")
         .attr("x", -100)
-        .attr("y", height/2)
+        .attr("y", yearlyheight/2)
         
-    svg.append("text")
+    yearlySvg.append("text")
         .text("year")
-        .attr("x", width/2)
-        .attr("y", height+margin.bottom/2)
+        .attr("x", yearlyWidth/2)
+        .attr("y", yearlyheight+yearlyMargin.bottom/2)
 
-    svg.append("text")
+    yearlySvg.append("text")
     
         .text("line plot of the number of accidents per year")
         .attr("class", "title")
         .attr("x", 0)
-        .attr("y", -margin.top/2)
+        .attr("y", -yearlyMargin.top/2)
 
 });
