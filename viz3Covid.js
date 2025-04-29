@@ -1,19 +1,16 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const svgWidth = 1200;
-const svgHeight = 1000;
-const margin = { top: 50, right: 150, bottom: 70, left: 150 };
-const width = svgWidth - margin.left - margin.right;
-const height = svgHeight - margin.top - margin.bottom;
+const weeklyCovidSvgWidth = 1200;
+const weeklyCovidSvgHeight = 1000;
+const weeklyCovidMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const weeklyCovidWidth = weeklyCovidSvgWidth - weeklyCovidMargin.left - weeklyCovidMargin.right;
+const weeklyCovidHeight = weeklyCovidSvgHeight - weeklyCovidMargin.top - weeklyCovidMargin.bottom;
 
-const minSize = 1
-const maxSize = 6
-let DayOptions = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+let DayOptionsCovid = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
-let months
 
-const svg = d3.select("#chart-container")
+const weeklyCovidSvg = d3.select("#chart-container")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
