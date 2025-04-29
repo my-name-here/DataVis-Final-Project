@@ -12,6 +12,7 @@ let DayOptionsCovid = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "
 
 const weeklyCovidSvg = d3.select(".chart-container-weeklyCovid")
     .append("svg")
+    .attr("id", "weeklyCovidChart")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${weeklyCovidSvgWidth} ${weeklyCovidSvgHeight}`)
     
@@ -237,7 +238,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const makeAnnotations = d3.annotation()
         
         .annotations(annotations)
-    d3.select("svg")
+    d3.select("#weeklyCovidChart")
         .append("g")
         .attr("transform", ` translate(${weeklyCovidMargin.left},${weeklyCovidMargin.top}) `)
         .call(makeAnnotations);
