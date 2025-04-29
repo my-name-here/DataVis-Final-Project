@@ -9,8 +9,8 @@ const monthlyCovidHeight = monthlySvgHeight - monthlyMargin.top - monthlyMargin.
 
 
 
-let monthOptions = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
-let months
+let monthOptionsCovid = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
+
 
 const svg = d3.select(".chart-container-monthlyCovid")
     .append("svg")
@@ -34,7 +34,7 @@ function CovCat(i){
 // this replaces the max(d[0]+1, maxMonth) in the x2 and y2 of the lines
 function getNextMonth(CurMonth){
     // first create a list of months, which we will locate the provided month in, then get the next one
-    var monthList = monthOptions
+    var monthList = monthOptionsCovid
     //get index of current month
     monthIndex = monthList.indexOf(CurMonth)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
