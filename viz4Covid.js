@@ -130,7 +130,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     hourlyCovidSvg.append("line")
 
-        .attr("class", "lineMarker")
+        .attr("class", "lineMarkerHourlyCovid")
         .attr("x1", 300)
         .attr("y1", 0)
         .attr("x2", 300)
@@ -207,7 +207,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         }
     )
     .on("mousemove", function(event){
-        d3.select(".lineMarker")
+        d3.select(".lineMarkerHourlyCovid")
             // d3.pointer(event) from https://d3js.org/d3-selection/events
 
             .attr("x1", `${d3.pointer(event)[0]}`)
