@@ -43,7 +43,7 @@ function getNextHour(CurMonth){
 }
 
 
-console.log(getNextMonth("December"))
+// console.log(getNextHour("December"))
 
 
 // getting band from value using https://stackoverflow.com/a/38746923
@@ -170,8 +170,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("test", d => `${d}`)
         .attr("x1", d => x(d[0])+bandwidth/2)
         .attr("y1", d => y(months.get(d[0]).get(d[1])))
-        .attr("x2", d => x(getNextMonth(d[0]))+bandwidth/2)
-        .attr("y2", d => y(months.get(getNextMonth(d[0])).get(d[1])))
+        .attr("x2", d => x(getNextHour(d[0]))+bandwidth/2)
+        .attr("y2", d => y(months.get(getNextHour(d[0])).get(d[1])))
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
 
