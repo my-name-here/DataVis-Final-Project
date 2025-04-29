@@ -13,6 +13,7 @@ let months
 
 const monthlySvg = d3.select(".chart-container-monthly")
     .append("svg")
+    .attr("id", "monthlyChart")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${monthlySvgWidth} ${monthlySvgHeight}`)
     
@@ -244,7 +245,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const makeAnnotations = d3.annotation()
         
         .annotations(annotations)
-    d3.select("svg")
+    d3.select("#monthlyChart")
         .append("g")
         .attr("transform", ` translate(${monthlyMargin.left},${monthlyMargin.top}) `)
         .call(makeAnnotations);
