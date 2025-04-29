@@ -90,7 +90,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         //.padding(0.1);
 
     const x = d3.scaleBand()
-        .domain(DayOptions)
+        .domain(DayOptionsCovid)
         .range([ 0, weeklyCovidWidth]);
     
     // ordinal scale, see https://d3js.org/d3-scale/ordinal
@@ -133,7 +133,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(maxMonth)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    monthsList = DayOptions
+    monthsList = DayOptionsCovid
     console.log(monthsList)
     dispRangeList = ["pre-Covid", "post-Covid"]
     // see https://d3js.org/d3-array/transform for cross
