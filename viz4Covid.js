@@ -1,24 +1,23 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const svgWidth = 1200;
-const svgHeight = 1000;
-const margin = { top: 50, right: 150, bottom: 70, left: 150 };
-const width = svgWidth - margin.left - margin.right;
-const height = svgHeight - margin.top - margin.bottom;
+const hourlyCovidSvgWidth = 1200;
+const hourlyCovidSvgHeight = 1000;
+const hourlyCovidMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const hourlyCovidWidth = hourlyCovidSvgWidth - hourlyCovidMargin.left - hourlyCovidMargin.right;
+const hourlyCovidHeight = hourlyCovidSvgHeight - hourlyCovidMargin.top - hourlyCovidMargin.bottom;
 
-const minSize = 1
-const maxSize = 6
+
 let hourOptions = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
-let months
 
-const svg = d3.select("#chart-container")
+
+const hourlyCovidSvg = d3.select(".chart-container-hourlyCovid")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
-    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+    .attr("viewBox", `0 0 ${hourlyCovidSvgWidth} ${hourlyCovidSvgHeight}`)
     
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top}) `);
+    .attr("transform", `translate(${hourlyCovidMargin.left},${hourlyCovidMargin.top}) `);
 
 // a function that takes a displacement, and converts it to a string representing the range
 function CovCat(i){
@@ -99,12 +98,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const y = d3.scaleLinear()
         .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
         .nice()
-        .range([ 0, -height])
+        .range([ 0, -hourlyCovidHeight])
         //.padding(0.1);
 
     const x = d3.scaleBand()
         .domain(hourOptions)
-        .range([ 0, width]);
+        .range([ 0, hourlyCovidWidth]);
     
     // ordinal scale, see https://d3js.org/d3-scale/ordinal
     var colorScale = d3.scaleOrdinal()
@@ -116,26 +115,26 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
 
     // Add X and Y axes
-    svg.append("g")
+    hourlyCovidSvg.append("g")
         .attr("class", "axis axis-x")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${hourlyCovidHeight})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
         .call(d3.axisBottom(x).ticks(12)
     );
 
-    svg.append("g")
+    hourlyCovidSvg.append("g")
         .attr("class", "axis axis-y")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${hourlyCovidHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
 
-    svg.append("line")
+    hourlyCovidSvg.append("line")
 
         .attr("class", "lineMarker")
         .attr("x1", 300)
         .attr("y1", 0)
         .attr("x2", 300)
-        .attr("y2", height)
+        .attr("y2", hourlyCovidHeight)
         .attr("strokewidth", 2)
         .attr("stroke","black")
         .attr("style", "opacity: 0")
@@ -161,7 +160,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "tooltip")
 
     
-    bars =  svg.selectAll(".bar")
+    bars =  hourlyCovidSvg.selectAll(".bar")
         .data(dataSpots)
         .enter()
         .append("g")
@@ -176,7 +175,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
 
-        .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
+        .attr("transform", `translate(0, ${hourlyCovidHeight})`)// translate points down to match with axis
 
     // bars.append("text")
     //     .attr("class", "barLabel")
@@ -188,11 +187,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(x(d3.timeParse("%Y")("2024")))
     console.log(x(2009))
     console.log(getBandFromValue(x(2009),x))
-    svg.append("rect")
+    hourlyCovidSvg.append("rect")
         .attr("x", -10)
-        .attr("y", -margin.top)
-        .attr("width", width+10)
-        .attr("height", svgHeight)
+        .attr("y", -hourlyCovidMargin.top)
+        .attr("width", hourlyCovidWidth+10)
+        .attr("height", hourlyCovidSvgHeight)
         .attr("style", "opacity:0")
     .on("mouseover", function(event){
             
@@ -213,8 +212,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
             .attr("x1", `${d3.pointer(event)[0]}`)
             .attr("x2", `${d3.pointer(event)[0]}`)
-            .attr("y1", -margin.top)
-            .attr("y2", height)
+            .attr("y1", -hourlyCovidMargin.top)
+            .attr("y2", hourlyCovidHeight)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
@@ -237,25 +236,25 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .annotations(annotations)
     d3.select("svg")
         .append("g")
-        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .attr("transform", ` translate(${hourlyCovidMargin.left},${hourlyCovidMargin.top}) `)
         .call(makeAnnotations);
   
-    svg.append("text")
+    hourlyCovidSvg.append("text")
         .text("accident count")
         .attr("x", -150)
-        .attr("y", height/2)
+        .attr("y", hourlyCovidHeight/2)
         
-    svg.append("text")
+    hourlyCovidSvg.append("text")
         .text("hour")
-        .attr("x", width/2)
-        .attr("y", height+margin.bottom/2)
+        .attr("x", hourlyCovidWidth/2)
+        .attr("y", hourlyCovidHeight+hourlyCovidMargin.bottom/2)
 
-    svg.append("text")
+    hourlyCovidSvg.append("text")
     
         .text("line plot of the number of crashes per hour, colored by pre or post Covid")
         .attr("class", "title")
         .attr("x", 0)
-        .attr("y", -margin.top/2)
+        .attr("y", -hourlyCovidMargin.top/2)
     var legend = d3.legendColor()
 		.title("Color Legend: pre or post Covid")
 		.titleWidth(100)
@@ -263,7 +262,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .scale(colorScale);
 		
 
-    svg.append("g")
-        .attr("transform", `translate(${width+10},0)`)
+    hourlyCovidSvg.append("g")
+        .attr("transform", `translate(${hourlyCovidWidth+10},0)`)
         .call(legend);
 });
