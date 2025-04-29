@@ -24,6 +24,7 @@ function getNextHour(CurHour){
 
 const hourlySvg = d3.select(".chart-container-hourly")
     .append("svg")
+    .attr("id", "hourlyChart")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${hourlySvgWidth} ${hourlySvgHeight}`)
     
@@ -250,7 +251,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const makeAnnotations = d3.annotation()
         
         .annotations(annotations)
-    d3.select("svg")
+    d3.select("#hourlyChart")
         .append("g")
         .attr("transform", ` translate(${hourlyMargin.left},${hourlyMargin.top}) `)
         .call(makeAnnotations);
