@@ -1,22 +1,20 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const svgWidth = 1200;
-const svgHeight = 1000;
-const margin = { top: 50, right: 150, bottom: 70, left: 150 };
-const width = svgWidth - margin.left - margin.right;
-const height = svgHeight - margin.top - margin.bottom;
+const weeklySvgWidth = 1200;
+const weeklySvgHeight = 1000;
+const weeklyMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const weeklyWidth = weeklySvgWidth - weeklyMargin.left - weeklyMargin.right;
+const weeklyHeight = weeklySvgHeight - weeklyMargin.top - weeklyMargin.bottom;
 
-const minSize = 1
-const maxSize = 6
-let months
-const svg = d3.select("#chart-container")
+
+const weeklySvg = d3.select("#chart-container")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
-    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+    .attr("viewBox", `0 0 ${weeklySvgWidth} ${weeklySvgHeight}`)
     
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top}) `);
+    .attr("transform", `translate(${weeklyMargin.left},${weeklyMargin.top}) `);
 
 // a function that takes a day of the week, and returns it
 function dayOfWeek(i){
@@ -67,27 +65,27 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const y = d3.scaleLinear()
         .domain([0, d3.max(daysTmp,  d=>d[1])+2])
         .nice()
-        .range([ 0, -height])
+        .range([ 0, -weeklyHeight])
         //.padding(0.1);
 
     // use scaleBand instead of scale time, see https://stackoverflow.com/a/38820431
     const x = d3.scaleBand()
         .domain(["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"])
-        .range([ 0, width]);
+        .range([ 0, weeklyWidth]);
     
 console.log(x("Monday"))
 
     // Add X and Y axes
-    svg.append("g")
+    weeklySvg.append("g")
         .attr("class", "axis axis-x")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${weeklyHeight})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
         .call(d3.axisBottom(x).ticks(10)
     );
 
-    svg.append("g")
+    weeklySvg.append("g")
         .attr("class", "axis axis-y")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${weeklyHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
     // Add bars
@@ -118,7 +116,7 @@ console.log(x("Monday"))
 
 
 
-    bars =  svg.selectAll(".bar")
+    bars =  weeklySvg.selectAll(".bar")
         .data(daysList)
         .enter()
         .append("g")
@@ -130,7 +128,7 @@ console.log(x("Monday"))
         .attr("test", d=>y(days.get(d)))
 
         .attr("x", d=>x(d))
-        .attr("y", d=>height+y(days.get(d)))
+        .attr("y", d=>weeklyHeight+y(days.get(d)))
         .attr("width", barWidth)
         .attr("height", d=>-y(days.get(d)))
         .attr("fill","lightblue")
@@ -177,7 +175,7 @@ console.log(x("Monday"))
             },
             type: d3.annotationCalloutLabel,
             x: x("Friday")+x.step()/2,
-            y: height+y(days.get("Friday")),
+            y: weeklyHeight+y(days.get("Friday")),
             dx: -70,
             dy: 50,
 
@@ -190,7 +188,7 @@ console.log(x("Monday"))
             },
             type: d3.annotationCalloutLabel,
             x: x("Sunday")+x.step()/2,
-            y: height+y(days.get("Sunday")),
+            y: weeklyHeight+y(days.get("Sunday")),
             dx: 50,
             dy: -75,
 
@@ -205,27 +203,27 @@ console.log(x("Monday"))
         .annotations(annotations)
     d3.select("svg")
         .append("g")
-        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .attr("transform", ` translate(${weeklyMargin.left},${weeklyMargin.top}) `)
         .call(makeAnnotations);
   
 
 
-    svg.append("text")
+    weeklySvg.append("text")
         .text("accident count")
         .attr("x", -150)
-        .attr("y", height/2)
+        .attr("y", weeklyHeight/2)
         
-    svg.append("text")
+    weeklySvg.append("text")
         .text("day of the week")
-        .attr("x", width/2)
-        .attr("y", height+margin.bottom/2)
+        .attr("x", weeklyWidth/2)
+        .attr("y", weeklyHeight+weeklyMargin.bottom/2)
 
-    svg.append("text")
+    weeklySvg.append("text")
     
         .text("bar chart of the number of crashes per weekday")
         .attr("class", "title")
         .attr("x", 0)
-        .attr("y", -margin.top/2)
+        .attr("y", -weeklyMargin.top/2)
 
 
 
