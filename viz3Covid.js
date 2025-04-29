@@ -13,10 +13,10 @@ let DayOptionsCovid = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "
 const weeklyCovidSvg = d3.select("#chart-container")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
-    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+    .attr("viewBox", `0 0 ${weeklyCovidSvgWidth} ${weeklyCovidSvgHeight}`)
     
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top}) `);
+    .attr("transform", `translate(${weeklyCovidMargin.left},${weeklyCovidMargin.top}) `);
 
 // a function that takes a displacement, and converts it to a string representing the range
 function CovCat(i){
@@ -86,12 +86,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const y = d3.scaleLinear()
         .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
         .nice()
-        .range([ 0, -height])
+        .range([ 0, -weeklyCovidHeight])
         //.padding(0.1);
 
     const x = d3.scaleBand()
         .domain(DayOptions)
-        .range([ 0, width]);
+        .range([ 0, weeklyCovidWidth]);
     
     // ordinal scale, see https://d3js.org/d3-scale/ordinal
     var colorScale = d3.scaleOrdinal()
@@ -103,26 +103,26 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
 
     // Add X and Y axes
-    svg.append("g")
+    weeklyCovidSvg.append("g")
         .attr("class", "axis axis-x")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${weeklyCovidHeight})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
         .call(d3.axisBottom(x).ticks(12)
     );
 
-    svg.append("g")
+    weeklyCovidSvg.append("g")
         .attr("class", "axis axis-y")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${weeklyCovidHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
 
-    svg.append("line")
+    weeklyCovidSvg.append("line")
 
         .attr("class", "lineMarker")
         .attr("x1", 300)
         .attr("y1", 0)
         .attr("x2", 300)
-        .attr("y2", height)
+        .attr("y2", weeklyCovidHeight)
         .attr("strokewidth", 2)
         .attr("stroke","black")
         .attr("style", "opacity: 0")
@@ -148,7 +148,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "tooltip")
 
     
-    bars =  svg.selectAll(".bar")
+    bars =  weeklyCovidSvg.selectAll(".bar")
         .data(dataSpots)
         .enter()
         .append("g")
@@ -163,7 +163,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
 
-        .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
+        .attr("transform", `translate(0, ${weeklyCovidHeight})`)// translate points down to match with axis
 
     // bars.append("text")
     //     .attr("class", "barLabel")
@@ -175,11 +175,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(x(d3.timeParse("%Y")("2024")))
     console.log(x(2009))
     console.log(getBandFromValue(x(2009),x))
-    svg.append("rect")
+    weeklyCovidSvg.append("rect")
         .attr("x", -10)
-        .attr("y", -margin.top)
-        .attr("width", width+10)
-        .attr("height", svgHeight)
+        .attr("y", -weeklyCovidMargin.top)
+        .attr("width", weeklyCovidWidth+10)
+        .attr("height", weeklyCovidSvgHeight)
         .attr("style", "opacity:0")
     .on("mouseover", function(event){
             
@@ -200,8 +200,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
             .attr("x1", `${d3.pointer(event)[0]}`)
             .attr("x2", `${d3.pointer(event)[0]}`)
-            .attr("y1", -margin.top)
-            .attr("y2", height)
+            .attr("y1", -weeklyCovidMargin.top)
+            .attr("y2", weeklyCovidHeight)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
@@ -221,7 +221,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             },
             type: d3.annotationCalloutRect,
             x: x("Wednesday") - 150,
-            y: height+(y(months.get("Wednesday").get("post-Covid")))-100,
+            y: weeklyCovidHeight+(y(months.get("Wednesday").get("post-Covid")))-100,
             dx: -50,
             dy: -50,
             subject:{
@@ -239,25 +239,25 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .annotations(annotations)
     d3.select("svg")
         .append("g")
-        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .attr("transform", ` translate(${weeklyCovidMargin.left},${weeklyCovidMargin.top}) `)
         .call(makeAnnotations);
   
-    svg.append("text")
+    weeklyCovidSvg.append("text")
         .text("accident count")
         .attr("x", -150)
-        .attr("y", height/2)
+        .attr("y", weeklyCovidHeight/2)
         
-    svg.append("text")
+    weeklyCovidSvg.append("text")
         .text("day of week")
-        .attr("x", width/2)
-        .attr("y", height+margin.bottom/2)
+        .attr("x", weeklyCovidWidth/2)
+        .attr("y", weeklyCovidHeight+weeklyCovidMargin.bottom/2)
 
-    svg.append("text")
+    weeklyCovidSvg.append("text")
     
         .text("line plot of the number of crashes each day of the week, colored by whether it is pre or post covid")
         .attr("class", "title")
         .attr("x", 0)
-        .attr("y", -margin.top/2)
+        .attr("y", -weeklyCovidMargin.top/2)
     var legend = d3.legendColor()
 		.title("Color Legend: pre or post covid")
 		.titleWidth(100)
@@ -265,7 +265,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .scale(colorScale);
 		
 
-    svg.append("g")
-        .attr("transform", `translate(${width+10},0)`)
+    weeklyCovidSvg.append("g")
+        .attr("transform", `translate(${weeklyCovidWidth+10},0)`)
         .call(legend);
 });
