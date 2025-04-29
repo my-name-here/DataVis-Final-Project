@@ -10,6 +10,7 @@ const weeklyHeight = weeklySvgHeight - weeklyMargin.top - weeklyMargin.bottom;
 
 const weeklySvg = d3.select(".chart-container-weekly")
     .append("svg")
+    .attr("id", "weeklyChart")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${weeklySvgWidth} ${weeklySvgHeight}`)
     
@@ -201,7 +202,7 @@ console.log(x("Monday"))
     const makeAnnotations = d3.annotation()
         
         .annotations(annotations)
-    d3.select("svg")
+    d3.select("#weeklyChart")
         .append("g")
         .attr("transform", ` translate(${weeklyMargin.left},${weeklyMargin.top}) `)
         .call(makeAnnotations);
