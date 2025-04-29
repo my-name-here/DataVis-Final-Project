@@ -129,7 +129,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     dispRangeList = ["day", "night"]
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(monthsList,dispRangeList))
-    dataSpots = d3.cross(monthsList,dispRangeList)
+    monthlyDataSpots = d3.cross(monthsList,dispRangeList)
 
     bandwidth = x("February")- x("January")
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
@@ -140,12 +140,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     
     bars =  monthlySvg.selectAll(".bar")
-        .data(dataSpots)
+        .data(monthlyDataSpots)
         .enter()
         .append("g")
     console.log(months.get("January"))
-    console.log(dataSpots)
-    monthlySvg.append("line")
+    console.log("hello")
+    console.log(monthlyDataSpots)
+    bars.append("line")
         .attr("test", d => `${d}`)
         .attr("x1", d => x(d[0])+bandwidth/2)
         .attr("y1", d => y(months.get(d[0]).get(d[1])))
