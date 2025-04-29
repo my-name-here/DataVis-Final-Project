@@ -1,24 +1,23 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const svgWidth = 1200;
-const svgHeight = 1000;
-const margin = { top: 50, right: 150, bottom: 70, left: 150 };
-const width = svgWidth - margin.left - margin.right;
-const height = svgHeight - margin.top - margin.bottom;
+const monthlySvgWidth = 1200;
+const monthlySvgHeight = 1000;
+const monthlyMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const monthlyWidth = monthlySvgWidth - monthlyMargin.left - monthlyMargin.right;
+const monthlyHeight = monthlySvgHeight - monthlyMargin.top - monthlyMargin.bottom;
 
-const minSize = 1
-const maxSize = 6
+
 let monthOptions = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
 let months
 
-const svg = d3.select("#chart-container")
+const monthlySvg = d3.select(".chart-container-monthly")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
-    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+    .attr("viewBox", `0 0 ${monthlySvgWidth} ${monthlySvgHeight}`)
     
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top}) `);
+    .attr("transform", `translate(${monthlyMargin.left},${monthlyMargin.top}) `);
 
 // a function that takes a displacement, and converts it to a string representing the range
 function lightCat(i){
@@ -78,12 +77,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const y = d3.scaleLinear()
         .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
         .nice()
-        .range([ 0, -height])
+        .range([ 0, -monthlyHeight])
         //.padding(0.1);
 
     const x = d3.scaleBand()
         .domain(monthOptions)
-        .range([ 0, width]);
+        .range([ 0, monthlyWidth]);
     
     // ordinal scale, see https://d3js.org/d3-scale/ordinal
     var colorScale = d3.scaleOrdinal()
@@ -95,26 +94,26 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
 
     // Add X and Y axes
-    svg.append("g")
+    monthlySvg.append("g")
         .attr("class", "axis axis-x")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${monthlyHeight})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
         .call(d3.axisBottom(x).ticks(12)
     );
 
-    svg.append("g")
+    monthlySvg.append("g")
         .attr("class", "axis axis-y")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${monthlyHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
 
-    svg.append("line")
+    monthlySvg.append("line")
 
         .attr("class", "lineMarker")
         .attr("x1", 300)
         .attr("y1", 0)
         .attr("x2", 300)
-        .attr("y2", height)
+        .attr("y2", monthlyHeight)
         .attr("strokewidth", 2)
         .attr("stroke","black")
         .attr("style", "opacity: 0")
@@ -140,13 +139,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "tooltip")
 
     
-    bars =  svg.selectAll(".bar")
+    bars =  monthlySvg.selectAll(".bar")
         .data(dataSpots)
         .enter()
         .append("g")
     console.log(months.get("January"))
     console.log(dataSpots)
-    bars.append("line")
+    monthlySvg.append("line")
         .attr("test", d => `${d}`)
         .attr("x1", d => x(d[0])+bandwidth/2)
         .attr("y1", d => y(months.get(d[0]).get(d[1])))
@@ -155,7 +154,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
 
-        .attr("transform", `translate(0, ${height})`)// translate points down to match with axis
+        .attr("transform", `translate(0, ${monthlyHeight})`)// translate points down to match with axis
 
     // bars.append("text")
     //     .attr("class", "barLabel")
@@ -167,11 +166,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     console.log(x(d3.timeParse("%Y")("2024")))
     console.log(x(2009))
     console.log(getBandFromValue(x(2009),x))
-    svg.append("rect")
+    monthlySvg.append("rect")
         .attr("x", -10)
-        .attr("y", -margin.top)
-        .attr("width", width+10)
-        .attr("height", svgHeight)
+        .attr("y", -monthlyMargin.top)
+        .attr("width", monthlyWidth+10)
+        .attr("height", monthlySvgHeight)
         .attr("style", "opacity:0")
     .on("mouseover", function(event){
             
@@ -192,8 +191,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
             .attr("x1", `${d3.pointer(event)[0] }`)
             .attr("x2", `${d3.pointer(event)[0] }`)
-            .attr("y1", -margin.top)
-            .attr("y2", height)
+            .attr("y1", -monthlyMargin.top)
+            .attr("y2", monthlyHeight)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
@@ -213,7 +212,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         },
         type: d3.annotationCalloutCircle,
         x: x("December")+bandwidth/2,
-        y: height+(y(months.get("December").get("day"))+y(months.get("December").get("night")))/2,
+        y: monthlyHeight+(y(months.get("December").get("day"))+y(months.get("December").get("night")))/2,
         dx: -100,
         dy: -10,
         subject:{
@@ -228,7 +227,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             },
             type: d3.annotationCalloutRect,
             x: x("May")+bandwidth/2,
-            y: height+y(months.get("May").get("day"))-30,
+            y: monthlyHeight+y(months.get("May").get("day"))-30,
             dx: 100,
             dy: 100,
             subject:{
@@ -246,25 +245,25 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .annotations(annotations)
     d3.select("svg")
         .append("g")
-        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .attr("transform", ` translate(${monthlyMargin.left},${monthlyMargin.top}) `)
         .call(makeAnnotations);
   
-    svg.append("text")
+    monthlySvg.append("text")
         .text("accident count")
         .attr("x", -150)
-        .attr("y", height/2)
+        .attr("y", monthlyHeight/2)
         
-    svg.append("text")
+    monthlySvg.append("text")
         .text("month")
-        .attr("x", width/2)
-        .attr("y", height+margin.bottom/2)
+        .attr("x", monthlyWidth/2)
+        .attr("y", monthlyHeight+monthlyMargin.bottom/2)
 
-    svg.append("text")
+    monthlySvg.append("text")
     
         .text("line plot of the number of crashes per month, colored by whether it happened at day or night")
         .attr("class", "title")
         .attr("x", 0)
-        .attr("y", -margin.top/2)
+        .attr("y", -monthlyMargin.top/2)
     var legend = d3.legendColor()
 		.title("Color Legend: time of day")
 		.titleWidth(100)
@@ -272,7 +271,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .scale(colorScale);
 		
 
-    svg.append("g")
-        .attr("transform", `translate(${width+10},0)`)
+    monthlySvg.append("g")
+        .attr("transform", `translate(${monthlyWidth+10},0)`)
         .call(legend);
 });
