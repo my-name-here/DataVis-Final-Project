@@ -1,11 +1,11 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const svgWidth = 1000;
-const svgHeight = 1000;
-const margin = { top: 50, right: 20, bottom: 70, left: 100 };
-const width = svgWidth - margin.left - margin.right;
-const height = svgHeight - margin.top - margin.bottom;
+const yearlySvgWidth = 1000;
+const yearlySvgHeight = 1000;
+const yearlyMargin = { top: 50, right: 20, bottom: 70, left: 100 };
+const yearlyWidth = yearlySvgWidth - yearlyMargin.left - yearlyMargin.right;
+const yearlyheight = yearlySvgHeight - yearlyMargin.top - yearlyMargin.bottom;
 
 const minSize = 1
 const maxSize = 6
@@ -14,9 +14,9 @@ let years
 const svg = d3.select(".chart-container-yearly")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
-    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+    .attr("viewBox", `0 0 ${yearlySvgWidth} ${yearlySvgHeight}`)
     .append("g")
-    .attr("transform", ` translate(${margin.left},${margin.top}) `);
+    .attr("transform", ` translate(${yearlyMargin.left},${yearlyMargin.top}) `);
 
 function nextYear(year){
     yearIndex = yearChoices.indexOf(year)
