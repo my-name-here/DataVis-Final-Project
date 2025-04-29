@@ -10,7 +10,7 @@ const weeklyCovidHeight = weeklyCovidSvgHeight - weeklyCovidMargin.top - weeklyC
 let DayOptionsCovid = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 
-const weeklyCovidSvg = d3.select("#chart-container")
+const weeklyCovidSvg = d3.select(".chart-container-weeklyCovid")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${weeklyCovidSvgWidth} ${weeklyCovidSvgHeight}`)
