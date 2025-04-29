@@ -240,7 +240,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             },
         
             type: d3.annotationCalloutLabel,
-            x: x("13")+x.step()/2,
+            x: x("15")+x.step()/2,
             y: height+y("Tenderloin")+y.step()/2,
             dx: -35,
             dy:130+2*y.step(),
