@@ -197,7 +197,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("style", "opacity:1")
         d3.select(".tooltip")
 
-            .html(`month:${getBandFromValue((d3.pointer(event)[0] -bandwidth/2), x)}<br>day crashes: ${months.get(getBandFromValue((d3.pointer(event)[0] - bandwidth/2), x)).get("day")} <br>night crashes: ${months.get(getBandFromValue((event.pageX- margin.left- bandwidth/2), x)).get("night")}`)
+            .html(`month:${getBandFromValue((d3.pointer(event)[0] -bandwidth/2), x)}<br>day crashes: ${months.get(getBandFromValue((d3.pointer(event)[0] - bandwidth/2), x)).get("day")} <br>night crashes: ${months.get(getBandFromValue((d3.pointer(event)[0]-bandwidth/2), x)).get("night")}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
