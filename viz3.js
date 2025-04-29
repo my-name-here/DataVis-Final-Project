@@ -8,7 +8,7 @@ const weeklyWidth = weeklySvgWidth - weeklyMargin.left - weeklyMargin.right;
 const weeklyHeight = weeklySvgHeight - weeklyMargin.top - weeklyMargin.bottom;
 
 
-const weeklySvg = d3.select("#chart-container")
+const weeklySvg = d3.select(".chart-container-weekly")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${weeklySvgWidth} ${weeklySvgHeight}`)
