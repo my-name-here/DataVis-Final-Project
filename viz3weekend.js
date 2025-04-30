@@ -9,7 +9,7 @@ const weeklyGropuedWidth = weeklyGropuedSvgWidth - weeklyGropuedMargin.left - we
 const weeklyGropuedHeight = weeklyGropuedSvgHeight - weeklyGropuedMargin.top - weeklyGropuedMargin.bottom;
 
 
-const weeklyGropuedSvg = d3.select(".chart-container-weeklyGrouped")
+const weeklyGropuedSvg = d3.select("#chart-container-weeklyGrouped")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${weeklyGropuedSvgWidth} ${weeklyGropuedSvgHeight}`)

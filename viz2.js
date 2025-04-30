@@ -11,7 +11,7 @@ const monthlyHeight = monthlySvgHeight - monthlyMargin.top - monthlyMargin.botto
 let monthOptions = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
 let months
 
-const monthlySvg = d3.select(".chart-container-monthly")
+const monthlySvg = d3.select("#chart-container-monthly")
     .append("svg")
     .attr("id", "monthlyChart")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174

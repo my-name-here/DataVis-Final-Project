@@ -11,7 +11,7 @@ const hourlyCovidHeight = hourlyCovidSvgHeight - hourlyCovidMargin.top - hourlyC
 let hourOptions = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
 
 
-const hourlyCovidSvg = d3.select(".chart-container-hourlyCovid")
+const hourlyCovidSvg = d3.select("#chart-container-hourlyCovid")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${hourlyCovidSvgWidth} ${hourlyCovidSvgHeight}`)
