@@ -3,11 +3,12 @@
 
 
 
-const Frame3 = document.getElementById("viz3");
+const viz3main = document.getElementById("chart-container-weekly");
+const viz3Grouped =  document.getElementById("chart-container-weeklyGrouped");
 
 
 
-Frame3.src = "Visualizations/viz3.html";
+
 
 
 
@@ -19,10 +20,12 @@ var viz3btn = document.getElementById("submitViz3");
 viz3btn.onclick = function(){
     viz3Val = document.getElementById("chartModeViz3").value;
     if (viz3Val == "weekdayViz3"){
-        Frame3.src = "Visualizations/viz3weekend.html"
+        viz3Grouped.style="display:flex;"
+        viz3main.style="display:none;"
     }
     else{
-        Frame3.src = "Visualizations/viz3.html"
+        viz3Grouped.style="display:none;"
+        viz3main.style="display:flex;"
 
 
     }
