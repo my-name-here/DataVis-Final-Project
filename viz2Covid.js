@@ -12,7 +12,7 @@ const monthlyCovidHeight = monthlySvgHeight - monthlyMargin.top - monthlyMargin.
 let monthOptionsCovid = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
 
 
-const monthlyCovidSvg = d3.select(".chart-container-monthlyCovid")
+const monthlyCovidSvg = d3.select("#chart-container-monthlyCovid")
     .append("svg")
     .attr("id", "monthlyCovidChart")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
