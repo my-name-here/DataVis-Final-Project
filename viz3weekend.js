@@ -1,23 +1,22 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const svgWidth = 1200;
-const svgHeight = 1000;
-const margin = { top: 50, right: 150, bottom: 70, left: 150 };
-const width = svgWidth - margin.left - margin.right;
-const height = svgHeight - margin.top - margin.bottom;
 
-const minSize = 1
-const maxSize = 6
-let months
-const svg = d3.select("#chart-container")
+const weeklyGropuedSvgWidth = 1200;
+const weeklyGropuedSvgHeight = 1000;
+const weeklyGropuedMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const weeklyGropuedWidth = weeklyGropuedSvgWidth - weeklyGropuedMargin.left - weeklyGropuedMargin.right;
+const weeklyGropuedHeight = weeklyGropuedSvgHeight - weeklyGropuedMargin.top - weeklyGropuedMargin.bottom;
+
+
+const weeklyGropuedSvg = d3.select(".chart-container-weeklyGrouped")
     .append("svg")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
-    .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`)
+    .attr("viewBox", `0 0 ${weeklyGropuedSvgWidth} ${weeklyGropuedSvgHeight}`)
     
     
     .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top}) `);
+    .attr("transform", `translate(${weeklyGropuedMargin.left},${weeklyGropuedMargin.top}) `);
 
 // a function that takes a day of the week, and returns it
 function dayOfWeekCat(i){
@@ -75,27 +74,27 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const y = d3.scaleLinear()
         .domain([0, d3.max(daysTmp,  d=>d[1])+2])
         .nice()
-        .range([ 0, -height])
+        .range([ 0, -weeklyGropuedHeight])
         //.padding(0.1);
 
     // use scaleBand instead of scale time, see https://stackoverflow.com/a/38820431
     const x = d3.scaleBand()
         .domain(["weekday", "weekend"])
-        .range([ 0, width]);
+        .range([ 0, weeklyGropuedWidth]);
     
 
 
     // Add X and Y axes
-    svg.append("g")
+    weeklyGropuedSvg.append("g")
         .attr("class", "axis axis-x")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${weeklyGropuedHeight})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
         .call(d3.axisBottom(x).ticks(10)
     );
 
-    svg.append("g")
+    weeklyGropuedSvg.append("g")
         .attr("class", "axis axis-y")
-        .attr("transform", `translate(0, ${height})`)
+        .attr("transform", `translate(0, ${weeklyGropuedHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
     // Add bars
@@ -124,7 +123,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
 
 
-    bars =  svg.selectAll(".bar")
+    bars =  weeklyGropuedSvg.selectAll(".bar")
         .data(daysList)
         .enter()
         .append("g")
@@ -136,7 +135,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("test", d=>y(days.get(d)))
 
         .attr("x", d=>x(d))
-        .attr("y", d=>height+y(days.get(d)))
+        .attr("y", d=>weeklyGropuedHeight+y(days.get(d)))
         .attr("width", barWidth)
         .attr("height", d=>-y(days.get(d)))
         .attr("fill","lightblue")
@@ -185,27 +184,27 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .annotations(annotations)
     d3.select("svg")
         .append("g")
-        .attr("transform", ` translate(${margin.left},${margin.top}) `)
+        .attr("transform", ` translate(${weeklyGropuedMargin.left},${weeklyGropuedMargin.top}) `)
         .call(makeAnnotations);
   
 
 
-    svg.append("text")
+    weeklyGropuedSvg.append("text")
         .text("accident count")
         .attr("x", -150)
-        .attr("y", height/2)
+        .attr("y", weeklyGropuedHeight/2)
         
-    svg.append("text")
+    weeklyGropuedSvg.append("text")
         .text("weekend or weekday")
-        .attr("x", width/2)
-        .attr("y", height+margin.bottom/2)
+        .attr("x", weeklyGropuedWidth/2)
+        .attr("y", weeklyGropuedHeight+weeklyGropuedMargin.bottom/2)
 
-    svg.append("text")
+    weeklyGropuedSvg.append("text")
     
         .text("bar chart of the number of crashes on weekends vs weekdays")
         .attr("class", "title")
         .attr("x", 0)
-        .attr("y", -margin.top/2)
+        .attr("y", -weeklyGropuedMargin.top/2)
 
 
 
