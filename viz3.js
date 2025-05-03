@@ -3,7 +3,7 @@
 // Set up the SVG container
 const weeklySvgWidth = 1200;
 const weeklySvgHeight = 1000;
-const weeklyMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const weeklyMargin = { top: 50, right: 150, bottom: 70, left: 170 };
 const weeklyWidth = weeklySvgWidth - weeklyMargin.left - weeklyMargin.right;
 const weeklyHeight = weeklySvgHeight - weeklyMargin.top - weeklyMargin.bottom;
 
@@ -211,7 +211,7 @@ console.log(x("Monday"))
 
     weeklySvg.append("text")
         .text("accident count")
-        .attr("x", -150)
+        .attr("x", -weeklyMargin.left)
         .attr("y", weeklyHeight/2)
         
     weeklySvg.append("text")

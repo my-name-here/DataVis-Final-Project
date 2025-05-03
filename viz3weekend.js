@@ -4,7 +4,7 @@
 
 const weeklyGropuedSvgWidth = 1200;
 const weeklyGropuedSvgHeight = 1000;
-const weeklyGropuedMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const weeklyGropuedMargin = { top: 50, right: 150, bottom: 70, left: 170 };
 const weeklyGropuedWidth = weeklyGropuedSvgWidth - weeklyGropuedMargin.left - weeklyGropuedMargin.right;
 const weeklyGropuedHeight = weeklyGropuedSvgHeight - weeklyGropuedMargin.top - weeklyGropuedMargin.bottom;
 
@@ -191,7 +191,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     weeklyGropuedSvg.append("text")
         .text("accident count")
-        .attr("x", -150)
+        .attr("x", -weeklyGropuedMargin.left)
         .attr("y", weeklyGropuedHeight/2)
         
     weeklyGropuedSvg.append("text")
