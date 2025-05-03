@@ -249,7 +249,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
         {
             note: {
-                label: "Outside of work hours, pre-Covid and post-Covid trends are more similar, matching closely. This could indicate that the differences are mainly from an increase in remote work.",
+                label: "The trends match closely outside of work hours, indicating that the difference is likely from remote work.",
                 title: "Similar trends outside work hours"
             },
             type: d3.annotationCalloutRect,
