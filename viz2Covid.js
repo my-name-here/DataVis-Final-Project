@@ -1,7 +1,7 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const monthlyCovidSvgWidth = 1200;
+const monthlyCovidSvgWidth = 1350;
 const monthlyCovidSvgHeight = 1000;
 const monthlyCovidMargin = { top: 50, right: 150, bottom: 70, left: 150 };
 const monthlyCovidWidth = monthlySvgWidth - monthlyMargin.left - monthlyMargin.right;

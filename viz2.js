@@ -1,9 +1,9 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const monthlySvgWidth = 1200;
+const monthlySvgWidth = 1350;
 const monthlySvgHeight = 1000;
-const monthlyMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const monthlyMargin = { top: 50, right: 150, bottom: 70, left: 200 };
 const monthlyWidth = monthlySvgWidth - monthlyMargin.left - monthlyMargin.right;
 const monthlyHeight = monthlySvgHeight - monthlyMargin.top - monthlyMargin.bottom;
 
@@ -252,7 +252,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
   
     monthlySvg.append("text")
         .text("accident count")
-        .attr("x", -150)
+        .attr("x", -4*monthlyMargin.left/5)
         .attr("y", monthlyHeight/2)
         
     monthlySvg.append("text")
