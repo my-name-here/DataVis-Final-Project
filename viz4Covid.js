@@ -231,16 +231,16 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         {
             note: {
                 label: "There is a significant reduction in crashes on weekdays post Covid, possibly indicating a still ongoing increase in remote work.",
-                title: "Reduced weekday crashes"
+                title: "Reduced commute time crashes"
             },
             type: d3.annotationCalloutRect,
-            x: x("08") - 150,
-            y: hourlyCovidHeight+(y(months.get("08").get("post-Covid")))-100,
+            x: x("08") ,
+            y: hourlyCovidHeight+(y(months.get("08").get("post-Covid")))-200,
             dx: -50,
-            dy: -40,
+            dy: 40,
             subject:{
-                width: 500,
-                height: 200
+                width: 200,
+                height: 250
             },
             color: "#AA4A44"
             
