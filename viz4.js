@@ -256,6 +256,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", ` translate(${hourlyMargin.left},${hourlyMargin.top}) `)
         .call(makeAnnotations);
   
+    d3.selectAll("text").attr("font-size","17px");
 
     hourlySvg.append("text")
         .attr("class","axisLabelY")
@@ -285,5 +286,4 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     hourlySvg.append("g")
         .attr("transform", `translate(${hourlyWidth+hourlyMargin.right/2},0)`)
         .call(legend);
-    d3.selectAll("text").attr("font-size","17px");
 });

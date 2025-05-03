@@ -208,6 +208,7 @@ console.log(x("Monday"))
         .call(makeAnnotations);
   
 
+    d3.selectAll("text").attr("font-size","17px");
 
     weeklySvg.append("text")
         .text("accident count")
@@ -227,5 +228,4 @@ console.log(x("Monday"))
         .attr("y", -weeklyMargin.top/2)
 
 
-    d3.selectAll("text").attr("font-size","17px");
 });

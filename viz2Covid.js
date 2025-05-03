@@ -3,7 +3,7 @@
 // Set up the SVG container
 const monthlyCovidSvgWidth = 1350;
 const monthlyCovidSvgHeight = 1000;
-const monthlyCovidMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const monthlyCovidMargin = { top: 50, right: 150, bottom: 70, left: 200 };
 const monthlyCovidWidth = monthlySvgWidth - monthlyMargin.left - monthlyMargin.right;
 const monthlyCovidHeight = monthlySvgHeight - monthlyMargin.top - monthlyMargin.bottom;
 
@@ -248,7 +248,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         .attr("transform", ` translate(${monthlyCovidMargin.left},${monthlyCovidMargin.top}) `)
         .call(makeAnnotations);
-    
+    d3.selectAll("text").attr("font-size","17px");
     monthlyCovidSvg.append("text")
         .text("accident count")
         .attr("x", -150)
@@ -265,6 +265,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -monthlyCovidMargin.top/2)
+        .attr("font-size", "20px")
     var legend = d3.legendColor()
 		.title("Color Legend: pre or post Covid")
 		.titleWidth(100)
@@ -275,5 +276,5 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     monthlyCovidSvg.append("g")
         .attr("transform", `translate(${monthlyCovidWidth+10},0)`)
         .call(legend);
-    d3.selectAll("text").attr("font-size","17px");
+    
 });

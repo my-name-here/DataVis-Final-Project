@@ -231,7 +231,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         .attr("transform", ` translate(${yearlyMargin.left},${yearlyMargin.top}) `)
         .call(makeAnnotations);
-  
+    
+    d3.selectAll("text").attr("font-size","17px");
+
   
     yearlySvg.append("text")
         .text("accidents")
@@ -249,6 +251,5 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -yearlyMargin.top/2)
-    d3.selectAll("text").attr("font-size","17px");
 
 });

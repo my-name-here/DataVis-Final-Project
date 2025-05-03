@@ -242,7 +242,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         .attr("transform", ` translate(${weeklyCovidMargin.left},${weeklyCovidMargin.top}) `)
         .call(makeAnnotations);
-  
+    d3.selectAll("text").attr("font-size","17px");
+
     weeklyCovidSvg.append("text")
         .text("accident count")
         .attr("x", -150)
@@ -269,5 +270,4 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     weeklyCovidSvg.append("g")
         .attr("transform", `translate(${weeklyCovidWidth+10},0)`)
         .call(legend);
-    d3.selectAll("text").attr("font-size","17px");
 });

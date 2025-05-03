@@ -238,7 +238,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         .attr("transform", ` translate(${hourlyCovidMargin.left},${hourlyCovidMargin.top}) `)
         .call(makeAnnotations);
-  
+    d3.selectAll("text").attr("font-size","17px");
     hourlyCovidSvg.append("text")
         .text("accident count")
         .attr("x", -150)
@@ -265,5 +265,5 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     hourlyCovidSvg.append("g")
         .attr("transform", `translate(${hourlyCovidWidth+10},0)`)
         .call(legend);
-    d3.selectAll("text").attr("font-size","17px");
+    
 });

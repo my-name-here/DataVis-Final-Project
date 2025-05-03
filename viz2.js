@@ -249,7 +249,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         .attr("transform", ` translate(${monthlyMargin.left},${monthlyMargin.top}) `)
         .call(makeAnnotations);
-  
+    d3.selectAll("text").attr("font-size","17px");
+
     monthlySvg.append("text")
         .text("accident count")
         .attr("x", -4*monthlyMargin.left/5)
@@ -276,5 +277,4 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     monthlySvg.append("g")
         .attr("transform", `translate(${monthlyWidth+10},0)`)
         .call(legend);
-    d3.selectAll("text").attr("font-size","17px");
 });
