@@ -13,6 +13,7 @@ let hourOptions = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "
 
 const hourlyCovidSvg = d3.select("#chart-container-hourlyCovid")
     .append("svg")
+    .attr("id", "hourlyCovidChart")
     // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
     .attr("viewBox", `0 0 ${hourlyCovidSvgWidth} ${hourlyCovidSvgHeight}`)
     
@@ -227,14 +228,31 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     
     const annotations = [
  
-
+        {
+            note: {
+                label: "There is a significant reduction in crashes on weekdays post Covid, possibly indicating a still ongoing increase in remote work.",
+                title: "Reduced weekday crashes"
+            },
+            type: d3.annotationCalloutRect,
+            x: x("08") - 150,
+            y: hourlyCovidHeight+(y(months.get("08").get("post-Covid")))-100,
+            dx: -50,
+            dy: -40,
+            subject:{
+                width: 500,
+                height: 200
+            },
+            color: "#AA4A44"
+            
+    
+        },
     ]
     
     // Add annotation to the chart
     const makeAnnotations = d3.annotation()
         
         .annotations(annotations)
-    d3.select("svg")
+    d3.select("#hourlyCovidChart")
         .append("g")
         .attr("transform", ` translate(${hourlyCovidMargin.left},${hourlyCovidMargin.top}) `)
         .call(makeAnnotations);
