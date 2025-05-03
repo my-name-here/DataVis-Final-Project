@@ -215,7 +215,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         type: d3.annotationCalloutCircle,
         x: x("December")+bandwidth/2,
         y: monthlyHeight+(y(months.get("December").get("day"))+y(months.get("December").get("night")))/2,
-        dx: -100,
+        dx: -150,
         dy: -10,
         subject:{
             radius: 30,
