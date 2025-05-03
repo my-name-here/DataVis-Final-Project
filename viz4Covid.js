@@ -230,17 +230,36 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
  
         {
             note: {
-                label: "There is a significant reduction in crashes on weekdays post Covid, possibly indicating a still ongoing increase in remote work.",
+                label: "Post-Covid, there is a reduction in crashes during commute hours, possibly indicating an ongoing increase in remote work.",
                 title: "Reduced commute time crashes"
             },
             type: d3.annotationCalloutRect,
             x: x("08") ,
             y: hourlyCovidHeight+(y(months.get("08").get("post-Covid")))-200,
-            dx: 300,
-            dy: 300,
+            dx: -50,
+            dy: 0,
             subject:{
                 width: 200,
                 height: 250
+            },
+            color: "#AA4A44"
+            
+    
+        },
+
+        {
+            note: {
+                label: "Outside of work hours, pre-Covid and post-Covid trends are more similar, matching closely. This could indicate that the differences are mainly from an increase in remote work.",
+                title: "Similar trends outside work hours"
+            },
+            type: d3.annotationCalloutRect,
+            x: x("18"),
+            y: hourlyCovidHeight+(y(months.get("18").get("post-Covid")))-50,
+            dx: -40,
+            dy: 250,
+            subject:{
+                width: 75,
+                height: 200
             },
             color: "#AA4A44"
             
