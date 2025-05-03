@@ -214,7 +214,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             type: d3.annotationCalloutCircle,
             x: x(2024)+bandwidth/2,
             y: yearlyheight+y(years.get(2024)),
-            dx: -220,
+            dx: -240,
             dy:20,
             subject:{
                 radius: 30,
