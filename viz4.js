@@ -230,7 +230,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             y: hourlyHeight+y("Mission")+y.step()/2,
             dx: 10,
             dy:130,
-            color: "black"
+            color: "#AA4A44"
         },
         {
             note: {
@@ -243,7 +243,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             y: hourlyHeight+y("Tenderloin")+y.step()/2,
             dx: -35,
             dy:160+2*y.step(),
-            color: "black"
+            color: "#AA4A44"
         },
 
     ]
