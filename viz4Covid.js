@@ -255,7 +255,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             type: d3.annotationCalloutRect,
             x: x("18"),
             y: hourlyCovidHeight+(y(months.get("18").get("post-Covid")))-50,
-            dx: -40,
+            dx: 0,
             dy: 250,
             subject:{
                 width: 75,
