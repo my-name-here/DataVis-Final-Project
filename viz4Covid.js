@@ -246,7 +246,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
     hourlyCovidSvg.append("text")
         .text("hour")
-        .attr("x", hourlyCovidWidth/2)
+        .attr("x", hourlyCovidSvgWidth/2-hourlyCovidMargin.left)
         .attr("y", hourlyCovidHeight+2*hourlyCovidMargin.bottom/3)
 
     hourlyCovidSvg.append("text")

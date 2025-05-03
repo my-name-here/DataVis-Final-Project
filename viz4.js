@@ -267,7 +267,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     hourlySvg.append("text")
         .attr("class","axisLabelX")
         .text("hour")
-        .attr("x", hourlyWidth/2)
+        .attr("x", hourlySvgWidth/2 - hourlyMargin.left)
         .attr("y", hourlyHeight+50)
 
     hourlySvg.append("text")

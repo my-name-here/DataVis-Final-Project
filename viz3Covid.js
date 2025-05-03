@@ -251,7 +251,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
     weeklyCovidSvg.append("text")
         .text("day of week")
-        .attr("x",  weeklyCovidWidth/2)
+        .attr("x",  weeklyCovidSvgWidth/2-weeklyCovidMargin.left)
         .attr("y", weeklyCovidHeight+2*weeklyCovidMargin.bottom/3)
 
     weeklyCovidSvg.append("text")

@@ -217,7 +217,7 @@ console.log(x("Monday"))
         
     weeklySvg.append("text")
         .text("day of the week")
-        .attr("x", weeklyWidth/2)
+        .attr("x", weeklySvgWidth/2-weeklyMargin.left)
         .attr("y", weeklyHeight+2*weeklyMargin.bottom/3)
 
     weeklySvg.append("text")

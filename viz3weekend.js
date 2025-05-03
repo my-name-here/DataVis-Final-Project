@@ -196,7 +196,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
     weeklyGropuedSvg.append("text")
         .text("weekend or weekday")
-        .attr("x", weeklyGropuedWidth/2)
+        .attr("x", weeklyGropuedSvgWidth/2-weeklyGropuedMargin.left)
         .attr("y", weeklyGropuedHeight+2*weeklyGropuedMargin.bottom/3)
 
     weeklyGropuedSvg.append("text")

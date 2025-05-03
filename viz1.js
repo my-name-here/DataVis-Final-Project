@@ -242,7 +242,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
     yearlySvg.append("text")
         .text("year")
-        .attr("x", yearlyWidth/2)
+        .attr("x", yearlySvgWidth/2 - yearlyMargin.left)
         .attr("y", yearlyheight+yearlyMargin.bottom/2)
 
     yearlySvg.append("text")

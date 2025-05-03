@@ -256,7 +256,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
     monthlyCovidSvg.append("text")
         .text("month")
-        .attr("x", monthlyCovidWidth/2)
+        .attr("x", monthlyCovidSvgWidth/2-monthlyCovidMargin.left)
         .attr("y", monthlyCovidHeight+2*monthlyCovidMargin.bottom/3)
 
     monthlyCovidSvg.append("text")
