@@ -3,7 +3,7 @@
 // Set up the SVG container
 const weeklyCovidSvgWidth = 1200;
 const weeklyCovidSvgHeight = 1000;
-const weeklyCovidMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const weeklyCovidMargin = { top: 50, right: 150, bottom: 70, left: 170 };
 const weeklyCovidWidth = weeklyCovidSvgWidth - weeklyCovidMargin.left - weeklyCovidMargin.right;
 const weeklyCovidHeight = weeklyCovidSvgHeight - weeklyCovidMargin.top - weeklyCovidMargin.bottom;
 
@@ -224,7 +224,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             x: x("Wednesday") - 150,
             y: weeklyCovidHeight+(y(months.get("Wednesday").get("post-Covid")))-100,
             dx: -50,
-            dy: -50,
+            dy: -40,
             subject:{
                 width: 500,
                 height: 200
@@ -246,13 +246,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     weeklyCovidSvg.append("text")
         .text("accident count")
-        .attr("x", -150)
+        .attr("x", -weeklyCovidMargin.left)
         .attr("y", weeklyCovidHeight/2)
         
     weeklyCovidSvg.append("text")
         .text("day of week")
-        .attr("x", weeklyCovidWidth/2)
-        .attr("y", weeklyCovidHeight+weeklyCovidMargin.bottom/2)
+        .attr("x",  weeklyCovidWidth/2)
+        .attr("y", weeklyCovidHeight+2*weeklyCovidMargin.bottom/3)
 
     weeklyCovidSvg.append("text")
     

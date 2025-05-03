@@ -3,7 +3,7 @@
 // Set up the SVG container
 const hourlyCovidSvgWidth = 1200;
 const hourlyCovidSvgHeight = 1000;
-const hourlyCovidMargin = { top: 50, right: 150, bottom: 70, left: 150 };
+const hourlyCovidMargin = { top: 50, right: 150, bottom: 70, left: 170 };
 const hourlyCovidWidth = hourlyCovidSvgWidth - hourlyCovidMargin.left - hourlyCovidMargin.right;
 const hourlyCovidHeight = hourlyCovidSvgHeight - hourlyCovidMargin.top - hourlyCovidMargin.bottom;
 
@@ -241,13 +241,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     d3.selectAll(".axis").attr("font-size","17px");
     hourlyCovidSvg.append("text")
         .text("accident count")
-        .attr("x", -150)
+        .attr("x", -hourlyCovidMargin.left)
         .attr("y", hourlyCovidHeight/2)
         
     hourlyCovidSvg.append("text")
         .text("hour")
         .attr("x", hourlyCovidWidth/2)
-        .attr("y", hourlyCovidHeight+hourlyCovidMargin.bottom/2)
+        .attr("y", hourlyCovidHeight+2*hourlyCovidMargin.bottom/3)
 
     hourlyCovidSvg.append("text")
     

@@ -253,13 +253,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     monthlySvg.append("text")
         .text("accident count")
-        .attr("x", -4*monthlyMargin.left/5)
+        .attr("x", -9*monthlyMargin.left/10)
         .attr("y", monthlyHeight/2)
         
     monthlySvg.append("text")
         .text("month")
         .attr("x", monthlyWidth/2)
-        .attr("y", monthlyHeight+monthlyMargin.bottom/2)
+        .attr("y", monthlyHeight+2*monthlyMargin.bottom/3)
 
     monthlySvg.append("text")
     

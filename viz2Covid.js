@@ -251,13 +251,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     d3.selectAll(".axis").attr("font-size","17px");
     monthlyCovidSvg.append("text")
         .text("accident count")
-        .attr("x", -150)
+        .attr("x", -9*monthlyCovidMargin.left/10)
         .attr("y", monthlyCovidHeight/2)
         
     monthlyCovidSvg.append("text")
         .text("month")
         .attr("x", monthlyCovidWidth/2)
-        .attr("y", monthlyCovidHeight+monthlyCovidMargin.bottom/2)
+        .attr("y", monthlyCovidHeight+2*monthlyCovidMargin.bottom/3)
 
     monthlyCovidSvg.append("text")
     

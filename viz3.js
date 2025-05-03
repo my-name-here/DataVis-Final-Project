@@ -3,7 +3,7 @@
 // Set up the SVG container
 const weeklySvgWidth = 1200;
 const weeklySvgHeight = 1000;
-const weeklyMargin = { top: 50, right: 150, bottom: 70, left: 170 };
+const weeklyMargin = { top: 50, right: 150, bottom: 70, left: 180 };
 const weeklyWidth = weeklySvgWidth - weeklyMargin.left - weeklyMargin.right;
 const weeklyHeight = weeklySvgHeight - weeklyMargin.top - weeklyMargin.bottom;
 
@@ -190,8 +190,8 @@ console.log(x("Monday"))
             type: d3.annotationCalloutLabel,
             x: x("Sunday")+x.step()/2,
             y: weeklyHeight+y(days.get("Sunday")),
-            dx: 50,
-            dy: -75,
+            dx: 65,
+            dy: 75,
 
     
         },
@@ -218,7 +218,7 @@ console.log(x("Monday"))
     weeklySvg.append("text")
         .text("day of the week")
         .attr("x", weeklyWidth/2)
-        .attr("y", weeklyHeight+weeklyMargin.bottom/2)
+        .attr("y", weeklyHeight+2*weeklyMargin.bottom/3)
 
     weeklySvg.append("text")
     

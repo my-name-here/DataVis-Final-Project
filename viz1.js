@@ -1,8 +1,8 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const yearlySvgWidth = 1100;
-const yearlySvgHeight = 1100;
+const yearlySvgWidth = 1200;
+const yearlySvgHeight = 1000;
 const yearlyMargin = { top: 50, right: 20, bottom: 70, left: 150 };
 const yearlyWidth = yearlySvgWidth - yearlyMargin.left - yearlyMargin.right;
 const yearlyheight = yearlySvgHeight - yearlyMargin.top - yearlyMargin.bottom;
@@ -214,7 +214,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             type: d3.annotationCalloutCircle,
             x: x(2024)+bandwidth/2,
             y: yearlyheight+y(years.get(2024)),
-            dx: -200,
+            dx: -220,
             dy:20,
             subject:{
                 radius: 30,
