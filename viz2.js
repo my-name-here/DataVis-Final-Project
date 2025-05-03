@@ -276,4 +276,5 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     monthlySvg.append("g")
         .attr("transform", `translate(${monthlyWidth+10},0)`)
         .call(legend);
+    d3.selectAll("text").attr("font-size","17px");
 });

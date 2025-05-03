@@ -248,7 +248,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         .attr("transform", ` translate(${monthlyCovidMargin.left},${monthlyCovidMargin.top}) `)
         .call(makeAnnotations);
-  
+    
     monthlyCovidSvg.append("text")
         .text("accident count")
         .attr("x", -150)
@@ -275,4 +275,5 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     monthlyCovidSvg.append("g")
         .attr("transform", `translate(${monthlyCovidWidth+10},0)`)
         .call(legend);
+    d3.selectAll("text").attr("font-size","17px");
 });

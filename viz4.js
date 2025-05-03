@@ -285,4 +285,5 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     hourlySvg.append("g")
         .attr("transform", `translate(${hourlyWidth+hourlyMargin.right/2+20},0)`)
         .call(legend);
+    d3.selectAll("text").attr("font-size","17px");
 });

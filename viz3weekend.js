@@ -206,6 +206,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("x", 0)
         .attr("y", -weeklyGropuedMargin.top/2)
 
-
+    d3.selectAll("text").attr("font-size","17px");
 
 });

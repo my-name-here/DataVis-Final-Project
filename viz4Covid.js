@@ -265,4 +265,5 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     hourlyCovidSvg.append("g")
         .attr("transform", `translate(${hourlyCovidWidth+10},0)`)
         .call(legend);
+    d3.selectAll("text").attr("font-size","17px");
 });

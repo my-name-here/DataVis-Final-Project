@@ -249,5 +249,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "title")
         .attr("x", 0)
         .attr("y", -yearlyMargin.top/2)
+    d3.selectAll("text").attr("font-size","17px");
 
 });

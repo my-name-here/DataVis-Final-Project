@@ -227,5 +227,5 @@ console.log(x("Monday"))
         .attr("y", -weeklyMargin.top/2)
 
 
-
+    d3.selectAll("text").attr("font-size","17px");
 });
