@@ -179,6 +179,7 @@ console.log(x("Monday"))
             y: weeklyHeight+y(days.get("Friday")),
             dx: -70,
             dy: 50,
+            color: "#AA4A44"
 
     
         },
@@ -192,6 +193,7 @@ console.log(x("Monday"))
             y: weeklyHeight+y(days.get("Sunday")),
             dx: 65,
             dy: 75,
+            color: "#AA4A44"
 
     
         },

@@ -233,7 +233,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             subject:{
                 width: 300,
                 height: 200
-            }
+            },
+            color: "#AA4A44"
     
         },
 

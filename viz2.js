@@ -219,7 +219,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         dy: -10,
         subject:{
             radius: 30,
-        }
+        },
+        color: "#AA4A44"
 
         },
         {
@@ -235,7 +236,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             subject:{
                 width: 300,
                 height: 60
-            }
+            },
+            color: "#AA4A44"
     
         },
 
