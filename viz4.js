@@ -1,9 +1,9 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const hourlySvgWidth = 1000;
+const hourlySvgWidth = 1200;
 const hourlySvgHeight = 600;
-const hourlyMargin = { top: 50, right: 220, bottom: 350, left: 150 };
+const hourlyMargin = { top: 50, right: 200, bottom: 350, left: 250 };
 const hourlyWidth = hourlySvgWidth - hourlyMargin.left - hourlyMargin.right;
 const hourlyHeight = hourlySvgHeight - hourlyMargin.top - hourlyMargin.bottom;
 let choices = ["Bayview Hunters Point", "Financial District/South Beach", "Mission", "South of Market", "Tenderloin"]
@@ -242,7 +242,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             x: x("15")+x.step()/2,
             y: hourlyHeight+y("Tenderloin")+y.step()/2,
             dx: -35,
-            dy:130+2*y.step(),
+            dy:160+2*y.step(),
             color: "black"
         },
 
@@ -260,7 +260,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     hourlySvg.append("text")
         .attr("class","axisLabelY")
         .text("neighborhood")
-        .attr("x", -hourlyMargin.left+10)
+        .attr("x", -2*hourlyMargin.left/3)
         .attr("y", hourlyHeight/2)
         
     hourlySvg.append("text")
@@ -283,7 +283,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 		
 
     hourlySvg.append("g")
-        .attr("transform", `translate(${hourlyWidth+hourlyMargin.right/2+20},0)`)
+        .attr("transform", `translate(${hourlyWidth+hourlyMargin.right/2},0)`)
         .call(legend);
     d3.selectAll("text").attr("font-size","17px");
 });
