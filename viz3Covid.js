@@ -242,7 +242,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         .attr("transform", ` translate(${weeklyCovidMargin.left},${weeklyCovidMargin.top}) `)
         .call(makeAnnotations);
-    d3.selectAll("text").attr("font-size","17px");
+    d3.selectAll(".axis").attr("font-size","17px");
 
     weeklyCovidSvg.append("text")
         .text("accident count")

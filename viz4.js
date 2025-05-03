@@ -256,7 +256,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", ` translate(${hourlyMargin.left},${hourlyMargin.top}) `)
         .call(makeAnnotations);
   
-    d3.selectAll("text").attr("font-size","17px");
+    d3.selectAll(".axis").attr("font-size","17px");
 
     hourlySvg.append("text")
         .attr("class","axisLabelY")
