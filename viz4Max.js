@@ -154,8 +154,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // remove none from hourlist, see  https://stackoverflow.com/a/5767357
     hourList.splice(hourList.indexOf("none"), 1)
     console.log(hourList)
-    neighborhoodList = choices
-    bandheight = Math.abs(y(choices[1])-y(choices[0]))
+    neighborhoodList = hourlyMaxNeighborhoodChoices
+    bandheight = Math.abs(y(hourlyMaxNeighborhoodChoices[1])-y(hourlyMaxNeighborhoodChoices[0]))
     console.log(bandheight)
     // see https://d3js.org/d3-array/transform for cross
     console.log(d3.cross(hourList,neighborhoodList))
@@ -174,10 +174,10 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
     console.log(hours.get("23").get("Mission"))
 
-    maxVals = [(18,"Mission"),(17,"South of Market"),(17,"Bayview Hunters Point"),(17,"Financial District/South Beach"),(15,"Tenderloin")]
+    maxVals = {"Mission":18,"South of Market":17,"Bayview Hunters Point":17,"Financial District/South Beach":17,"Tenderloin":15}
     // tooltips will be implemented using https://mappingwithd3.com/tutorials/basics/tooltip/
     bars.append("rect")
-        .attr("test", d => `${d}`)
+        .attr("test", d => `${(d[0],d[1])}`)
         .attr("x", d => x(d[0]))
         .attr("y", d => y(d[1]))
         .attr("width", d => x(getNextHour("00"))-x("00"))
