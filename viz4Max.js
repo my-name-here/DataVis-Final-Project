@@ -174,7 +174,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
     console.log(hours.get("23").get("Mission"))
 
-    maxVals = [(),(),(),(),()]
+    maxVals = [(18,"Mission"),(17,"South of Market"),(17,"Bayview Hunters Point"),(17,"Financial District/South Beach"),(15,"Tenderloin")]
     // tooltips will be implemented using https://mappingwithd3.com/tutorials/basics/tooltip/
     bars.append("rect")
         .attr("test", d => `${d}`)
