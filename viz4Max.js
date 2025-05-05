@@ -286,7 +286,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("x", (hourlyMaxWidth-hourlyMaxMargin.left)/2-hourlyMaxMargin.right)
         .attr("y", -hourlyMaxMargin.top/2)
     var legend = d3.legendColor()
-		.title("Color Legend: Number of Crashes")
+		.title("Color Legend: Number of Crashes (Green indicates max value)")
 		.titleWidth(100)
         .cells(7) // change the number of cells during demo 
         .scale(colorScale);
