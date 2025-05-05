@@ -188,8 +188,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         // if cond is true, then not a max, so use colorScale(hours.get(d[0]).get(d[1]))
         // if false, then max, so use green
         // maxVals will be list of (hour, loc) of max values
-        // then condition is if not maxVals.includes((d[0],d[1]))
-        // so !maxVals.includes((d[0],d[1])) ? colorScale(hours.get(d[0]).get(d[1])): "green"
+        // then condition is if not (maxVal[d[1]] == d[0])
+        // so (!(maxVal[d[1]] == d[0]) ? colorScale(hours.get(d[0]).get(d[1])): "green")
         .attr("fill", d=>colorScale(hours.get(d[0]).get(d[1])))
         .attr("transform", `translate(0, ${hourlyMaxHeight})`)// translate points down to match with axis
         // needs to be event,d, so that the value of d is passed in along with the mouse event
