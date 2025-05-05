@@ -227,9 +227,35 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     //     .attr("x", d => 25)
         console.log(hours.get("18").get("Mission"))
     const annotations = [
-
+        {
+            note: {
+                label: "The number of crashes in the Mission  peaks around 6:00pm. The Financial district and South of Market both peak around 5pm.",
+                title: "multiple neighborhoods peak around 6pm"
+            },
+        
+            type: d3.annotationCalloutLabel,
+            x: x("18")+x.step()/2,
+            y: hourlyHeight+y("Mission")+y.step()/2,
+            dx: 10,
+            dy:130,
+            color: "#AA4A44"
+        },
+        {
+            note: {
+                label: "The number of crashes in the Tenderloin peaks around 3pm, 3 hours before the peak in the Mission.",
+                title: "Tenderloin has different peak"
+            },
+        
+            type: d3.annotationCalloutLabel,
+            x: x("15")+x.step()/2,
+            y: hourlyHeight+y("Tenderloin")+y.step()/2,
+            dx: -35,
+            dy:160+2*y.step(),
+            color: "#AA4A44"
+        },
 
     ]
+        //
     // Add annotation to the chart
     const makeAnnotations = d3.annotation()
         
