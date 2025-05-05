@@ -22,9 +22,9 @@ function getNextHour(CurHour){
 
 }
 
-const hourlySvg = d3.select("#chart-container-hourly")
+const hourlySvg = d3.select("#chart-container-hourlyMax")
     .append("svg")
-    .attr("id", "hourlyChart")
+    .attr("id", "hourlyChartMax")
     // need to use viewBox instead of width and height see https://css-tricks.com/scale-svg/#aa-the-svg-scaling-toolbox for more detail
     // can also look at https://stackoverflow.com/a/63156174 and https://stackoverflow.com/a/73498243
     .attr("viewBox", `0 0 ${hourlySvgWidth} ${hourlySvgHeight}`)
@@ -186,9 +186,10 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("stroke", "black")
         // ternary to highlight maxxes in a different color
         // if cond is true, then not a max, so use colorScale(hours.get(d[0]).get(d[1]))
-        // if false, then max, so use red
+        // if false, then max, so use green
         // maxVals will be list of (hour, loc) of max values
         // then condition is if not maxVals.includes((d[0],d[1]))
+        // so !maxVals.includes((d[0],d[1])) ? colorScale(hours.get(d[0]).get(d[1])): "green"
         .attr("fill", d=>colorScale(hours.get(d[0]).get(d[1])))
         .attr("transform", `translate(0, ${hourlyHeight})`)// translate points down to match with axis
         // needs to be event,d, so that the value of d is passed in along with the mouse event
@@ -258,7 +259,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const makeAnnotations = d3.annotation()
         
         .annotations(annotations)
-    d3.select("#hourlyChart")
+    d3.select("#hourlyChartMax")
         .append("g")
         .attr("transform", ` translate(${hourlyMargin.left},${hourlyMargin.top}) `)
         .call(makeAnnotations);
