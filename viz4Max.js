@@ -1,13 +1,13 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
 // Set up the SVG container
-const hourlySvgWidth = 1200;
-const hourlySvgHeight = 1000;
-const hourlyMargin = { top: 50, right: 200, bottom: 750, left: 250 };
-const hourlyWidth = hourlySvgWidth - hourlyMargin.left - hourlyMargin.right;
-const hourlyHeight = hourlySvgHeight - hourlyMargin.top - hourlyMargin.bottom;
-let choices = ["Bayview Hunters Point", "Financial District/South Beach", "Mission", "South of Market", "Tenderloin"]
-let hourOptionsList = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+const hourlyMaxSvgWidth = 1200;
+const hourlyMaxSvgHeight = 1000;
+const hourlyMaxMargin = { top: 50, right: 200, bottom: 750, left: 250 };
+const hourlyMaxWidth = hourlyMaxSvgWidth - hourlyMaxMargin.left - hourlyMaxMargin.right;
+const hourlyMaxHeight = hourlyMaxSvgHeight - hourlyMaxMargin.top - hourlyMaxMargin.bottom;
+let hourlyMaxNeighborhoodChoices = ["Bayview Hunters Point", "Financial District/South Beach", "Mission", "South of Market", "Tenderloin"]
+let hourlyMaxHourOptionsList = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
 
 
 
@@ -15,26 +15,26 @@ function getNextHour(CurHour){
     // first create a list of months, which we will locate the provided month in, then get the next one
     
     //get index of current month
-    hourIndex = hourOptionsList.indexOf(CurHour)
+    hourIndex = hourlyMaxHourOptionsList.indexOf(CurHour)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
-    newHourIndex = Math.min(hourIndex+1, hourOptionsList.length -1 )
-    return hourOptionsList[newHourIndex]
+    newHourIndex = Math.min(hourIndex+1, hourlyMaxHourOptionsList.length -1 )
+    return hourlyMaxHourOptionsList[newHourIndex]
 
 }
 
-const hourlySvg = d3.select("#chart-container-hourlyMax")
+const hourlyMaxSvg = d3.select("#chart-container-hourlyMax")
     .append("svg")
     .attr("id", "hourlyChartMax")
     // need to use viewBox instead of width and height see https://css-tricks.com/scale-svg/#aa-the-svg-scaling-toolbox for more detail
     // can also look at https://stackoverflow.com/a/63156174 and https://stackoverflow.com/a/73498243
-    .attr("viewBox", `0 0 ${hourlySvgWidth} ${hourlySvgHeight}`)
+    .attr("viewBox", `0 0 ${hourlyMaxSvgWidth} ${hourlyMaxSvgHeight}`)
     
     .append("g")
-    .attr("transform", `translate(${hourlyMargin.left},${hourlyMargin.top})`);
+    .attr("transform", `translate(${hourlyMaxMargin.left},${hourlyMaxMargin.top})`);
 
 // a function that takes a neighborhood, and gives out either the neighborhood if it is in the list of saved neighborhoods, or other
 function locRange(i){
-    neighborhoodChoices = choices;
+    neighborhoodChoices = hourlyMaxNeighborhoodChoices;
     if (neighborhoodChoices.includes(i)){
         return i
     }
@@ -115,14 +115,14 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Define X and Y scales
     //see https://d3js.org/d3-scale/band
     const y = d3.scaleBand()
-        .domain( choices)
-        .range([ 0, -hourlyHeight])
+        .domain( hourlyMaxNeighborhoodChoices)
+        .range([ 0, -hourlyMaxHeight])
         //.padding(0.1);
 
     // scale band instead of time, since it reduces annoyance later hopefully
     const x = d3.scaleBand()
-        .domain(hourOptionsList)
-        .range([ 0, hourlyWidth]);
+        .domain(hourlyMaxHourOptionsList)
+        .range([ 0, hourlyMaxWidth]);
     
     
     var colorScale = d3.scaleSequential()
@@ -135,15 +135,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
     // Add X and Y axes
     
-    hourlySvg.append("g")
+    hourlyMaxSvg.append("g")
         .attr("class", "axis axis-x")
         // ${x(d3.timeParse("%y")(72)-d3.timeParse("%y")(71))/2} shifts axis label for year to middle of year box
-        .attr("transform", `translate(0, ${hourlyHeight})`)
+        .attr("transform", `translate(0, ${hourlyMaxHeight})`)
         .call(d3.axisBottom(x).ticks(24));
 
-    hourlySvg.append("g")
+        hourlyMaxSvg.append("g")
         .attr("class", "axis axis-y")
-        .attr("transform", `translate(0, ${hourlyHeight})`)
+        .attr("transform", `translate(0, ${hourlyMaxHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
     // Add bars
@@ -168,7 +168,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "tooltip")
 
 
-    bars =  hourlySvg.selectAll(".bar")
+    bars =  hourlyMaxSvg.selectAll(".bar")
         .data(dataSpots)
         .enter()
         .append("g")
@@ -191,7 +191,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         // then condition is if not maxVals.includes((d[0],d[1]))
         // so !maxVals.includes((d[0],d[1])) ? colorScale(hours.get(d[0]).get(d[1])): "green"
         .attr("fill", d=>colorScale(hours.get(d[0]).get(d[1])))
-        .attr("transform", `translate(0, ${hourlyHeight})`)// translate points down to match with axis
+        .attr("transform", `translate(0, ${hourlyMaxHeight})`)// translate points down to match with axis
         // needs to be event,d, so that the value of d is passed in along with the mouse event
         .on("mouseover", function(event, d){
             
@@ -235,7 +235,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
             type: d3.annotationCalloutLabel,
             x: x("18")+x.step()/2,
-            y: hourlyHeight+y("Mission")+y.step()/2,
+            y: hourlyMaxHeight+y("Mission")+y.step()/2,
             dx: 10,
             dy:130,
             color: "#AA4A44"
@@ -248,7 +248,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
             type: d3.annotationCalloutLabel,
             x: x("15")+x.step()/2,
-            y: hourlyHeight+y("Tenderloin")+y.step()/2,
+            y: hourlyMaxHeight+y("Tenderloin")+y.step()/2,
             dx: -35,
             dy:160+2*y.step(),
             color: "#AA4A44"
@@ -261,29 +261,29 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .annotations(annotations)
     d3.select("#hourlyChartMax")
         .append("g")
-        .attr("transform", ` translate(${hourlyMargin.left},${hourlyMargin.top}) `)
+        .attr("transform", ` translate(${hourlyMaxMargin.left},${hourlyMaxMargin.top}) `)
         .call(makeAnnotations);
   
     d3.selectAll(".axis").attr("font-size","17px");
 
-    hourlySvg.append("text")
+    hourlyMaxSvg.append("text")
         .attr("class","axisLabelY")
         .text("neighborhood")
-        .attr("x", -3*hourlyMargin.left/4)
-        .attr("y", hourlyHeight/2)
+        .attr("x", -3*hourlyMaxMargin.left/4)
+        .attr("y", hourlyMaxHeight/2)
         
-    hourlySvg.append("text")
+    hourlyMaxSvg.append("text")
         .attr("class","axisLabelX")
         .text("hour")
-        .attr("x", hourlySvgWidth/2 - hourlyMargin.left)
-        .attr("y", hourlyHeight+50)
+        .attr("x", hourlyMaxSvgWidth/2 - hourlyMaxMargin.left)
+        .attr("y", hourlyMaxHeight+50)
 
-    hourlySvg.append("text")
+    hourlyMaxSvg.append("text")
     
         .text("heatmap of the accidents each hour for different neighborhoods")
         .attr("class", "title")
-        .attr("x", (hourlyWidth-hourlyMargin.left)/2-hourlyMargin.right)
-        .attr("y", -hourlyMargin.top/2)
+        .attr("x", (hourlyMaxWidth-hourlyMaxMargin.left)/2-hourlyMaxMargin.right)
+        .attr("y", -hourlyMaxMargin.top/2)
     var legend = d3.legendColor()
 		.title("Color Legend: Number of Crashes")
 		.titleWidth(100)
@@ -291,7 +291,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .scale(colorScale);
 		
 
-    hourlySvg.append("g")
-        .attr("transform", `translate(${hourlyWidth+hourlyMargin.right/4},0)`)
+    hourlyMaxSvg.append("g")
+        .attr("transform", `translate(${hourlyMaxWidth+hourlyMaxMargin.right/4},0)`)
         .call(legend);
 });
