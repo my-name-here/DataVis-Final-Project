@@ -25,7 +25,8 @@ function getNextHour(CurHour){
 const hourlySvg = d3.select("#chart-container-hourly")
     .append("svg")
     .attr("id", "hourlyChart")
-    // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
+    // need to use viewBox instead of width and height see https://css-tricks.com/scale-svg/#aa-the-svg-scaling-toolbox for more detail
+    // can also look at https://stackoverflow.com/a/63156174 and https://stackoverflow.com/a/73498243
     .attr("viewBox", `0 0 ${hourlySvgWidth} ${hourlySvgHeight}`)
     
     .append("g")

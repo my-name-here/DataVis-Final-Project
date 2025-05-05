@@ -12,7 +12,9 @@ let yearChoices = [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2
 let years
 const yearlySvg = d3.select("#chart-container-yearly")
     .append("svg")
-    // using viewbox instead of width and height since viewbox makes responsive (see https://stackoverflow.com/a/63156174
+    // need to use viewBox instead of width and height see https://css-tricks.com/scale-svg/#aa-the-svg-scaling-toolbox for more detail
+    // can also look at https://stackoverflow.com/a/63156174 and https://stackoverflow.com/a/73498243
+
     .attr("viewBox", `0 0 ${yearlySvgWidth} ${yearlySvgHeight}`)
     .append("g")
     .attr("transform", ` translate(${yearlyMargin.left},${yearlyMargin.top}) `);
