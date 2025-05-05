@@ -92,9 +92,16 @@
 
     <div class="vizContainer">
         <div class="graphic">
-            <div id="chart-container-hourly" class="chart-container"></div>     
+            <div id="chart-container-hourly" class="chart-container"></div>  
+            <div id="chart-container-hourlyMax" class="chart-container" style="display:none;"></div>    
         </div>
         <div class="sidebar">
+            <label for="chartModeViz4">select a chart mode:</label>
+            <select id="chartModeViz4" name="chartMode">
+            <option value="defaultViz4">Main Chart</option>
+            <option value="maxViz4">highlightMax</option>
+            </select>
+            <button id="submitViz4">update view</button>
             When looking at the number of crashes that happen during the course of a year in different neighborhoods, if we break it up by which hour the crash occurs in, we can notice something surprising.
             <br><br>
             While you might expect the hour in which there is the most crashes to be similar in each neighborhood, looking at the chart, we notice this is not the case.
