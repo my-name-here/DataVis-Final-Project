@@ -174,6 +174,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
     console.log(hours.get("23").get("Mission"))
 
+    maxVals = [(),(),(),(),()]
     // tooltips will be implemented using https://mappingwithd3.com/tutorials/basics/tooltip/
     bars.append("rect")
         .attr("test", d => `${d}`)
@@ -183,6 +184,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("height", d => bandheight)
         .attr("stroke-width", 1)
         .attr("stroke", "black")
+        // ternary to highlight maxxes in a different color
+        // if cond is true, then not a max, so use colorScale(hours.get(d[0]).get(d[1]))
+        // if false, then max, so use red
+        // maxVals will be list of (hour, loc) of max values
+        // then condition is if not maxVals.includes((d[0],d[1]))
         .attr("fill", d=>colorScale(hours.get(d[0]).get(d[1])))
         .attr("transform", `translate(0, ${hourlyHeight})`)// translate points down to match with axis
         // needs to be event,d, so that the value of d is passed in along with the mouse event
