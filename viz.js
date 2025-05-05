@@ -32,3 +32,29 @@ viz3btn.onclick = function(){
 };
 
 
+
+const viz4main = document.getElementById("chart-container-hourly");
+const viz4MaxHighlight =  document.getElementById("chart-container-hourlyMax");
+
+
+
+var viz4btn = document.getElementById("submitViz4");
+
+
+// use buttons instead of submit
+
+viz4btn.onclick = function(){
+    viz4Val = document.getElementById("chartModeViz4").value;
+    if (viz4Val == "maxViz4"){
+        viz4MaxHighlight.style="display:flex;"
+        viz4main.style="display:none;"
+    }
+    else{
+        viz4MaxHighlight.style="display:none;"
+        viz4main.style="display:flex;"
+
+
+    }
+};
+
+
