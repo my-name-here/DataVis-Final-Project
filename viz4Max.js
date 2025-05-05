@@ -158,8 +158,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     bandheight = Math.abs(y(hourlyMaxNeighborhoodChoices[1])-y(hourlyMaxNeighborhoodChoices[0]))
     console.log(bandheight)
     // see https://d3js.org/d3-array/transform for cross
-    console.log(d3.cross(hourList,neighborhoodList))
-    dataSpots = d3.cross(hourList,neighborhoodList)
+    console.log(d3.cross(hourlyMaxHourOptionsList,neighborhoodList))
+    dataSpots = d3.cross(hourlyMaxHourOptionsList,neighborhoodList)
 
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
@@ -190,7 +190,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         // maxVals will be list of (hour, loc) of max values
         // then condition is if not (maxVal[d[1]] == d[0])
         // so (!(maxVal[d[1]] == d[0]) ? colorScale(hours.get(d[0]).get(d[1])): "green")
-        .attr("fill", d=>colorScale(hours.get(d[0]).get(d[1])))
+        .attr("fill", d=>(!(maxVals[d[1]] == d[0]) ? colorScale(hours.get(d[0]).get(d[1])): "green"))
         .attr("transform", `translate(0, ${hourlyMaxHeight})`)// translate points down to match with axis
         // needs to be event,d, so that the value of d is passed in along with the mouse event
         .on("mouseover", function(event, d){
@@ -227,32 +227,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     //     .attr("x", d => 25)
         console.log(hours.get("18").get("Mission"))
     const annotations = [
-        {
-            note: {
-                label: "The number of crashes in the Mission  peaks around 6:00pm. The Financial district and South of Market both peak around 5pm.",
-                title: "multiple neighborhoods peak around 6pm"
-            },
-        
-            type: d3.annotationCalloutLabel,
-            x: x("18")+x.step()/2,
-            y: hourlyMaxHeight+y("Mission")+y.step()/2,
-            dx: 10,
-            dy:130,
-            color: "#AA4A44"
-        },
-        {
-            note: {
-                label: "The number of crashes in the Tenderloin peaks around 3pm, 3 hours before the peak in the Mission.",
-                title: "Tenderloin has different peak"
-            },
-        
-            type: d3.annotationCalloutLabel,
-            x: x("15")+x.step()/2,
-            y: hourlyMaxHeight+y("Tenderloin")+y.step()/2,
-            dx: -35,
-            dy:160+2*y.step(),
-            color: "#AA4A44"
-        },
+
 
     ]
     // Add annotation to the chart
