@@ -83,7 +83,7 @@ function removeOtherFromSublists(list){
 
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
-    // Convert string values to numbers
+    // extract the data we want
     data.forEach(function (d) {
         d.year = +d.accident_year
         d.hour = hourFromTime(d.collision_time);
