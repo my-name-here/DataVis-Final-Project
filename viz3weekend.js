@@ -53,7 +53,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     });
 
     data.sort((a,b) => a.name>b.name);
-    console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     var days = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => dayOfWeekCat(d.weekday));
@@ -66,11 +65,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     daysTmp[0][1] = daysTmp[0][1]/5 //avg crashes per weekday
     daysTmp[1][1] = daysTmp[1][1]/2 //avg crashes per weekend
 
-    console.log(days)
-    console.log(daysTmp)
 
-    console.log(d3.min(daysTmp, d=>d[1]))
-    console.log(d3.max(daysTmp,  d=>d[1]))
     // Define X and Y scales
     const y = d3.scaleLinear()
         .domain([0, d3.max(daysTmp,  d=>d[1])+2])
@@ -101,18 +96,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Add bars
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
     let maxDay = d3.max(data, d => d.weekday)
-    console.log(maxDay)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
     // remove last element again
     daysList = ["weekday","weekend"];
-    console.log(daysList)
 
     // see https://d3js.org/d3-array/transform for cross
     barWidth = x("weekend")-x("weekday")
 
 
-    console.log(barWidth)
 
 
 

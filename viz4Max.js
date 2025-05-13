@@ -94,7 +94,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     });
 
     data.sort((a,b) => a.name>b.name);
-    console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     const hours = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.hour, d => locRange(d.neighborhood));
@@ -108,10 +107,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     var hourTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.hour,d => locRange(d.neighborhood));
     hourTmp.splice(findIndexOfNone(hourTmp), 1);
     hourTmp = removeOtherFromSublists(hourTmp)
-    console.log(hours)
-    console.log(hourTmp)
-    console.log(d3.min(hourTmp, D1 => d3.min(D1[1], d=>d[1])))
-    console.log(d3.max(hourTmp, D1 => d3.max(D1[1], d=>d[1])))
+   
     // Define X and Y scales
     //see https://d3js.org/d3-scale/band
     const y = d3.scaleBand()
@@ -153,12 +149,9 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     hourList = d3.map(d3.groups(data,d=>d.hour),D=>D[0])
     // remove none from hourlist, see  https://stackoverflow.com/a/5767357
     hourList.splice(hourList.indexOf("none"), 1)
-    console.log(hourList)
     neighborhoodList = hourlyMaxNeighborhoodChoices
     bandheight = Math.abs(y(hourlyMaxNeighborhoodChoices[1])-y(hourlyMaxNeighborhoodChoices[0]))
-    console.log(bandheight)
     // see https://d3js.org/d3-array/transform for cross
-    console.log(d3.cross(hourlyMaxHourOptionsList,neighborhoodList))
     dataSpots = d3.cross(hourlyMaxHourOptionsList,neighborhoodList)
 
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
@@ -172,7 +165,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .data(dataSpots)
         .enter()
         .append("g")
-    console.log(hours.get("23").get("Mission"))
 
     maxVals = {"Mission":18,"South of Market":17,"Bayview Hunters Point":17,"Financial District/South Beach":17,"Tenderloin":15}
     // tooltips will be implemented using https://mappingwithd3.com/tutorials/basics/tooltip/
@@ -225,7 +217,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     //     .text(d => `mpg: ${(d["economy (mpg)"])}`)
     //     .attr("y", d => y(d.name)+15)
     //     .attr("x", d => 25)
-        console.log(hours.get("18").get("Mission"))
     const annotations = [
         {
             note: {

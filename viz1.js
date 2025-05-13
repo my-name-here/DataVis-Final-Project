@@ -33,7 +33,6 @@ function getBandFromValue(value, scale){
     return scale.domain()[index]
 }
 
-console.log(nextYear(2023))
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
@@ -45,10 +44,8 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     });
 
     data.sort((a,b) => a.name>b.name);
-    console.log(data);
     // rollup code based on https://observablehq.com/@d3/d3-group
     const years = d3.rollup(data, v => d3.count(v, d => d.year), d => d.year);
-    console.log(years)
     // Define X and Y scales
     const y = d3.scaleLinear()
         .domain([d3.min(years, d => d[1])-2, d3.max(years, d => d[1])+2])
@@ -107,7 +104,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         
     bandwidth = x(2006)- x(2005)
-    console.log(bandwidth)
     bars.append("line")
         .attr("test", d => `${d[0]}`)
         .attr("x1", d => x(d[0])+ bandwidth/2)
@@ -127,10 +123,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
         .attr("transform", `translate(0, ${yearlyheight})`)// translate points down to match with axis
 
-    
-    console.log(x(d3.timeParse("%Y")("2024")))
-    console.log(x(2009))
-    console.log(getBandFromValue(x(2009),x))
     yearlySvg.append("rect")
         .attr("x", -10)
         .attr("y", -yearlyMargin.top)
@@ -175,8 +167,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         
     // annotation code based on https://d3-graph-gallery.com/graph/custom_annotation.html
     // Features of the annotation
-    console.log(years)
-    console.log(y(years.get(2020)))
+
     const annotations = [
         {
         note: {

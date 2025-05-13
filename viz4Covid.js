@@ -78,7 +78,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     });
 
     data.sort((a,b) => a.name>b.name);
-    console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     var months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.hour, d => CovCat(d.year));
@@ -93,9 +92,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         element[1][0][1] /= (element[1][0][0] == "pre-Covid" ? 15:5)
         element[1][1][1] /= (element[1][1][0] == "pre-Covid" ? 15:5)
     })
-    console.log(months)
-    console.log(d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1])))
-    console.log(d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1])))
+
     // Define X and Y scales
     const y = d3.scaleLinear()
         .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
@@ -144,14 +141,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // Add bars
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
     let maxMonth = d3.max(data, d => d.month)
-    console.log(maxMonth)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
     monthsList = hourOptions
-    console.log(monthsList)
     dispRangeList = ["pre-Covid", "post-Covid"]
     // see https://d3js.org/d3-array/transform for cross
-    console.log(d3.cross(monthsList,dispRangeList))
     dataSpots = d3.cross(monthsList,dispRangeList)
 
     bandwidth = x("01")- x("00")
@@ -166,8 +160,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .data(dataSpots)
         .enter()
         .append("g")
-    console.log(months.get("January"))
-    console.log(dataSpots)
+
     bars.append("line")
         .attr("test", d => `${d}`)
         .attr("x1", d => x(d[0])+bandwidth/2)
@@ -186,9 +179,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     //     .attr("x", d => 25)
         
     
-    console.log(x(d3.timeParse("%Y")("2024")))
-    console.log(x(2009))
-    console.log(getBandFromValue(x(2009),x))
+
     hourlyCovidSvg.append("rect")
         .attr("x", -10)
         .attr("y", -hourlyCovidMargin.top)

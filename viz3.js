@@ -36,7 +36,6 @@ function getNextDay(CurDay){
     return daysList[newDayIndex]
 
 }
-console.log(getNextDay("Saturday"))
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
@@ -47,7 +46,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     });
 
     data.sort((a,b) => a.name>b.name);
-    console.log(data);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     const days = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday);
@@ -58,11 +56,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const daysTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.weekday).slice(0,-1);
 
 
-    console.log(days)
-    console.log(daysTmp)
-
-    console.log(d3.min(daysTmp, d=>d[1]))
-    console.log(d3.max(daysTmp,  d=>d[1]))
     // Define X and Y scales
     const y = d3.scaleLinear()
         .domain([0, d3.max(daysTmp,  d=>d[1])+2])
@@ -75,7 +68,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .domain(["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"])
         .range([ 0, weeklyWidth]);
     
-console.log(x("Monday"))
 
     // Add X and Y axes
     weeklySvg.append("g")
@@ -93,20 +85,14 @@ console.log(x("Monday"))
     // Add bars
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
     let maxDay = d3.max(data, d => d.weekday)
-    console.log(maxDay)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
     // remove last element again
     daysList = d3.map(d3.groups(data,d=>d.weekday),D=>D[0]).slice(0,-1);
-    console.log(daysList)
 
     // see https://d3js.org/d3-array/transform for cross
     barWidth = x("Monday")-x("Sunday")
-    console.log(x("Wednesday"))
-    console.log(days.get("Wednesday"))
-    console.log(y(days.get("Wednesday")))
 
-    console.log(barWidth)
 
 
 
