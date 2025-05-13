@@ -1,15 +1,17 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
-// Set up the SVG container
+// Set up initial values
 const weeklySvgWidth = 1200;
 const weeklySvgHeight = 1000;
 const weeklyMargin = { top: 50, right: 150, bottom: 70, left: 180 };
 const weeklyWidth = weeklySvgWidth - weeklyMargin.left - weeklyMargin.right;
 const weeklyHeight = weeklySvgHeight - weeklyMargin.top - weeklyMargin.bottom;
+const daysListMain = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 
 
 const weeklySvg = d3.select("#chart-container-weekly")
     .append("svg")
+    // give the chart an id, so we can reference it when adding annotations
     .attr("id", "weeklyChart")
     // need to use viewBox instead of width and height see https://css-tricks.com/scale-svg/#aa-the-svg-scaling-toolbox for more detail
     // can also look at https://stackoverflow.com/a/63156174 and https://stackoverflow.com/a/73498243
@@ -18,7 +20,7 @@ const weeklySvg = d3.select("#chart-container-weekly")
     .append("g")
     .attr("transform", `translate(${weeklyMargin.left},${weeklyMargin.top}) `);
 
-// a function that takes a day of the week, and returns it
+// a function that takes a day of the week, and returns it, left for consistnecy with other charts
 function dayOfWeek(i){
     return i;
 }
@@ -27,28 +29,26 @@ function dayOfWeek(i){
 // since months are not numbers like years, but strings, we need a function to get the next month from the current one, and it should end in december
 // this replaces the max(d[0]+1, maxMonth) in the x2 and y2 of the lines
 function getNextDay(CurDay){
-    // first create a list of months, which we will locate the provided month in, then get the next one
-    var daysList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    //get index of current month
-    dayIndex = daysList.indexOf(CurDay)
+    //get index of current day
+    dayIndex = daysListMain.indexOf(CurDay)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
-    newDayIndex = Math.min(dayIndex+1, daysList.length -1 )
-    return daysList[newDayIndex]
+    newDayIndex = Math.min(dayIndex+1, daysListMain.length -1 )
+    return daysListMain[newDayIndex]
 
 }
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
-    // Convert string values to numbers
+    // extract data
     data.forEach(function (d) {
         d.year = +d.accident_year
         d.weekday = d.day_of_week;
     });
 
-    data.sort((a,b) => a.name>b.name);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     const days = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday);
+    // remove data with no day
     days.delete("");
     // for easier access in the y scale
     // removing last element based on https://stackoverflow.com/questions/19544452/remove-last-item-from-array#comment84683867_19544452
@@ -86,11 +86,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
     let maxDay = d3.max(data, d => d.weekday)
 
-    // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    // remove last element again
-    daysList = d3.map(d3.groups(data,d=>d.weekday),D=>D[0]).slice(0,-1);
-
-    // see https://d3js.org/d3-array/transform for cross
+    // bar width for sizing when adding bars
     barWidth = x("Monday")-x("Sunday")
 
 
@@ -102,19 +98,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr('id', 'tooltip')
         .attr("class", "tooltip")
 
-
-
     bars =  weeklySvg.selectAll(".bar")
-        .data(daysList)
+        .data(daysListMain)
         .enter()
         .append("g")
 
-
-
-    
     bars.append("rect")
-        .attr("test", d=>y(days.get(d)))
-
         .attr("x", d=>x(d))
         .attr("y", d=>weeklyHeight+y(days.get(d)))
         .attr("width", barWidth)
@@ -122,25 +111,19 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("fill","lightblue")
         .attr("stroke", "black")
         .on("mouseover", function(event, d){
-            
             d3.select(".tooltip")
-
-                .style("opacity", 1)
-
-        }
+            .style("opacity", 1)
+            }
         )
         .on("mouseout", function(event,d){
             d3.select(".tooltip")
-                .style("opacity", 0)
+            .style("opacity", 0)
             }
         )
         .on("mousemove", function(event, d){
-
             d3.select(".tooltip")
-                
                 .html(`Day of the week: ${d}<br>Crashes:
-                    ${days.get(d)}
-                    `)
+                    ${days.get(d)}`)
                 .style("opacity", 1)
                 .style("left", `${event.pageX+15}px`)
                 .style("top", `${event.pageY+15}px`)
@@ -167,8 +150,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             dx: -70,
             dy: 50,
             color: "#AA4A44"
-
-    
         },
         {
             note: {
@@ -181,22 +162,17 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             dx: 65,
             dy: 75,
             color: "#AA4A44"
-
-    
         },
-
     ]
     
     // Add annotation to the chart
     const makeAnnotations = d3.annotation()
-        
         .annotations(annotations)
     d3.select("#weeklyChart")
         .append("g")
         .attr("transform", ` translate(${weeklyMargin.left},${weeklyMargin.top}) `)
         .call(makeAnnotations);
-  
-
+    // scale axis tick label text
     d3.selectAll(".axis").attr("font-size","17px");
 
     weeklySvg.append("text")
@@ -210,7 +186,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("y", weeklyHeight+2*weeklyMargin.bottom/3)
 
     weeklySvg.append("text")
-    
         .text("bar chart of the number of crashes per weekday")
         .attr("class", "title")
         .attr("x", 0)
