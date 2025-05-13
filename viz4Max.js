@@ -1,6 +1,7 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
-// Set up the SVG container
+
+//initial value setup
 const hourlyMaxSvgWidth = 1200;
 const hourlyMaxSvgHeight = 1000;
 const hourlyMaxMargin = { top: 50, right: 200, bottom: 750, left: 250 };
@@ -13,22 +14,21 @@ let hourlyMaxHourOptionsList = ["00", "01", "02", "03", "04", "05", "06", "07", 
 
 function getNextHour(CurHour){
     // first create a list of months, which we will locate the provided month in, then get the next one
-    
     //get index of current month
     hourIndex = hourlyMaxHourOptionsList.indexOf(CurHour)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
     newHourIndex = Math.min(hourIndex+1, hourlyMaxHourOptionsList.length -1 )
     return hourlyMaxHourOptionsList[newHourIndex]
-
 }
 
 const hourlyMaxSvg = d3.select("#chart-container-hourlyMax")
     .append("svg")
+    // add id so we can reference this visualizaiton for adding annotations
     .attr("id", "hourlyChartMax")
     // need to use viewBox instead of width and height see https://css-tricks.com/scale-svg/#aa-the-svg-scaling-toolbox for more detail
     // can also look at https://stackoverflow.com/a/63156174 and https://stackoverflow.com/a/73498243
     .attr("viewBox", `0 0 ${hourlyMaxSvgWidth} ${hourlyMaxSvgHeight}`)
-    
+
     .append("g")
     .attr("transform", `translate(${hourlyMaxMargin.left},${hourlyMaxMargin.top})`);
 
@@ -44,6 +44,7 @@ function locRange(i){
     
 }
 
+// extract the hour from a timestamp
 function hourFromTime(time){
     if (time.length>=2){// make sure not empty hour
         return time.substring(0,2)
@@ -71,21 +72,17 @@ function findIndexOfOther(list){
     }
 }
 
+// remove the lists with "other" from the sublists
 function removeOtherFromSublists(list){
-
     for (var i = 0;i < list.length; i++){
         indexOfOther = findIndexOfOther(list[i][1])
-
-
         list[i][1].splice(indexOfOther,1)
-
     }
     return list;
 }
 
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
-
     // Convert string values to numbers
     data.forEach(function (d) {
         d.year = +d.accident_year
@@ -93,19 +90,23 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         d.neighborhood = d.analysis_neighborhood;
     });
 
-    data.sort((a,b) => a.name>b.name);
+
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     const hours = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.hour, d => locRange(d.neighborhood));
+    // delete the hour labeled as none, since is not a valid hour
     hours.delete("none")
     // loop over keys with https://stackoverflow.com/questions/69145734/fastest-way-to-loop-through-map-keys
+    // remove the other neighborhoods, since we don't need info on them
     hours.forEach(function(value, key){
         value.delete("other")
     })
     // for easier access in the y scale
     // remove by index with https://stackoverflow.com/a/5767357
     var hourTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.hour,d => locRange(d.neighborhood));
+    //remove none hours from it, since those are places where we don't know the hour.
     hourTmp.splice(findIndexOfNone(hourTmp), 1);
+    //remove other neighborhoods that we dont need
     hourTmp = removeOtherFromSublists(hourTmp)
    
     // Define X and Y scales
@@ -120,7 +121,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .domain(hourlyMaxHourOptionsList)
         .range([ 0, hourlyMaxWidth]);
     
-    
+    // color scale based on the values for the number of crashes
     var colorScale = d3.scaleSequential()
         .interpolator(d3.interpolateBlues)
         .nice()
@@ -137,22 +138,17 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", `translate(0, ${hourlyMaxHeight})`)
         .call(d3.axisBottom(x).ticks(24));
 
-        hourlyMaxSvg.append("g")
+    hourlyMaxSvg.append("g")
         .attr("class", "axis axis-y")
         .attr("transform", `translate(0, ${hourlyMaxHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
     // Add bars
 
-
-    // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    hourList = d3.map(d3.groups(data,d=>d.hour),D=>D[0])
-    // remove none from hourlist, see  https://stackoverflow.com/a/5767357
-    hourList.splice(hourList.indexOf("none"), 1)
-    neighborhoodList = hourlyMaxNeighborhoodChoices
+    // calculate the height of a band, for use in sizing in the heatmap
     bandheight = Math.abs(y(hourlyMaxNeighborhoodChoices[1])-y(hourlyMaxNeighborhoodChoices[0]))
     // see https://d3js.org/d3-array/transform for cross
-    dataSpots = d3.cross(hourlyMaxHourOptionsList,neighborhoodList)
+    dataSpots = d3.cross(hourlyMaxHourOptionsList, hourlyMaxNeighborhoodChoices)
 
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
@@ -165,11 +161,10 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .data(dataSpots)
         .enter()
         .append("g")
-
+    // store map between neighborhood and the hour with the most crashes, so we can highlight them
     maxVals = {"Mission":18,"South of Market":17,"Bayview Hunters Point":17,"Financial District/South Beach":17,"Tenderloin":15}
     // tooltips will be implemented using https://mappingwithd3.com/tutorials/basics/tooltip/
     bars.append("rect")
-        .attr("test", d => `${(d[0],d[1])}`)
         .attr("x", d => x(d[0]))
         .attr("y", d => y(d[1]))
         .attr("width", d => x(getNextHour("00"))-x("00"))
@@ -186,26 +181,19 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("transform", `translate(0, ${hourlyMaxHeight})`)// translate points down to match with axis
         // needs to be event,d, so that the value of d is passed in along with the mouse event
         .on("mouseover", function(event, d){
-            
             d3.select(".tooltip")
-
-                .style("opacity", 1)
-
-        }
+            .style("opacity", 1)
+            }
         )
         .on("mouseout", function(event,d){
             d3.select(".tooltip")
-                .style("opacity", 0)
-                
+            .style("opacity", 0)
             }
         )
         .on("mousemove", function(event, d){
-
             d3.select(".tooltip")
-                
                 .html(`hour: ${d[0]}<br>neighborhood: ${d[1]}<br>Crashes:
-                    ${hours.get(d[0]).get(d[1])}
-                    `)
+                    ${hours.get(d[0]).get(d[1])}`)
                 .style("opacity", 1)
                 .style("left", `${event.pageX+15}px`)
                 .style("top", `${event.pageY+15}px`)
@@ -244,12 +232,10 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             dy:160+2*y.step(),
             color: "#AA4A44"
         },
-
     ]
         //
     // Add annotation to the chart
     const makeAnnotations = d3.annotation()
-        
         .annotations(annotations)
     d3.select("#hourlyChartMax")
         .append("g")
