@@ -230,6 +230,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         .attr("transform", ` translate(${monthlyMargin.left},${monthlyMargin.top}) `)
         .call(makeAnnotations);
+    // scale axis tick label text
     d3.selectAll(".axis").attr("font-size","17px");
 
     monthlySvg.append("text")

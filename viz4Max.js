@@ -241,7 +241,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
         .attr("transform", ` translate(${hourlyMaxMargin.left},${hourlyMaxMargin.top}) `)
         .call(makeAnnotations);
-  
+    // scale axis tick label text
     d3.selectAll(".axis").attr("font-size","17px");
 
     hourlyMaxSvg.append("text")
