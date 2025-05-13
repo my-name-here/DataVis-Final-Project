@@ -33,7 +33,7 @@ function dayOfWeekCat(i){
 function getNextCat(CurCat){
     // first create a list of months, which we will locate the provided month in, then get the next one
     var catList = ["weekday", "weekend"]
-    //get index of current month
+    //get index of current cat
     dayIndex = catList.indexOf(CurCat)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
     newDayIndex = Math.min(dayIndex+1, catList.length -1 )
