@@ -1,6 +1,6 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
-// Set up the SVG container
+// Set up initial values
 const monthlyCovidSvgWidth = 1350;
 const monthlyCovidSvgHeight = 1000;
 const monthlyCovidMargin = { top: 50, right: 150, bottom: 70, left: 200 };
@@ -14,6 +14,7 @@ let monthOptionsCovid = ["January", "February","March","April","May", "June","Ju
 
 const monthlyCovidSvg = d3.select("#chart-container-monthlyCovid")
     .append("svg")
+    // give it an id so we can reference it when adding annotation
     .attr("id", "monthlyCovidChart")
     // need to use viewBox instead of width and height see https://css-tricks.com/scale-svg/#aa-the-svg-scaling-toolbox for more detail
     // can also look at https://stackoverflow.com/a/63156174 and https://stackoverflow.com/a/73498243
@@ -49,6 +50,7 @@ function getNextMonth(CurMonth){
 
 
 // getting band from value using https://stackoverflow.com/a/38746923
+// used to get value from pos for tooltip
 function getBandFromValue(value, scale){
 
     index = Math.round(value/scale.step())
@@ -57,14 +59,13 @@ function getBandFromValue(value, scale){
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
-    // Convert string values to numbers
+    // extract values
     data.forEach(function (d) {
         d.year = +d.accident_year
         d.month = d.month;
         d.lighting = d.lighting;
     });
 
-    data.sort((a,b) => a.name>b.name);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     var months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.month, d => CovCat(d.year));
@@ -108,17 +109,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "axis axis-x")
         .attr("transform", `translate(0, ${monthlyCovidHeight})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
-        .call(d3.axisBottom(x).ticks(12)
-    );
+        .call(d3.axisBottom(x).ticks(12));
 
     monthlyCovidSvg.append("g")
         .attr("class", "axis axis-y")
         .attr("transform", `translate(0, ${monthlyCovidHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
-
+    // line for the tooltip
     monthlyCovidSvg.append("line")
-
         .attr("class", "lineMarkerMonthCovid")
         .attr("x1", 300)
         .attr("y1", 0)
@@ -132,12 +131,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
     let maxMonth = d3.max(data, d => d.month)
 
-    // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    monthsList = d3.map(d3.groups(data,d=>d.month),D=>D[0])
     dispRangeList = ["pre-Covid", "post-Covid"]
     // see https://d3js.org/d3-array/transform for cross
-    dataSpots = d3.cross(monthsList,dispRangeList)
+    dataSpots = d3.cross(monthOptionsCovid,dispRangeList)
 
+    // bandwidth for positioning things
     bandwidth = x("February")- x("January")
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
@@ -152,14 +150,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
 
     bars.append("line")
-        .attr("test", d => `${d}`)
         .attr("x1", d => x(d[0])+bandwidth/2)
         .attr("y1", d => y(months.get(d[0]).get(d[1])))
         .attr("x2", d => x(getNextMonth(d[0]))+bandwidth/2)
         .attr("y2", d => y(months.get(getNextMonth(d[0])).get(d[1])))
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
-
         .attr("transform", `translate(0, ${monthlyCovidHeight})`)// translate points down to match with axis
 
     // bars.append("text")
@@ -177,29 +173,24 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("height", monthlyCovidSvgHeight)
         .attr("style", "opacity:0")
     .on("mouseover", function(event){
-            
         d3.select(".tooltip")
-
-            .style("opacity", 1)
-
-    }
+        .style("opacity", 1)
+        }
     )
     .on("mouseout", function(event){
         d3.select(".tooltip")
-            .style("opacity", 0)
+        .style("opacity", 0)
         }
     )
     .on("mousemove", function(event){
         d3.select(".lineMarkerMonthCovid")
             // d3.pointer(event) from https://d3js.org/d3-selection/events
-
             .attr("x1", `${d3.pointer(event)[0]}`)
             .attr("x2", `${d3.pointer(event)[0]}`)
             .attr("y1", -monthlyCovidMargin.top)
             .attr("y2", monthlyCovidHeight)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
-
             .html(`month:${getBandFromValue((d3.pointer(event)[0]-bandwidth/2), x)}<br>post-Covid crashes per year: ${months.get(getBandFromValue((d3.pointer(event)[0]- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes per year: ${months.get(getBandFromValue((d3.pointer(event)[0]-bandwidth/2), x)).get("pre-Covid")}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
@@ -224,20 +215,17 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
                 height: 200
             },
             color: "#AA4A44"
-    
         },
-
-
     ]
     
     // Add annotation to the chart
     const makeAnnotations = d3.annotation()
-        
         .annotations(annotations)
     d3.select("#monthlyCovidChart")
         .append("g")
         .attr("transform", ` translate(${monthlyCovidMargin.left},${monthlyCovidMargin.top}) `)
         .call(makeAnnotations);
+    // increase axis tick label font size
     d3.selectAll(".axis").attr("font-size","17px");
     monthlyCovidSvg.append("text")
         .text("accident count")
@@ -250,7 +238,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("y", monthlyCovidHeight+2*monthlyCovidMargin.bottom/3)
 
     monthlyCovidSvg.append("text")
-    
         .text("line plot of the number of crashes per month, colored by whether it is pre or post Covid")
         .attr("class", "title")
         .attr("x", 0)
@@ -266,5 +253,4 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     monthlyCovidSvg.append("g")
         .attr("transform", `translate(${monthlyCovidWidth+10},0)`)
         .call(legend);
-    
 });
