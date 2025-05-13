@@ -32,56 +32,52 @@ function CovCat(i){
 }
 //from viz3.js
 function getNextDay(CurDay){
-    // first create a list of months, which we will locate the provided month in, then get the next one
-    var daysList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    //get index of current month
-    dayIndex = daysList.indexOf(CurDay)
+    //get index of current day
+    dayIndex = DayOptionsCovid.indexOf(CurDay)
     // new index is either the cur index + 1, or if that is greater than list length, the length of the list
-    newDayIndex = Math.min(dayIndex+1, daysList.length -1 )
-    return daysList[newDayIndex]
-
+    newDayIndex = Math.min(dayIndex+1, DayOptionsCovid.length -1 )
+    return DayOptionsCovid[newDayIndex]
 }
 
 
 
 
 // getting band from value using https://stackoverflow.com/a/38746923
+// used for getting value for a position
 function getBandFromValue(value, scale){
-
     index = Math.round(value/scale.step())
     return scale.domain()[index]
 }
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
-    // Convert string values to numbers
+    // extract values
     data.forEach(function (d) {
         d.year = +d.accident_year
         d.weekday = d.day_of_week;
     });
 
-    data.sort((a,b) => a.name>b.name);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
-    var months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
-
-    months.forEach(function(value, key){
+    var weeks = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
+    // normalize data
+    weeks.forEach(function(value, key){
         value.set("pre-Covid", value.get("pre-Covid")/15)
         value.set("post-Covid", value.get("post-Covid")/5)
 
     })
     // for easier access in the y scale
-    var monthsTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
+    var weeksTmp = d3.rollups(data, (D) => d3.count(D, d=>d.year), d => d.weekday, d => CovCat(d.year));
     // remove the last element that is null("") (see https://stackoverflow.com/a/19544524)
-    monthsTmp = monthsTmp.slice(0,-1)
-    monthsTmp.forEach(function(element){
+    weeksTmp = weeksTmp.slice(0,-1)
+    weeksTmp.forEach(function(element){
         element[1][0][1] /= (element[1][0][0] == "pre-Covid" ? 15:5)
         element[1][1][1] /= (element[1][1][0] == "pre-Covid" ? 15:5)
     })
    
     // Define X and Y scales
     const y = d3.scaleLinear()
-        .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
+        .domain([d3.min(weeksTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(weeksTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
         .nice()
         .range([ 0, -weeklyCovidHeight])
         //.padding(0.1);
@@ -104,17 +100,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "axis axis-x")
         .attr("transform", `translate(0, ${weeklyCovidHeight})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
-        .call(d3.axisBottom(x).ticks(12)
-    );
+        .call(d3.axisBottom(x).ticks(12));
 
     weeklyCovidSvg.append("g")
         .attr("class", "axis axis-y")
         .attr("transform", `translate(0, ${weeklyCovidHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
-
+    // tooltip line
     weeklyCovidSvg.append("line")
-
         .attr("class", "lineMarkerWeeklyCovid")
         .attr("x1", 300)
         .attr("y1", 0)
@@ -125,15 +119,13 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("style", "opacity: 0")
 
     // Add bars
-    // adding multiple elements on same level with groups based on https://stackoverflow.com/questions/65434376/append-two-elements-in-svg-at-the-same-level
-    let maxMonth = d3.max(data, d => d.month)
 
-    // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    monthsList = DayOptionsCovid
+
+
     dispRangeList = ["pre-Covid", "post-Covid"]
     // see https://d3js.org/d3-array/transform for cross
-    dataSpots = d3.cross(monthsList,dispRangeList)
-
+    dataSpots = d3.cross(DayOptionsCovid,dispRangeList)
+    // used for positioning
     bandwidth = x("Monday")- x("Sunday")
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
@@ -148,14 +140,12 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
 
     bars.append("line")
-        .attr("test", d => `${d}`)
         .attr("x1", d => x(d[0])+bandwidth/2)
-        .attr("y1", d => y(months.get(d[0]).get(d[1])))
+        .attr("y1", d => y(weeks.get(d[0]).get(d[1])))
         .attr("x2", d => x(getNextDay(d[0]))+bandwidth/2)
-        .attr("y2", d => y(months.get(getNextDay(d[0])).get(d[1])))
+        .attr("y2", d => y(weeks.get(getNextDay(d[0])).get(d[1])))
         .attr("stroke-width", 2)
         .attr("stroke", d=>colorScale(d[1]))
-
         .attr("transform", `translate(0, ${weeklyCovidHeight})`)// translate points down to match with axis
 
     // bars.append("text")
@@ -164,25 +154,20 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     //     .attr("y", d => y(d.name)+15)
     //     .attr("x", d => 25)
         
-    
-
     weeklyCovidSvg.append("rect")
         .attr("x", -10)
         .attr("y", -weeklyCovidMargin.top)
         .attr("width", weeklyCovidWidth+10)
         .attr("height", weeklyCovidSvgHeight)
         .attr("style", "opacity:0")
-    .on("mouseover", function(event){
-            
+    .on("mouseover", function(event){   
         d3.select(".tooltip")
-
-            .style("opacity", 1)
-
-    }
+        .style("opacity", 1)
+        }
     )
     .on("mouseout", function(event){
         d3.select(".tooltip")
-            .style("opacity", 0)
+        .style("opacity", 0)
         }
     )
     .on("mousemove", function(event){
@@ -195,12 +180,10 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .attr("y2", weeklyCovidHeight)
             .attr("style", "opacity:1")
         d3.select(".tooltip")
-
-            .html(`day of week:${getBandFromValue((d3.pointer(event)[0]-bandwidth/2), x)}<br>post-Covid crashes per year: ${months.get(getBandFromValue((d3.pointer(event)[0]- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes per year: ${months.get(getBandFromValue((d3.pointer(event)[0]-bandwidth/2), x)).get("pre-Covid")}`)
+            .html(`day of week:${getBandFromValue((d3.pointer(event)[0]-bandwidth/2), x)}<br>post-Covid crashes per year: ${weeks.get(getBandFromValue((d3.pointer(event)[0]- bandwidth/2), x)).get("post-Covid")} <br>pre-Covid crashes per year: ${weeks.get(getBandFromValue((d3.pointer(event)[0]-bandwidth/2), x)).get("pre-Covid")}`)
             .style("opacity", 1)
             .style("left", `${event.pageX+15}px`)
             .style("top", `${event.pageY+15}px`)
-        
         }
     )
     
@@ -212,7 +195,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             },
             type: d3.annotationCalloutRect,
             x: x("Wednesday") - 150,
-            y: weeklyCovidHeight+(y(months.get("Wednesday").get("post-Covid")))-100,
+            y: weeklyCovidHeight+(y(weeks.get("Wednesday").get("post-Covid")))-100,
             dx: -50,
             dy: -40,
             subject:{
@@ -220,20 +203,18 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
                 height: 200
             },
             color: "#AA4A44"
-            
-    
         },
 
     ]
     
     // Add annotation to the chart
     const makeAnnotations = d3.annotation()
-        
         .annotations(annotations)
     d3.select("#weeklyCovidChart")
         .append("g")
         .attr("transform", ` translate(${weeklyCovidMargin.left},${weeklyCovidMargin.top}) `)
         .call(makeAnnotations);
+    // scale axis tick label text
     d3.selectAll(".axis").attr("font-size","17px");
 
     weeklyCovidSvg.append("text")
