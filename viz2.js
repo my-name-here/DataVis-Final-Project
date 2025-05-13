@@ -1,6 +1,6 @@
 // basic framework from class example, edited to work for my needs
 // started with a copy of my bar chart, and edited
-// Set up the SVG container
+// Set up initial vals
 const monthlySvgWidth = 1350;
 const monthlySvgHeight = 1000;
 const monthlyMargin = { top: 50, right: 150, bottom: 70, left: 200 };
@@ -9,10 +9,10 @@ const monthlyHeight = monthlySvgHeight - monthlyMargin.top - monthlyMargin.botto
 
 
 let monthOptions = ["January", "February","March","April","May", "June","July","August","September","October","November","December"]
-let months
 
 const monthlySvg = d3.select("#chart-container-monthly")
     .append("svg")
+    // so we add the annotations to the correct chart
     .attr("id", "monthlyChart")
     // need to use viewBox instead of width and height see https://css-tricks.com/scale-svg/#aa-the-svg-scaling-toolbox for more detail
     // can also look at https://stackoverflow.com/a/63156174 and https://stackoverflow.com/a/73498243
@@ -32,6 +32,7 @@ function lightCat(i){
     }
     
 }
+
 // since months are not numbers like years, but strings, we need a function to get the next month from the current one, and it should end in december
 // this replaces the max(d[0]+1, maxMonth) in the x2 and y2 of the lines
 function getNextMonth(CurMonth){
@@ -49,22 +50,21 @@ function getNextMonth(CurMonth){
 
 
 // getting band from value using https://stackoverflow.com/a/38746923
+// used for getting value from pos for tooltip
 function getBandFromValue(value, scale){
-
     index = Math.round(value/scale.step())
     return scale.domain()[index]
 }
 // Read data from CSV
 d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
 
-    // Convert string values to numbers
+    // extract the values
     data.forEach(function (d) {
         d.year = +d.accident_year
         d.month = d.month;
         d.lighting = d.lighting;
     });
 
-    data.sort((a,b) => a.name>b.name);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     const months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.month, d => lightCat(d.lighting));
@@ -96,17 +96,15 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("class", "axis axis-x")
         .attr("transform", `translate(0, ${monthlyHeight})`)
         // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
-        .call(d3.axisBottom(x).ticks(12)
-    );
+        .call(d3.axisBottom(x).ticks(12));
 
     monthlySvg.append("g")
         .attr("class", "axis axis-y")
         .attr("transform", `translate(0, ${monthlyHeight})`)
         .call(d3.axisLeft(y).ticks(20));
 
-
+    // line for tooltip
     monthlySvg.append("line")
-
         .attr("class", "lineMarkerMonthly")
         .attr("x1", 300)
         .attr("y1", 0)
@@ -121,11 +119,10 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     let maxMonth = d3.max(data, d => d.month)
 
     // see https://d3js.org/d3-array/group and https://d3js.org/d3-array/transform
-    monthsList = d3.map(d3.groups(data,d=>d.month),D=>D[0])
     dispRangeList = ["day", "night"]
     // see https://d3js.org/d3-array/transform for cross
-    monthlyDataSpots = d3.cross(monthsList,dispRangeList)
-
+    monthlyDataSpots = d3.cross(monthOptions,dispRangeList)
+    //bandwidth for positioning
     bandwidth = x("February")- x("January")
     // new div for our tooltip, based on https://mappingwithd3.com/tutorials/basics/tooltip/
     d3.select("body")
@@ -140,7 +137,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .append("g")
 
     bars.append("line")
-        .attr("test", d => `${d}`)
         .attr("x1", d => x(d[0])+bandwidth/2)
         .attr("y1", d => y(months.get(d[0]).get(d[1])))
         .attr("x2", d => x(getNextMonth(d[0]))+bandwidth/2)
@@ -164,17 +160,14 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("width", monthlyWidth+10)
         .attr("height", monthlySvgHeight)
         .attr("style", "opacity:0")
-    .on("mouseover", function(event){
-            
+    .on("mouseover", function(event){      
         d3.select(".tooltip")
-
-            .style("opacity", 1)
-
-    }
+        .style("opacity", 1)
+        }
     )
     .on("mouseout", function(event){
         d3.select(".tooltip")
-            .style("opacity", 0)
+        .style("opacity", 0)
         }
     )
     .on("mousemove", function(event){
@@ -211,7 +204,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             radius: 30,
         },
         color: "#AA4A44"
-
         },
         {
             note: {
@@ -228,14 +220,11 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
                 height: 60
             },
             color: "#AA4A44"
-    
         },
-
     ]
     
     // Add annotation to the chart
     const makeAnnotations = d3.annotation()
-        
         .annotations(annotations)
     d3.select("#monthlyChart")
         .append("g")
@@ -254,7 +243,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .attr("y", monthlyHeight+2*monthlyMargin.bottom/3)
 
     monthlySvg.append("text")
-    
         .text("line plot of the number of crashes per month, colored by whether it happened at day or night")
         .attr("class", "title")
         .attr("x", 0)
@@ -265,7 +253,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .cells(11) // change the number of cells during demo 
         .scale(colorScale);
 		
-
     monthlySvg.append("g")
         .attr("transform", `translate(${monthlyWidth+10},0)`)
         .call(legend);
