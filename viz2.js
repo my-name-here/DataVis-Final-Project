@@ -56,7 +56,7 @@ function getBandFromValue(value, scale){
     return scale.domain()[index]
 }
 // Read data from CSV
-d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
+d3.csv("./data/trafficClean.csv").then(function (data) {
 
     // extract the values
     data.forEach(function (d) {

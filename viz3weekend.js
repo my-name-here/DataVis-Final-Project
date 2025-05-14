@@ -41,7 +41,7 @@ function getNextCat(CurCat){
 }
 
 // Read data from CSV
-d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
+d3.csv("./data/trafficClean.csv").then(function (data) {
 
     // extract data
     data.forEach(function (d) {

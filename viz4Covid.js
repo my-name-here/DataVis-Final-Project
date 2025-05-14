@@ -67,7 +67,7 @@ function hourFromTime(time){
 }
 
 // Read data from CSV
-d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/refs/heads/main/trafficClean.csv").then(function (data) {
+d3.csv("./data/trafficClean.csv").then(function (data) {
 
     // Convert string values to numbers
     data.forEach(function (d) {
