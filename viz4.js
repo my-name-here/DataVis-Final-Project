@@ -108,7 +108,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     const y = d3.scaleBand()
         .domain( choices)
         .range([ 0, -hourlyHeight])
-        //.padding(0.1);
 
     // scale band instead of time, since it reduces annoyance later hopefully
     const x = d3.scaleBand()
@@ -129,7 +128,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     
     hourlySvg.append("g")
         .attr("class", "axis axis-x")
-        // ${x(d3.timeParse("%y")(72)-d3.timeParse("%y")(71))/2} shifts axis label for year to middle of year box
         .attr("transform", `translate(0, ${hourlyHeight})`)
         .call(d3.axisBottom(x).ticks(24));
 
@@ -191,11 +189,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             }
         )
 
-    // bars.append("text")
-    //     .attr("class", "barLabel")
-    //     .text(d => `mpg: ${(d["economy (mpg)"])}`)
-    //     .attr("y", d => y(d.name)+15)
-    //     .attr("x", d => 25)
     const annotations = [
         {
             note: {

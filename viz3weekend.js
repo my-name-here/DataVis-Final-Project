@@ -67,7 +67,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .domain([0, d3.max(daysTmp,  d=>d[1])+2])
         .nice()
         .range([ 0, -weeklyGropuedHeight])
-        //.padding(0.1);
+
 
     // use scaleBand instead of scale time, see https://stackoverflow.com/a/38820431
     const x = d3.scaleBand()
@@ -78,7 +78,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     weeklyGropuedSvg.append("g")
         .attr("class", "axis axis-x")
         .attr("transform", `translate(0, ${weeklyGropuedHeight})`)
-        // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
         .call(d3.axisBottom(x).ticks(10));
 
     weeklyGropuedSvg.append("g")
@@ -136,13 +135,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
                 .style("top", `${event.pageY+15}px`)
             }
         )
-        //.attr("transform", `translate(0, ${height})`)// translate points down to match with axis
 
-    // bars.append("text")
-    //     .attr("class", "barLabel")
-    //     .text(d => `mpg: ${(d["economy (mpg)"])}`)
-    //     .attr("y", d => y(d.name)+15)
-    //     .attr("x", d => 25)
         
 
     const annotations = [

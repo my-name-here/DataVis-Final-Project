@@ -49,7 +49,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .domain([d3.min(years, d => d[1])-2, d3.max(years, d => d[1])+2])
         .nice()
         .range([ 0, -yearlyheight]);
-        //.padding(0.1);
 
     const x = d3.scaleBand()
         .domain(yearChoices)
@@ -144,12 +143,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
             .style("top", `${event.pageY+15}px`)
         }
     )
-    // bars.append("text")
-    //     .attr("class", "barLabel")
-    //     .text(d => `mpg: ${(d["economy (mpg)"])}`)
-    //     .attr("y", d => y(d.name)+15)
-    //     .attr("x", d => 25)
-        
+
     // annotation code based on https://d3-graph-gallery.com/graph/custom_annotation.html
     // Features of the annotation
 

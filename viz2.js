@@ -76,7 +76,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
         .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
         .nice()
         .range([ 0, -monthlyHeight])
-        //.padding(0.1);
 
     const x = d3.scaleBand()
         .domain(monthOptions)
@@ -95,7 +94,6 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
     monthlySvg.append("g")
         .attr("class", "axis axis-x")
         .attr("transform", `translate(0, ${monthlyHeight})`)
-        // see https://stackoverflow.com/a/45407965 for fixing january showing as 1900 instead of as january
         .call(d3.axisBottom(x).ticks(12));
 
     monthlySvg.append("g")
@@ -146,12 +144,7 @@ d3.csv("https://raw.githubusercontent.com/my-name-here/DataVis-Final-Project/ref
 
         .attr("transform", `translate(0, ${monthlyHeight})`)// translate points down to match with axis
 
-    // bars.append("text")
-    //     .attr("class", "barLabel")
-    //     .text(d => `mpg: ${(d["economy (mpg)"])}`)
-    //     .attr("y", d => y(d.name)+15)
-    //     .attr("x", d => 25)
-        
+
     
 
     monthlySvg.append("rect")
