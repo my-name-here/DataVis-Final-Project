@@ -241,7 +241,7 @@ d3.csv("./data/trafficClean.csv").then(function (data) {
             x: x("18"),
             y: hourlyCovidHeight+(y(months.get("18").get("post-Covid")))-50,
             dx: 0,
-            dy: 250,
+            dy: 270,
             subject:{
                 width: 75,
                 height: 200
