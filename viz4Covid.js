@@ -77,7 +77,6 @@ d3.csv("./data/trafficClean.csv").then(function (data) {
         d.lighting = d.lighting;
     });
 
-    data.sort((a,b) => a.name>b.name);
     // rollup code based on https://d3js.org/d3-array/group and https://observablehq.com/@d3/d3-group
     // using a function as a key is something we do all the time in attributes
     var months = d3.rollup(data, (D) => d3.count(D, d=>d.year), d => d.hour, d => CovCat(d.year));
