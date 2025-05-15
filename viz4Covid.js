@@ -94,7 +94,7 @@ d3.csv("./data/trafficClean.csv").then(function (data) {
 
     // Define X and Y scales
     const y = d3.scaleLinear()
-        .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1]))-2, d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))+2])
+        .domain([d3.min(monthsTmp, D1 => d3.min(D1[1], d=>d[1])), d3.max(monthsTmp, D1 => d3.max(D1[1], d=>d[1]))])
         .nice()
         .range([ 0, -hourlyCovidHeight])
 
